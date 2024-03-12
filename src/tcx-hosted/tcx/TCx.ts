@@ -9,7 +9,7 @@ export interface TCxConnectionState {
 }
 export interface TCxInterface extends TCxConnectionState {
   connectTo: (targetName: string) => void;
-  sendData: (data: any) => void;
+  sendData: (data: never) => void;
 }
 
 export default class TCx {
@@ -36,7 +36,7 @@ export default class TCx {
   constructor(
     name: string,
     public onStateChange: (tcx: TCx) => void,
-    public onData?: (data: never) => void,
+    public onData?: (data: unknown) => void,
     public connectToName?: string,
     private options?: PeerOptions,
   ) {
@@ -82,8 +82,8 @@ export default class TCx {
       console.log(`🐽🕹️ Connection opened to [${cnx.peer}]`);
     });
 
-    cnx.on('data', (data) => {
-      this.onData?.(data as never);
+    cnx.on('data', (data: unknown) => {
+      this.onData?.(data);
     });
 
     cnx.on('close', () => {
@@ -130,9 +130,22 @@ export default class TCx {
     this.publishStateChange();
   }
 
-  public sendData(data: never): void {
+  public sendData(data: unknown): void {
     if (this.connection) {
       this.connection.send(data);
+    }
+  }
+
+  /**
+   * This method is for testing purposes only. It simulates receiving data from a peer.
+   *
+   * This interface may be helpful to test your application without needing
+   * to have a peer on the other end running and publishing.
+   * @param data : any
+   */
+  public mockReceiveData(data: unknown): void {
+    if (this.onData) {
+      this.onData(data);
     }
   }
 }

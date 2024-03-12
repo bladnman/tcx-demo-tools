@@ -1,17 +1,40 @@
-:root {
+/* Apply a consistent box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+/* Ensures the body takes at least the full viewport height */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  /* default, is set by theme using a hook */
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #4e4e4e;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  min-height: 100vh;
 
+  color-scheme: light dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 a {
   font-weight: 500;
@@ -24,8 +47,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -42,7 +63,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #070807;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -55,9 +76,9 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  body {
+    color: #201f1f;
+    background-color: #dfdfdf;
   }
   a:hover {
     color: #747bff;

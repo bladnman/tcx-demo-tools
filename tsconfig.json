@@ -23,7 +23,9 @@
 
     "baseUrl": ".",
     "paths": {
+      "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
+      "@data/*": ["./src/data/*"],
       "@pages/*": ["./src/pages/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@tcx-hosted/*": ["./src/tcx-hosted/*"],

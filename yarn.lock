@@ -41,7 +41,7 @@
     chalk "^2.4.2"
     js-tokens "^4.0.0"
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.13", "@babel/runtime@^7.21.0", "@babel/runtime@^7.23.9", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.13", "@babel/runtime@^7.21.0", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.9", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.24.0"
   resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@babel/runtime/-/runtime-7.24.0.tgz#584c450063ffda59697021430cb47101b085951e"
   integrity sha512-Chk32uHMg6TnQdvw2e9IlqPpFX/6NLuK0Ys2PqLb7/gL5uFn9mXvK715FGLlOLQrcO4qIkNHkvPGktzzXexsFw==
@@ -410,6 +410,13 @@
   resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@mui/core-downloads-tracker/-/core-downloads-tracker-5.15.12.tgz#f3da6ff16c753ab8b2f8d401c1e1534ba8a8a9a9"
   integrity sha512-brRO+tMFLpGyjEYHrX97bzqeF6jZmKpqqe1rY0LyIHAwP6xRVzh++zSecOQorDOCaZJg4XkGT9xfD+RWOWxZBA==
 
+"@mui/icons-material@^5.15.12":
+  version "5.15.12"
+  resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@mui/icons-material/-/icons-material-5.15.12.tgz#30638c5dd4d40ecabea1579bbfa7394565c54474"
+  integrity sha512-3BXiDlOd3AexZoEXa/VqpIpVIvosCzjLHsdMWzKMXbZdnBiJjmb9ECdqfjn5SpTClO49qvkKLhkTqdBH3fSFGw==
+  dependencies:
+    "@babel/runtime" "^7.23.9"
+
 "@mui/material@^5.15.12":
   version "5.15.12"
   resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@mui/material/-/material-5.15.12.tgz#08d6582e4037f45df510f3bce51fa06b38a9a676"
@@ -506,6 +513,14 @@
   version "2.11.8"
   resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
+
+"@redux-devtools/extension@^3.3.0":
+  version "3.3.0"
+  resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@redux-devtools/extension/-/extension-3.3.0.tgz#bc775d289f15604c472112920beac2cf4dbb7907"
+  integrity sha512-X34S/rC8S/M1BIrkYD1mJ5f8vlH0BDqxXrs96cvxSBo4FhMdbhU+GUGsmNYov1xjSyLMHgo8NYrUG8bNX7525g==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+    immutable "^4.3.4"
 
 "@remix-run/router@1.15.3":
   version "1.15.3"
@@ -655,6 +670,11 @@
   version "0.1.5"
   resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@swc/types/-/types-0.1.5.tgz#043b731d4f56a79b4897a3de1af35e75d56bc63a"
   integrity sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==
+
+"@types/chroma-js@^2.4.4":
+  version "2.4.4"
+  resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@types/chroma-js/-/chroma-js-2.4.4.tgz#254dddff54568ff8e5d0dcdb071871a458fdfd31"
+  integrity sha512-/DTccpHTaKomqussrn+ciEvfW4k6NAHzNzs/sts1TCqg333qNxOhy8TNIoQCmbGG3Tl8KdEhkGAssb1n3mTXiQ==
 
 "@types/d3-array@^3.0.3":
   version "3.2.1"
@@ -852,6 +872,11 @@
   dependencies:
     "@typescript-eslint/types" "7.1.1"
     eslint-visitor-keys "^3.4.1"
+
+"@uiw/react-json-view@^2.0.0-alpha.18":
+  version "2.0.0-alpha.18"
+  resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/@uiw/react-json-view/-/react-json-view-2.0.0-alpha.18.tgz#744f1fe17d6857ba81be3835ab0c02c77aa64f97"
+  integrity sha512-gYwC0l6irpr1/NtSa9W7laaB8+xMUmeaVSFBa8mt3+40xMRbU1nP57So4xlZajdWsYYtwkEKkVTW37XqbIciXA==
 
 "@ungap/structured-clone@^1.2.0":
   version "1.2.0"
@@ -1112,6 +1137,11 @@ chalk@^4.0.0, chalk@^4.1.2:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chroma-js@^2.4.2:
+  version "2.4.2"
+  resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/chroma-js/-/chroma-js-2.4.2.tgz#dffc214ed0c11fa8eefca2c36651d8e57cbfb2b0"
+  integrity sha512-U9eDw6+wt7V8z5NncY2jJfZa+hUH8XEj8FQHgFJTrUFnJfXYf4Ml4adI2vXZOjqRDpFWtYVWypDfZwnJ+HIR4A==
 
 cliui@^8.0.1:
   version "8.0.1"
@@ -1997,6 +2027,11 @@ ignore@^5.1.1, ignore@^5.2.0, ignore@^5.2.4:
   version "5.3.1"
   resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/ignore/-/ignore-5.3.1.tgz#5073e554cd42c5b33b394375f538b8593e34d4ef"
   integrity sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==
+
+immutable@^4.3.4:
+  version "4.3.5"
+  resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/immutable/-/immutable-4.3.5.tgz#f8b436e66d59f99760dc577f5c99a4fd2a5cc5a0"
+  integrity sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==
 
 import-fresh@^3.2.1:
   version "3.3.0"
@@ -3208,6 +3243,11 @@ use-latest@^1.2.1:
   dependencies:
     use-isomorphic-layout-effect "^1.1.1"
 
+use-sync-external-store@1.2.0:
+  version "1.2.0"
+  resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
+  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
+
 victory-vendor@^36.6.8:
   version "36.9.1"
   resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/victory-vendor/-/victory-vendor-36.9.1.tgz#a7536766ca9725711c7dc1a36dd1d1d248cfa22d"
@@ -3367,3 +3407,10 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zustand@^4.5.2:
+  version "4.5.2"
+  resolved "https://artifactory.sie.sony.com/artifactory/api/npm/ce-sie-private-npm-prod-virtual/zustand/-/zustand-4.5.2.tgz#fddbe7cac1e71d45413b3682cdb47b48034c3848"
+  integrity sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==
+  dependencies:
+    use-sync-external-store "1.2.0"

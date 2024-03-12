@@ -1,34 +1,27 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { VStack } from '@components/mui-stacks.tsx';
 import './App.css';
+import useThemeOnDocument from '@hooks/useThemeOnDocument.ts';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TelemetryViewerPage from '@pages/telemetry-viewer-page/TelemetryViewerPage.tsx';
+import WelcomePage from '@pages/welcome-page/WelcomePage.tsx';
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  useThemeOnDocument();
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React + Me! 🐽</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <VStack fill sx={{ flexGrow: 1 }} data-id={'app'}>
+      <Router>
+        <VStack fill spacing={0} vAlign={'leading'} data-id={'inner-router'}>
+          <Routes>
+            <Route path="/" element={<WelcomePage />} />
+            <Route
+              path="/telemetry"
+              element={<TelemetryViewerPage />}
+              data-id={'route'}
+            />
+          </Routes>
+        </VStack>
+      </Router>
+    </VStack>
   );
 }
 

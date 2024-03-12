@@ -19,7 +19,7 @@ const alignmentMap = {
 
 const getFill = (
   generalFill: boolean = false,
-  explicitFill: boolean | undefined
+  explicitFill: boolean | undefined,
 ) => {
   return explicitFill ?? generalFill ? '100%' : 'auto';
 };
@@ -63,6 +63,7 @@ const BaseStack = React.forwardRef<
             : alignmentMap[hAlign],
         width: getFill(fill, hFill),
         height: getFill(fill, vFill),
+        flexGrow: fill ? 1 : 0,
         ...sx,
       }}
       onClick={onClick}
@@ -74,9 +75,9 @@ const BaseStack = React.forwardRef<
 });
 
 export const VStack = React.forwardRef<HTMLDivElement, StackProps>(
-  (props, ref) => <BaseStack {...props} flexDirection="column" ref={ref} />
+  (props, ref) => <BaseStack {...props} flexDirection="column" ref={ref} />,
 );
 
 export const HStack = React.forwardRef<HTMLDivElement, StackProps>(
-  (props, ref) => <BaseStack {...props} flexDirection="row" ref={ref} />
+  (props, ref) => <BaseStack {...props} flexDirection="row" ref={ref} />,
 );
