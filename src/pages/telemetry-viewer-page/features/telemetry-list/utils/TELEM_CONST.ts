@@ -52,7 +52,7 @@ export const EVENT_TYPE_DEF: { [K in EventTypes]: EventTypeDef } = {
   ViewableImpression: {
     type: 'ViewableImpression',
     icon: '👀',
-    abbreviation: 'imp',
+    abbreviation: 'impr',
     color: 'fg',
   },
 

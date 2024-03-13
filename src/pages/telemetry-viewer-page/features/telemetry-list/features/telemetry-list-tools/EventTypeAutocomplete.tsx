@@ -30,7 +30,12 @@ export default function EventTypeAutocomplete({
       renderInput={(params) => (
         <TextField {...params} label={label} placeholder={placeholder} />
       )}
-      sx={{ width: '500px' }}
+      sx={{
+        maxWidth: '500px',
+        minWidth: '200px',
+        width: '100%',
+        flexShrink: 1,
+      }}
     />
   );
 }

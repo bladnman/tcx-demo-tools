@@ -6,7 +6,13 @@ import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetrySt
 export default function TelemetryMainBody() {
   const { appBarHeight } = useTelemetryStore();
   return (
-    <VStack fill vAlign={'leading'} hAlign={'leading'}>
+    <VStack
+      fill
+      vAlign={'leading'}
+      hAlign={'leading'}
+      sx={{ position: 'relative' }}
+      spacing={0}
+    >
       <HStack
         hFill
         spacing={2}
@@ -15,14 +21,17 @@ export default function TelemetryMainBody() {
         sx={{
           position: 'sticky',
           top: `${appBarHeight - 1}px`,
-          backgroundColor: 'bg.main',
+          width: '100%',
+          // left: 0,
+          // right: 0,
+          backgroundColor: 'bg.dark',
           py: 1,
         }}
       >
         <TelemetryListTools />
       </HStack>
 
-      <VStack fill vAlign={'leading'} hAlign={'leading'}>
+      <VStack fill vAlign={'leading'} hAlign={'leading'} padding={1}>
         <TelemetryList />
       </VStack>
     </VStack>

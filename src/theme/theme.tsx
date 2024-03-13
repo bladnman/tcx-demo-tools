@@ -6,6 +6,17 @@ import {
   Theme,
 } from '@mui/material/styles';
 
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    title: true;
+  }
+}
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    bg: true;
+  }
+}
+
 interface ThemeProps {
   colorMode: 'light' | 'dark';
   children?: ReactNode;
@@ -73,8 +84,18 @@ export const createDynamicTheme = (
         primary: themeColors.fg,
       },
     },
+    typography: {
+      fontFamily: 'Arial, sans-serif', // Your default font
+      // @ts-expect-error - lazy me
+      title: {
+        fontFamily: 'sofachrome, Arial, sans-serif',
+        fontWeight: '400',
+        fontSize: '1.1rem',
+      },
+    },
   });
   theme = augmentThemeWithPaletteColors(theme, themeColors);
+
   return theme;
 };
 

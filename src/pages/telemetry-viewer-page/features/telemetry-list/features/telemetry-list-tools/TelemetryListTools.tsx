@@ -1,14 +1,19 @@
 import { HStack } from '@components/mui-stacks.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
-import { FormControlLabel, Switch } from '@mui/material';
+import { Button, FormControlLabel, Switch } from '@mui/material';
 import EventTypeAutocomplete from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-list-tools/EventTypeAutocomplete.tsx';
 import TelemetryPublisher from '@pages/telemetry-viewer-page/features/TelemetryPublisher.tsx';
-
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 export default function TelemetryListTools() {
-  const { allowWrap, setAllowWrap } = useTelemetryStore();
-  const { eventTypeFilter, setEventTypeFilter } = useTelemetryStore();
+  const {
+    allowWrap,
+    setAllowWrap,
+    eventTypeFilter,
+    setEventTypeFilter,
+    clearDisplayEvents,
+  } = useTelemetryStore();
   return (
-    <HStack spacing={2} sx={{ px: 1 }}>
+    <HStack spacing={2} sx={{ px: 1 }} hFill hAlign={'leading'}>
       <TelemetryPublisher />
       <FormControlLabel
         control={
@@ -27,6 +32,15 @@ export default function TelemetryListTools() {
         }
         label="Event Type Filter"
       />
+      <Button
+        variant="contained"
+        color={'bg'}
+        onClick={() => clearDisplayEvents()}
+        startIcon={<DeleteForeverIcon />}
+        sx={{ flexShrink: 0 }}
+      >
+        Clear
+      </Button>
     </HStack>
   );
 }

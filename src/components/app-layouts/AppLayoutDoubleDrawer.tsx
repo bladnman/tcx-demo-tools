@@ -1,34 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
+import { HStack, VStack } from '@components/mui-stacks';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { VStack } from '@components/mui-stacks.tsx';
+import Box from '@mui/material/Box';
 
 interface AppLayoutDoubleDrawerProps {
-  leftDrawerContent: React.ReactNode;
-  rightDrawerContent: React.ReactNode;
+  leftDrawerContent?: React.ReactNode;
+  rightDrawerContent?: React.ReactNode;
   mainContent: React.ReactNode;
   appBarRef?: React.RefObject<HTMLDivElement>;
+  leftDrawerWidth?: number;
+  rightDrawerWidth?: number;
+  LeftIcon?: React.ElementType;
+  RightIcon?: React.ElementType;
+  onLeftDrawerToggle?: (isOpen: boolean) => void;
+  onRightDrawerToggle?: (isOpen: boolean) => void;
+  isLeftDrawerOpen?: boolean;
+  isRightDrawerOpen?: boolean;
+  showLeftDrawerIcon?: boolean;
+  showRightDrawerIcon?: boolean;
+  title?: React.ReactNode;
 }
-
-const drawerWidth = 240;
 
 export default function AppLayoutDoubleDrawer({
   leftDrawerContent,
   rightDrawerContent,
   mainContent,
   appBarRef,
+  leftDrawerWidth = 240,
+  rightDrawerWidth = 240,
+  LeftIcon = MenuIcon,
+  RightIcon = MenuIcon,
+  onLeftDrawerToggle,
+  onRightDrawerToggle,
+  isLeftDrawerOpen = false,
+  isRightDrawerOpen = false,
+  showLeftDrawerIcon = true,
+  showRightDrawerIcon = true,
+  title,
 }: AppLayoutDoubleDrawerProps) {
-  const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
-  const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
+  const [leftDrawerOpen, setLeftDrawerOpen] = useState(isLeftDrawerOpen);
+  const [rightDrawerOpen, setRightDrawerOpen] = useState(isRightDrawerOpen);
+
+  useEffect(() => {
+    setLeftDrawerOpen(isLeftDrawerOpen);
+  }, [isLeftDrawerOpen]);
+
+  useEffect(() => {
+    setRightDrawerOpen(isRightDrawerOpen);
+  }, [isRightDrawerOpen]);
 
   const handleLeftDrawerToggle = () => {
-    setLeftDrawerOpen(!leftDrawerOpen);
+    const newState = !leftDrawerOpen;
+    setLeftDrawerOpen(newState);
+    onLeftDrawerToggle?.(newState);
   };
 
   const handleRightDrawerToggle = () => {
-    setRightDrawerOpen(!rightDrawerOpen);
+    const newState = !rightDrawerOpen;
+    setRightDrawerOpen(newState);
+    onRightDrawerToggle?.(newState);
   };
 
   return (
@@ -38,6 +71,9 @@ export default function AppLayoutDoubleDrawer({
       vAlign={'leading'}
       hAlign={'leading'}
       spacing={0}
+      sx={{
+        position: 'relative',
+      }}
     >
       <AppBar
         position="fixed"
@@ -48,72 +84,99 @@ export default function AppLayoutDoubleDrawer({
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.leavingScreen,
             }),
-          width: `calc(100% - ${leftDrawerOpen ? drawerWidth : 0}px - ${rightDrawerOpen ? drawerWidth : 0}px)`,
-          ml: `${leftDrawerOpen ? drawerWidth : 0}px`,
-          mr: `${rightDrawerOpen ? drawerWidth : 0}px`, // Adjust marginRight when the right drawer is open
+          width: `calc(100% - ${leftDrawerOpen ? leftDrawerWidth : 0}px - ${rightDrawerOpen ? rightDrawerWidth : 0}px)`,
+          ml: `${leftDrawerOpen ? leftDrawerWidth : 0}px`,
+          mr: `${rightDrawerOpen ? rightDrawerWidth : 0}px`, // Adjust marginRight when the right drawer is open
         }}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open left drawer"
-            edge="start"
-            onClick={handleLeftDrawerToggle}
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+          {leftDrawerContent && showLeftDrawerIcon && (
+            <IconButton
+              color="inherit"
+              aria-label="open left drawer"
+              edge="start"
+              onClick={handleLeftDrawerToggle}
+              sx={{ mr: 2 }}
+            >
+              <LeftIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            App Layout with Double Drawer
+            {title}
           </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="open right drawer"
-            onClick={handleRightDrawerToggle}
-          >
-            <MenuIcon />
-          </IconButton>
+          {rightDrawerContent && showRightDrawerIcon && (
+            <IconButton
+              color="inherit"
+              aria-label="open right drawer"
+              onClick={handleRightDrawerToggle}
+            >
+              <RightIcon />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
-      {/* Left Drawer */}
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={leftDrawerOpen}
-      >
-        <IconButton onClick={handleLeftDrawerToggle}>
-          <ChevronLeftIcon />
-        </IconButton>
-        {leftDrawerContent}
-      </Drawer>
-      {/* Right Drawer */}
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="right"
-        open={rightDrawerOpen}
-      >
-        <IconButton onClick={handleRightDrawerToggle}>
-          <ChevronRightIcon />
-        </IconButton>
-        {rightDrawerContent}
-      </Drawer>
-      {/* Main Content */}
+      {leftDrawerContent && (
+        <Drawer
+          sx={{
+            width: leftDrawerWidth,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: leftDrawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={leftDrawerOpen}
+        >
+          <HStack hFill hAlign={'trailing'}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end', // Aligns items to the start of the flex container
+                padding: '8px', // Adds some padding around the IconButton, adjust as needed
+              }}
+            >
+              <IconButton onClick={handleLeftDrawerToggle}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Box>
+          </HStack>
+          <VStack fill sx={{ overflow: 'hidden' }}>
+            {leftDrawerContent}
+          </VStack>
+        </Drawer>
+      )}
+      {rightDrawerContent && (
+        <Drawer
+          sx={{
+            width: rightDrawerWidth,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: rightDrawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="right"
+          open={rightDrawerOpen}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'flex-start', // Aligns items to the start of the flex container
+              padding: '8px', // Adds some padding around the IconButton, adjust as needed
+            }}
+          >
+            <IconButton onClick={handleRightDrawerToggle}>
+              <ChevronRightIcon />
+            </IconButton>
+          </Box>
+          <VStack fill sx={{ overflow: 'hidden' }}>
+            {rightDrawerContent}
+          </VStack>
+        </Drawer>
+      )}
       <VStack
         component="main"
         data-id="main-content"
@@ -123,15 +186,16 @@ export default function AppLayoutDoubleDrawer({
         spacing={0}
         sx={{
           flexGrow: 1,
-          p: 1,
+          p: 0,
           transition: (theme) =>
             theme.transitions.create(['margin', 'width'], {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
             }),
-          width: `calc(100% - ${leftDrawerOpen ? drawerWidth : 0}px - ${rightDrawerOpen ? drawerWidth : 0}px)`,
-          marginLeft: `${leftDrawerOpen ? drawerWidth : 0}px`,
-          marginRight: `${rightDrawerOpen ? drawerWidth : 0}px`,
+          width: `calc(100% - ${leftDrawerOpen ? leftDrawerWidth : 0}px - ${rightDrawerOpen ? rightDrawerWidth : 0}px)`,
+          marginLeft: `${leftDrawerOpen ? leftDrawerWidth : 0}px`,
+          marginRight: `${rightDrawerOpen ? rightDrawerWidth : 0}px`,
+          position: 'relative',
         }}
       >
         <Toolbar />

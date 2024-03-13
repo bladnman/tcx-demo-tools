@@ -4,9 +4,9 @@ import TelemetryRow from '@pages/telemetry-viewer-page/features/telemetry-list/f
 import { getEventDef } from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
 
 export default function TelemetryList() {
-  const { events, eventTypeFilter } = useTelemetryStore();
+  const { displayEvents, eventTypeFilter } = useTelemetryStore();
   const { eventForDetails, setEventForDetails } = useTelemetryStore();
-  const filteredEvents = events.filter((event) => {
+  const filteredEvents = displayEvents.filter((event) => {
     if (eventTypeFilter.length < 1) {
       return true;
     }
@@ -27,7 +27,9 @@ export default function TelemetryList() {
           key={index}
           event={event}
           selected={eventForDetails === event}
-          onClick={() => setEventForDetails(event)}
+          onClick={() => {
+            setEventForDetails(eventForDetails === event ? null : event);
+          }}
         />
       ))}
     </VStack>
