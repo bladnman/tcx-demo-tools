@@ -30,7 +30,7 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
   const THEME_COLORS = useMemo(
     () => ({
       pri: ['#707898', '#707898'],
-      sec: ['#8a599c', '#8a599c'],
+      sec: ['#8a599c', '#ad70ca'],
       fg: ['#38363e', '#c0bcc6'],
       bg: ['#eeeef1', '#272729'],
       paper: ['#f9f9f9', '#0d0d0e'],

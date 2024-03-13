@@ -1,8 +1,7 @@
 import { HStack } from '@components/mui-stacks.tsx';
-import { getEventDef } from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
-import { Chip, ChipOwnProps } from '@mui/material';
-import EventChipIcon from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/EventChipIcon.tsx';
-import EventShortDescription from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/EventShortDescription.tsx';
+import TelemetryRowBodyStandard from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyStandard.tsx';
+import TelemetryRowBodyLoadTime from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyLoadTime.tsx';
+import TelemetryRowBodyNavigation from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyNavigation.tsx';
 
 export default function TelemetryRow({
   event,
@@ -13,7 +12,16 @@ export default function TelemetryRow({
   onClick?: () => void;
   selected?: boolean;
 }) {
-  const eventDef = getEventDef(event);
+  const RenderRowBody = () => {
+    switch (event.type) {
+      case 'LoadTime':
+        return <TelemetryRowBodyLoadTime event={event} />;
+      case 'Navigation':
+        return <TelemetryRowBodyNavigation event={event} />;
+      default:
+        return <TelemetryRowBodyStandard event={event} />;
+    }
+  };
   return (
     <HStack
       hFill
@@ -29,16 +37,7 @@ export default function TelemetryRow({
       }}
       onClick={onClick}
     >
-      {/*{eventDef.icon}*/}
-      <Chip
-        label={eventDef.abbreviation}
-        size={'small'}
-        color={eventDef.color as ChipOwnProps['color']}
-        sx={{ width: '7em', flexShrink: 0 }}
-        icon={<EventChipIcon event={event} />}
-      />
-
-      <EventShortDescription event={event} />
+      {RenderRowBody()}
     </HStack>
   );
 }

@@ -1,4 +1,5 @@
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/features/telemetry-list/utils/TELEM_CONST.ts';
+import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
 
 export function getEventDef(event: TelemetryEventMessage) {
   return EVENT_TYPE_DEF[event.type as EventTypes] ?? EVENT_TYPE_DEF.Other;
@@ -40,11 +41,13 @@ export function getNavigationMessage(event: Hash) {
     event,
     'referrerApplicationName',
   );
-  let simpleReferrerScene = _getSceneName(_getEventStr(event, 'referrerScene'));
+  let simpleReferrerScene = getSimpleSceneName(
+    _getEventStr(event, 'referrerScene'),
+  );
   if (referrerApplicationName !== 'game-hub') {
     simpleReferrerScene = `${referrerApplicationName} : ${simpleReferrerScene}`;
   }
-  return `[${simpleReferrerScene}] -> [${_getSceneName(event.locationScene)}]`;
+  return `[${simpleReferrerScene}] -> [${getSimpleSceneName(event.locationScene)}]`;
 }
 
 /** LOAD TIME EVENTS */
@@ -91,7 +94,7 @@ export function getErrorMessage(event: Hash) {
   ];
   return values.filter((v) => v !== undefined).join(' | ');
 }
-function _getSceneName(fromValue: string | undefined): string {
+export function getSimpleSceneName(fromValue: string | undefined): string {
   if (fromValue === undefined) return '';
 
   // strip scene from locations if a GH value
