@@ -1,7 +1,7 @@
-import AppLayoutDoubleDrawer from '@components/app-layouts/AppLayoutDoubleDrawer.tsx';
-import TelemetryLeftDrawer from '@pages/telemetry-viewer-page/features/app-layout-parts/TelemetryLeftDrawer.tsx';
-import TelemetryMainBody from '@pages/telemetry-viewer-page/features/app-layout-parts/TelemetryMainBody.tsx';
-import TelemetryRightDrawer from '@pages/telemetry-viewer-page/features/app-layout-parts/TelemetryRightDrawer.tsx';
+import AppLayoutDoubleDrawer from '../../common/app-layouts/AppLayoutDoubleDrawer.tsx';
+import TelemetryLeftDrawer from '@pages/telemetry-viewer-page/features/left-drawer/TelemetryLeftDrawer.tsx';
+import TelemetryMainBody from '@pages/telemetry-viewer-page/features/main-body/TelemetryMainBody.tsx';
+import TelemetryRightDrawer from '@pages/telemetry-viewer-page/features/right-drawer/TelemetryRightDrawer.tsx';
 import { useEffect, useRef } from 'react';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { Typography } from '@mui/material';

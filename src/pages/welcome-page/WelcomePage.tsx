@@ -1,4 +1,4 @@
-import { HStack, VStack } from '@components/mui-stacks.tsx';
+import { HStack, VStack } from '../../common/mui-stacks.tsx';
 
 export default function WelcomePage() {
   return (

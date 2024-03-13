@@ -1,7 +1,7 @@
-import { VStack } from '@components/mui-stacks.tsx';
+import { VStack } from '../../../../../../common/mui-stacks.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
-import TelemetryRow from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/TelemetryRow.tsx';
-import { getEventDef } from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
+import TelemetryRow from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/TelemetryRow.tsx';
+import { getEventDef } from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
 
 export default function TelemetryList() {
   const { displayEvents, eventTypeFilter } = useTelemetryStore();

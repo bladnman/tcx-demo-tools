@@ -1,4 +1,4 @@
-import { HStack } from '@components/mui-stacks.tsx';
+import { HStack } from '../../../common/mui-stacks.tsx';
 import TelemetryEvents from '@pages/telemetry-viewer-page/data/client-telemetry-gh-03.ts';
 import useTCxMockPublisher from '@tcx-hosted/tcx-react/hooks/useTCxMockPublisher.ts';
 import { useCallback, useMemo } from 'react';

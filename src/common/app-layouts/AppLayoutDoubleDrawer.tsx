@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AppBar, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
-import { HStack, VStack } from '@components/mui-stacks';
+import { HStack, VStack } from '../mui-stacks';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';

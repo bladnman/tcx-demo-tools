@@ -1,12 +1,10 @@
-import { HStack } from '@components/mui-stacks.tsx';
+import { HStack } from '../../../../../../../../../../common/mui-stacks.tsx';
 import { Chip, ChipOwnProps, Typography } from '@mui/material';
-import EventChipIcon from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/EventChipIcon.tsx';
-import EventShortDescription from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/EventShortDescription.tsx';
+import EventChipIcon from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/features/EventChipIcon.tsx';
 import {
   getEventDef,
   getSimpleSceneName,
-} from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
-import formatMilliseconds from '@utils/formatMilliseconds.ts';
+} from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
 
 export default function TelemetryRowBodyNavigation({
   event,
@@ -14,7 +12,6 @@ export default function TelemetryRowBodyNavigation({
   event: TelemetryEventMessage;
 }) {
   const eventDef = getEventDef(event);
-  const simpleReferrerScene = getSimpleSceneName(event.final.referrerScene);
   const simpleScene = getSimpleSceneName(event.final.locationScene);
 
   return (
@@ -40,10 +37,6 @@ export default function TelemetryRowBodyNavigation({
           {simpleScene}
         </Typography>
       </HStack>
-
-      <Typography variant={'caption'} fontStyle={'italic'}>
-        from {simpleReferrerScene}
-      </Typography>
     </HStack>
   );
 }

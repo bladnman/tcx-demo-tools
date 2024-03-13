@@ -1,7 +1,7 @@
-import { HStack } from '@components/mui-stacks.tsx';
-import TelemetryRowBodyStandard from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyStandard.tsx';
-import TelemetryRowBodyLoadTime from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyLoadTime.tsx';
-import TelemetryRowBodyNavigation from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyNavigation.tsx';
+import { HStack } from '../../../../../../../../common/mui-stacks.tsx';
+import TelemetryRowBodyStandard from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyStandard.tsx';
+import TelemetryRowBodyLoadTime from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyLoadTime.tsx';
+import TelemetryRowBodyNavigation from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyNavigation.tsx';
 
 export default function TelemetryRow({
   event,

@@ -1,4 +1,4 @@
-import StoreContext from '../components/StoreProvider';
+import StoreContext from '../common/StoreProvider';
 import { useContext } from 'react';
 
 export default function useTargetedId(name?: string): string | undefined {

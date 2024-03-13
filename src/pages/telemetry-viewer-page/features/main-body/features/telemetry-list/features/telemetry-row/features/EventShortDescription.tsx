@@ -6,10 +6,10 @@ import {
   getLoadTimeMessageList,
   getNavigationMessage,
   getStartUpMessage,
-} from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
+} from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
 import { Typography } from '@mui/material';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
-import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/features/telemetry-list/utils/TELEM_CONST.ts';
+import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/utils/TELEM_CONST.ts';
 
 export default function EventShortDescription({
   event,

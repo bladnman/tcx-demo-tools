@@ -1,4 +1,4 @@
-import { VStack } from '@components/mui-stacks.tsx';
+import { VStack } from './common/mui-stacks.tsx';
 import './App.css';
 import useThemeOnDocument from '@hooks/useThemeOnDocument.ts';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

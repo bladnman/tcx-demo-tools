@@ -1,5 +1,5 @@
-import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/features/telemetry-list/utils/TELEM_CONST.ts';
-import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
+import { EVENT_TYPE_DEF } from '../../../utils/TELEM_CONST.ts';
+import { EventTypes } from '../../../../../../../types/event-types.ts';
 
 export function getEventDef(event: TelemetryEventMessage) {
   return EVENT_TYPE_DEF[event.type as EventTypes] ?? EVENT_TYPE_DEF.Other;

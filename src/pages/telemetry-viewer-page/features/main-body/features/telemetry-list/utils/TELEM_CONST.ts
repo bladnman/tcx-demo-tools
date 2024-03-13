@@ -1,4 +1,4 @@
-import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
+import { EventTypes } from '../../../../../types/event-types.ts';
 
 export const EVENT_TYPE_DEF: { [K in EventTypes]: EventTypeDef } = {
   ApplicationError: {

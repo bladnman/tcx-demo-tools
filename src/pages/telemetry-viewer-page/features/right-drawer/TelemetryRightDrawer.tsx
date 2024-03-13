@@ -1,5 +1,5 @@
-import { VStack } from '@components/mui-stacks.tsx';
-import TelemetryDetails from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-details/TelemetryDetails.tsx';
+import { VStack } from '../../../../common/mui-stacks.tsx';
+import TelemetryDetails from '@pages/telemetry-viewer-page/features/right-drawer/features/telemetry-details/TelemetryDetails.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 
 export default function TelemetryRightDrawer() {

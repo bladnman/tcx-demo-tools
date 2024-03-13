@@ -1,10 +1,10 @@
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
-import { VStack } from '@components/mui-stacks.tsx';
+import { VStack } from '../../../../../../common/mui-stacks.tsx';
 import { Typography, useTheme } from '@mui/material';
 import JsonView from '@uiw/react-json-view';
 import { lightTheme } from '@uiw/react-json-view/light';
 import { CSSProperties } from 'react';
-import { jsonViewTheme_VSCodeDark } from '@pages/telemetry-viewer-page/features/telemetry-list/features/telemetry-details/json-view-themes.ts';
+import { jsonViewTheme_VSCodeDark } from '@pages/telemetry-viewer-page/features/right-drawer/features/telemetry-details/json-view-themes.ts';
 
 export default function TelemetryDetails() {
   const theme = useTheme();
