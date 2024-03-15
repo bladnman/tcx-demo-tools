@@ -1,7 +1,5 @@
-import { HStack } from '../../../../../../../../common/mui-stacks.tsx';
-import TelemetryRowBodyStandard from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyStandard.tsx';
-import TelemetryRowBodyLoadTime from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyLoadTime.tsx';
-import TelemetryRowBodyNavigation from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/features/telemetry-row-bodies/TelemetryRowBodyNavigation.tsx';
+import TelemetryEventToken from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/common/telemetry-token/TelemetryEventToken.tsx';
+import { HStack } from '@common/mui-stacks';
 
 export default function TelemetryRow({
   event,
@@ -12,16 +10,6 @@ export default function TelemetryRow({
   onClick?: () => void;
   selected?: boolean;
 }) {
-  const RenderRowBody = () => {
-    switch (event.type) {
-      case 'LoadTime':
-        return <TelemetryRowBodyLoadTime event={event} />;
-      case 'Navigation':
-        return <TelemetryRowBodyNavigation event={event} />;
-      default:
-        return <TelemetryRowBodyStandard event={event} />;
-    }
-  };
   return (
     <HStack
       hFill
@@ -37,7 +25,7 @@ export default function TelemetryRow({
       }}
       onClick={onClick}
     >
-      {RenderRowBody()}
+      <TelemetryEventToken event={event} />
     </HStack>
   );
 }

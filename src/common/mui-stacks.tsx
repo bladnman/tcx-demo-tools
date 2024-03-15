@@ -2,19 +2,20 @@ import React from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
 
 export interface StackProps extends Omit<BoxProps, 'ref'> {
-  // Use Omit to exclude 'ref' from BoxProps
   spacing?: number | string;
-  vAlign?: 'center' | 'leading' | 'trailing';
-  hAlign?: 'center' | 'leading' | 'trailing';
+  vAlign?: 'center' | 'leading' | 'trailing' | 'stretch';
+  hAlign?: 'center' | 'leading' | 'trailing' | 'stretch';
   vFill?: boolean;
   hFill?: boolean;
   fill?: boolean;
+  'data-id'?: string;
 }
 
 const alignmentMap = {
   center: 'center',
   leading: 'flex-start',
   trailing: 'flex-end',
+  stretch: 'stretch',
 };
 
 const getFill = (
@@ -75,9 +76,29 @@ const BaseStack = React.forwardRef<
 });
 
 export const VStack = React.forwardRef<HTMLDivElement, StackProps>(
-  (props, ref) => <BaseStack {...props} flexDirection="column" ref={ref} />,
+  (props, ref) => {
+    const { 'data-id': dataId, ...restProps } = props;
+    return (
+      <BaseStack
+        data-id={dataId ?? 'VStack'}
+        {...restProps}
+        flexDirection="column"
+        ref={ref}
+      />
+    );
+  },
 );
 
 export const HStack = React.forwardRef<HTMLDivElement, StackProps>(
-  (props, ref) => <BaseStack {...props} flexDirection="row" ref={ref} />,
+  (props, ref) => {
+    const { 'data-id': dataId, ...restProps } = props;
+    return (
+      <BaseStack
+        data-id={dataId ?? 'HStack'}
+        {...restProps}
+        flexDirection="row"
+        ref={ref}
+      />
+    );
+  },
 );

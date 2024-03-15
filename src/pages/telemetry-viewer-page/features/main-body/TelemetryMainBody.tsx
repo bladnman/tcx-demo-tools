@@ -1,6 +1,6 @@
 import TelemetryList from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/TelemetryList.tsx';
 import { HStack, VStack } from '../../../../common/mui-stacks.tsx';
-import TelemetryListTools from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list-tools/TelemetryListTools.tsx';
+import TelemetryListTools from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/TelemetryListTools.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 
 export default function TelemetryMainBody() {

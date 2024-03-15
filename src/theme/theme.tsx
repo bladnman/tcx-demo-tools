@@ -35,6 +35,23 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       bg: ['#eeeef1', '#272729'],
       paper: ['#f9f9f9', '#0d0d0e'],
       appColor: ['#ccd857', '#ccd857'],
+
+      // TOKEN COLORS
+      tokenYellow: ['#E3CF44', '#E3CF44'],
+      tokenOrange: ['#ffa726', '#ffa726'],
+      tokenGreen: ['#68b85b', '#68b85b'],
+      tokenBlue: ['#29b6f6', '#29b6f6'],
+      tokenPurple: ['#7129f6', '#7129F6'],
+      tokenPink: ['#f629d7', '#f629d7'],
+      tokenRed: ['#f62955', '#F62955'],
+      tokenSlate: ['#769386', '#769386'],
+      // TOKEN DETAILS COLORS
+      tokenDetailsFG: ['#8b8b8b', '#8b8b8b'],
+      tokenDetailsBG: ['#383838', '#383838'],
+      tokenDetailsFGOrange: ['#ffa726', '#ffa726'],
+      tokenDetailsFGGreen: ['#68b85b', '#68b85b'],
+      tokenDetailsFGRed: ['#f62955', '#f62955'],
+      tokenDetailsFGBlue: ['#29b6f6', '#29b6f6'],
     }),
     [],
   ); // your colors here

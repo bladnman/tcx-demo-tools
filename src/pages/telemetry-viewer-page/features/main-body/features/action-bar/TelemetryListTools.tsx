@@ -1,7 +1,7 @@
 import { HStack } from '../../../../../../common/mui-stacks.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { Button, FormControlLabel, Switch } from '@mui/material';
-import EventTypeAutocomplete from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list-tools/EventTypeAutocomplete.tsx';
+import EventTypeAutocomplete from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/EventTypeAutocomplete.tsx';
 import TelemetryPublisher from '@pages/telemetry-viewer-page/features/TelemetryPublisher.tsx';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 export default function TelemetryListTools() {

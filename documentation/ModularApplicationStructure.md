@@ -9,6 +9,8 @@ clarity by segmenting the application into clearly defined areas of concern,
 each with its own context. The structure is recursive, allowing each significant
 element to have its substructure mirroring the global architecture.
 
+[![mas-small.png](assets/mas-small.png)](assets/mas.png)
+
 ## Directory Structure
 
 The application is organized into several key directories at the root level,

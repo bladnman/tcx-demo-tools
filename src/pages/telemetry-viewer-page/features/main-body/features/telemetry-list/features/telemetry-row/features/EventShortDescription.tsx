@@ -39,7 +39,7 @@ export default function EventShortDescription({
       case EVENT_TYPE_DEF.LoadTime:
         return getLoadTimeMessageList(finalEvent).join(' | ');
       default:
-        return `🐽 ${eventDef.type}`; // TODO: replace with message builder
+        return undefined;
     }
   };
 
