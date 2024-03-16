@@ -28,19 +28,20 @@ export default function DetailDisplay({
       }}
     >
       {highlight && (
-        <Typography fontFamily={'anton'} color={color}>
+        <Typography
+          variant={'tokenDetailHighlight'}
+          color={color}
+          fontSize={'1em'}
+        >
           {highlight}
         </Typography>
       )}
       {message && (
         <Typography
+          variant={'tokenDetailMessage'}
           sx={{
             whiteSpace: allowWrap ? 'normal' : 'nowrap',
             overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            fontFamily: 'elza-narrow',
-            // fontStyle: 'italic',
-            fontSize: '0.85em',
           }}
         >
           {message}

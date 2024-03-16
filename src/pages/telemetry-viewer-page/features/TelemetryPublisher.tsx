@@ -1,18 +1,18 @@
 import { HStack } from '../../../common/mui-stacks.tsx';
 import TelemetryEvents from '@pages/telemetry-viewer-page/data/client-telemetry-gh-03.ts';
 import useTCxMockPublisher from '@tcx-hosted/tcx-react/hooks/useTCxMockPublisher.ts';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Button } from '@mui/material';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 
 export default function TelemetryPublisher() {
-  const { addEvent } = useTelemetryStore();
+  const { addEvents } = useTelemetryStore();
   const eventsToPublish = useMemo(() => [...TelemetryEvents], []);
   const onData = useCallback(
     (data: TelemetryEventMessage) => {
-      addEvent(data);
+      addEvents([data]);
     },
-    [addEvent],
+    [addEvents],
   );
 
   const publisher = useTCxMockPublisher<TelemetryEventMessage>(
@@ -20,6 +20,16 @@ export default function TelemetryPublisher() {
     1000,
     eventsToPublish,
   );
+
+  // QUICKLY PUBLISH SOME FOR EXAMPLE
+  useEffect(() => {
+    publisher.publishNext();
+    publisher.publishNext();
+    publisher.publishNext();
+    publisher.publishNext();
+    publisher.publishNext();
+    publisher.publishNext();
+  }, [publisher]);
 
   return (
     <HStack>

@@ -7,7 +7,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Box from '@mui/material/Box';
 
 interface AppLayoutDoubleDrawerProps {
+  leftDrawerTitle?: React.ReactNode;
   leftDrawerContent?: React.ReactNode;
+  rightDrawerTitle?: React.ReactNode;
   rightDrawerContent?: React.ReactNode;
   mainContent: React.ReactNode;
   appBarRef?: React.RefObject<HTMLDivElement>;
@@ -26,7 +28,9 @@ interface AppLayoutDoubleDrawerProps {
 
 export default function AppLayoutDoubleDrawer({
   leftDrawerContent,
+  leftDrawerTitle,
   rightDrawerContent,
+  rightDrawerTitle,
   mainContent,
   appBarRef,
   leftDrawerWidth = 240,
@@ -129,7 +133,12 @@ export default function AppLayoutDoubleDrawer({
           anchor="left"
           open={leftDrawerOpen}
         >
-          <HStack hFill hAlign={'trailing'}>
+          <HStack
+            hFill
+            hAlign={'trailing'}
+            sx={{ justifyContent: 'space-between', paddingLeft: '1em' }}
+          >
+            {leftDrawerTitle}
             <Box
               sx={{
                 display: 'flex',
@@ -161,17 +170,25 @@ export default function AppLayoutDoubleDrawer({
           anchor="right"
           open={rightDrawerOpen}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'flex-start', // Aligns items to the start of the flex container
-              padding: '8px', // Adds some padding around the IconButton, adjust as needed
-            }}
+          <HStack
+            hFill
+            hAlign={'leading'}
+            sx={{ justifyContent: 'space-between', paddingRight: '1em' }}
           >
-            <IconButton onClick={handleRightDrawerToggle}>
-              <ChevronRightIcon />
-            </IconButton>
-          </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-start', // Aligns items to the start of the flex container
+                padding: '8px', // Adds some padding around the IconButton, adjust as needed
+              }}
+            >
+              <IconButton onClick={handleRightDrawerToggle}>
+                <ChevronRightIcon />
+              </IconButton>
+            </Box>
+            {rightDrawerTitle}
+          </HStack>
+
           <VStack fill sx={{ overflow: 'hidden' }}>
             {rightDrawerContent}
           </VStack>

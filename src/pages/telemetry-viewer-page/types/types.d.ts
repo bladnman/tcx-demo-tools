@@ -28,3 +28,18 @@ type EventTypeDef = {
   abbreviation: string;
   color: string;
 };
+type TokenMode = 'details' | 'tag' | 'icon';
+type TokenWidth = 'min' | 'max';
+type TokenColorMode = 'dual' | 'single' | 'none';
+interface TelemetryTokenProps {
+  eventIcon?: ReactNode;
+  eventColor?: string;
+  eventTag?: string;
+  eventDetails?: ReactNode;
+
+  tokenMode?: TokenMode;
+  tokenWidth?: TokenWidth;
+  tokenFontSize?: number;
+  tokenColorMode?: TokenColorMode;
+}
+type FilterType = 'type' | 'platformType' | 'appName' | 'namespace';

@@ -6,11 +6,6 @@ import {
   Theme,
 } from '@mui/material/styles';
 
-declare module '@mui/material/Typography' {
-  interface TypographyPropsVariantOverrides {
-    title: true;
-  }
-}
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     bg: true;
@@ -34,7 +29,25 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       fg: ['#38363e', '#c0bcc6'],
       bg: ['#eeeef1', '#272729'],
       paper: ['#f9f9f9', '#0d0d0e'],
+
       appColor: ['#ccd857', '#ccd857'],
+      appRed: ['#f62955', '#f62955'],
+      appOrange: ['#ffa726', '#ffa726'],
+      appGreen: ['#68b85b', '#68b85b'],
+      appBlue: ['#29b6f6', '#29b6f6'],
+      appPurple: ['#7129f6', '#7129F6'],
+      appPink: ['#f629d7', '#f629d7'],
+      appSlate: ['#769386', '#769386'],
+      appGray: ['#8b8b8b', '#8b8b8b'],
+      appGrayDark: ['#464646', '#464646'],
+
+      appBg25: ['#3e3e3e', '#cecece'],
+      appBg50: ['#8b8b8b', '#8b8b8b'],
+      appBg75: ['#cecece', '#3e3e3e'],
+
+      appFg25: ['#cecece', '#3e3e3e'],
+      appFg50: ['#8b8b8b', '#8b8b8b'],
+      appFg75: ['#3e3e3e', '#cecece'],
 
       // TOKEN COLORS
       tokenYellow: ['#E3CF44', '#E3CF44'],
@@ -73,6 +86,15 @@ export const DarkTheme: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return <AppThemeProvider colorMode="dark">{children}</AppThemeProvider>;
 };
 
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    title: true;
+    tag: true;
+    tokenDetailHighlight: true;
+    tokenDetailMessage: true;
+  }
+}
+
 /**
  * https://m2.material.io/inline-tools/color/
  */
@@ -108,6 +130,20 @@ export const createDynamicTheme = (
         fontFamily: 'sofachrome, Arial, sans-serif',
         fontWeight: '400',
         fontSize: '1.1rem',
+      },
+      tag: {
+        fontFamily: 'urbana, Arial, sans-serif',
+        fontSize: '1.2em',
+        fontWeight: 'bold',
+      },
+      tokenDetailHighlight: {
+        fontFamily: 'anton, Arial, sans-serif',
+        fontSize: '1em',
+        fontWeight: 'bold',
+      },
+      tokenDetailMessage: {
+        fontFamily: 'elza-narrow, Arial, sans-serif',
+        fontSize: '0.85em',
       },
     },
   });

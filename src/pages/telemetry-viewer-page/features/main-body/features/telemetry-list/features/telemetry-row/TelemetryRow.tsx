@@ -1,4 +1,4 @@
-import TelemetryEventToken from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/common/telemetry-token/TelemetryEventToken.tsx';
+import TelemetryEventToken from '@pages/telemetry-viewer-page/common/telemetry-token/TelemetryEventToken.tsx';
 import { HStack } from '@common/mui-stacks';
 
 export default function TelemetryRow({

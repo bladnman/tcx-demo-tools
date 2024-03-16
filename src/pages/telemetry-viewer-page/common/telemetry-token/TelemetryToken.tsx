@@ -1,17 +1,5 @@
-import { HStack } from '@common/mui-stacks';
-import { ReactNode } from 'react';
-
-interface TelemetryTokenProps {
-  eventIcon: ReactNode;
-  eventColor: string;
-  eventTag?: string;
-  eventDetails?: ReactNode;
-
-  variant?: 'details' | 'tag' | 'icon';
-  width?: 'min' | 'max';
-  fontSize?: string;
-  colorMode?: 'dual' | 'single' | 'none';
-}
+import { HStack } from '@common/mui-stacks.tsx';
+import { Typography } from '@mui/material';
 
 export default function TelemetryToken(props: TelemetryTokenProps) {
   const {
@@ -19,19 +7,21 @@ export default function TelemetryToken(props: TelemetryTokenProps) {
     eventColor,
     eventTag = 'n/a',
     eventDetails,
-    variant = 'details',
-    fontSize = '1em',
-    colorMode = 'dual',
-    width = 'min',
+    tokenMode = 'details',
+    tokenFontSize = 1,
+    tokenColorMode = 'dual',
+    tokenWidth = 'min',
   } = props;
-  const showDetails = variant === 'details';
-  const isDualColor = colorMode === 'dual';
-  const isMaxWidth = width === 'max';
+  const showDetails = tokenMode === 'details';
+  const showTag = showDetails || tokenMode === 'tag';
+  const isIconOnly = tokenMode === 'icon';
+  const isDualColor = tokenColorMode === 'dual';
+  const isMaxWidth = tokenWidth === 'max';
   return (
     <HStack
       data-id={'TelemetryToken'}
       spacing={'0.5em'}
-      fontSize={fontSize}
+      fontSize={`${tokenFontSize}em`}
       vAlign={'stretch'}
       hAlign={'leading'}
       sx={{
@@ -46,30 +36,35 @@ export default function TelemetryToken(props: TelemetryTokenProps) {
         flexShrink: 0,
         maxWidth: '100%',
         overflow: 'hidden',
-        width: isMaxWidth ? '100%' : 'auto',
+        width: isMaxWidth ? '100%' : isIconOnly ? '2em' : 'auto',
+        height: isMaxWidth ? '100%' : isIconOnly ? '2em' : 'auto',
       }}
     >
+      {/*  ICON  */}
       <HStack
         data-id={'TelemetryTokenIcon'}
         sx={{
-          width: '1.2em',
+          width: isIconOnly ? '1em' : '1.5em',
           flexShrink: 0,
         }}
       >
         {eventIcon}
       </HStack>
-      <HStack
-        data-id={'TelemetryTokenTag'}
-        sx={{
-          fontSize: '1.2em',
-          fontFamily: 'urbana',
-          minWidth: '3em',
-          flexShrink: 0,
-        }}
-      >
-        {eventTag}
-      </HStack>
 
+      {/*  TAG  */}
+      {showTag && (
+        <HStack
+          data-id={'TelemetryTokenTag'}
+          sx={{
+            minWidth: '3em',
+            flexShrink: 0,
+          }}
+        >
+          <Typography variant={'tag'}>{eventTag}</Typography>
+        </HStack>
+      )}
+
+      {/*  DETAILS  */}
       {showDetails && !!eventDetails && (
         <HStack
           data-id={'TelemetryTokenDetails'}

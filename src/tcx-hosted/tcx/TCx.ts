@@ -139,7 +139,7 @@ export default class TCx {
   /**
    * This method is for testing purposes only. It simulates receiving data from a peer.
    *
-   * This interface may be helpful to test your application without needing
+   * This interface may be helpful to testForActive your application without needing
    * to have a peer on the other end running and publishing.
    * @param data : any
    */

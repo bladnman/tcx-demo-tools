@@ -1,39 +1,23 @@
-import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/utils/TELEM_CONST.ts';
+import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/utils/TELEM_CONST.ts';
 import {
   getEventDef,
   getSimpleSceneName,
-} from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
-import { HStack } from '@common/mui-stacks.tsx';
-import EventShortDescription from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/features/EventShortDescription.tsx';
+} from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 import formatMilliseconds from '@utils/formatMilliseconds.ts';
-import DetailDisplay from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/common/telemetry-token/features/event-details/parts/DetailDisplay.tsx';
+import DetailDisplay from '@pages/telemetry-viewer-page/common/telemetry-token/features/event-details/parts/DetailDisplay.tsx';
 export default function EventDetails({
   event,
   colorMode = 'dual',
-  displayMode = 'full',
+  displayMode = 'details',
 }: {
   event: TelemetryEventMessage;
   fontSize?: string;
-  colorMode?: 'dual' | 'single' | 'none';
-  displayMode?: 'full' | 'short';
+  colorMode?: TokenColorMode;
+  displayMode?: TokenMode;
 }) {
   const eventDef = getEventDef(event);
   const includeColor = colorMode === 'dual';
-  const includeMessage = displayMode === 'full';
-
-  const renderNetworkError = () => {
-    return renderDefault(); // TODO: implement me
-  };
-  const renderApplicationError = () => {
-    return renderDefault(); // TODO: implement me
-  };
-  const renderDefault = () => {
-    return (
-      <HStack>
-        <EventShortDescription event={event} />
-      </HStack>
-    );
-  };
+  const includeMessage = displayMode === 'details';
 
   let highlight, message, color;
 
@@ -69,7 +53,6 @@ export default function EventDetails({
       highlight = formatMilliseconds(metric?.latency ?? 0);
       message = metric?.metric;
       color = 'tokenDetailsFGOrange.main';
-      // color = 'tokenDetailsFGGreen.main';
       if (message === 'timeToInteractive') {
         color = 'tokenDetailsFGRed.main';
       }

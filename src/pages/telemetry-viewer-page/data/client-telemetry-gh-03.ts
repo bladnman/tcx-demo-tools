@@ -2,6 +2,7 @@ const TelemetryEvents = [
   {
     type: 'Startup',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -85,6 +86,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -187,6 +189,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -363,6 +366,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -503,6 +507,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -624,6 +629,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -739,6 +745,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -853,6 +860,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -946,6 +954,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1074,6 +1083,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1208,6 +1218,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1336,6 +1347,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1470,6 +1482,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1593,6 +1606,7 @@ const TelemetryEvents = [
   {
     type: 'AvatarImageLoad',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1664,6 +1678,7 @@ const TelemetryEvents = [
   {
     type: 'AvatarImageLoad',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1736,6 +1751,7 @@ const TelemetryEvents = [
   {
     type: 'AvatarImageLoad',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1807,6 +1823,7 @@ const TelemetryEvents = [
   {
     type: 'AvatarImageLoad',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1878,6 +1895,7 @@ const TelemetryEvents = [
   {
     type: 'AvatarImageLoad',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -1950,6 +1968,7 @@ const TelemetryEvents = [
   {
     type: 'AvatarImageLoad',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2021,6 +2040,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2128,6 +2148,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2233,6 +2254,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2347,6 +2369,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2461,6 +2484,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2566,6 +2590,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2680,6 +2705,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2794,6 +2820,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -2908,6 +2935,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3022,6 +3050,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3127,6 +3156,7 @@ const TelemetryEvents = [
   {
     type: 'NetworkError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3221,6 +3251,7 @@ const TelemetryEvents = [
   {
     type: 'NetworkError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3315,6 +3346,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3420,6 +3452,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3508,6 +3541,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3596,6 +3630,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3684,6 +3719,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3789,6 +3825,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -3894,6 +3931,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -4008,6 +4046,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -4096,6 +4135,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -4184,6 +4224,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -4272,6 +4313,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -4360,6 +4402,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -4448,6 +4491,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -4536,6 +4580,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'explore-hub',
       referrerScene: 'preview',
       entryReferrerApplicationName: 'explore-hub',
@@ -4624,6 +4669,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:cover:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -4726,6 +4772,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:cover:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -4819,6 +4866,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -4921,6 +4969,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -5062,6 +5111,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -5203,6 +5253,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -5344,6 +5395,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -5485,6 +5537,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -5596,6 +5649,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -5717,6 +5771,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -5832,6 +5887,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -5939,6 +5995,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:summary tiles:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -6062,6 +6119,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:cover:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -6164,6 +6222,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:cover:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -6305,6 +6364,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:cover:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -6433,6 +6493,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:cover:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -6567,6 +6628,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:cover:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -6701,6 +6763,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:cover:SWQA App e1 ',
       entryReferrerApplicationName: 'explore-hub',
@@ -6829,6 +6892,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -6934,6 +6998,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -7036,6 +7101,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -7177,6 +7243,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -7318,6 +7385,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -7459,6 +7527,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -7598,6 +7667,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -7739,6 +7809,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -7878,6 +7949,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -8019,6 +8091,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -8158,6 +8231,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -8297,6 +8371,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -8399,6 +8474,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -8504,6 +8580,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -8712,6 +8789,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -8920,6 +8998,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -9128,6 +9207,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -9336,6 +9416,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -9544,6 +9625,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -9752,6 +9834,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -9960,6 +10043,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -10168,6 +10252,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -10270,6 +10355,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -10414,6 +10500,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -10519,6 +10606,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -10607,6 +10695,7 @@ const TelemetryEvents = [
   {
     type: 'ApplicationError',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -10695,6 +10784,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -10842,6 +10932,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -10944,6 +11035,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -11124,6 +11216,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -11304,6 +11397,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -11484,6 +11578,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -11607,6 +11702,7 @@ const TelemetryEvents = [
   {
     type: 'AvatarImageLoad',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -11686,6 +11782,7 @@ const TelemetryEvents = [
   {
     type: 'VideoStream',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -11859,6 +11956,7 @@ const TelemetryEvents = [
   {
     type: 'VideoStream',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -12038,6 +12136,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -12172,6 +12271,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -12305,6 +12405,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -12438,6 +12539,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -12571,6 +12673,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -12704,6 +12807,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -12841,6 +12945,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -12978,6 +13083,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -13107,6 +13213,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'rnps-home',
       referrerScene: 'game',
       entryReferrerApplicationName: 'rnps-home',
@@ -13209,6 +13316,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -13311,6 +13419,7 @@ const TelemetryEvents = [
   {
     type: 'LoadTime',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -13416,6 +13525,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:ugc:video:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -13594,6 +13704,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:add ons:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -13751,6 +13862,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:add ons:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -13918,6 +14030,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:add ons:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -14085,6 +14198,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:add ons:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -14255,6 +14369,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:add ons:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -14422,6 +14537,7 @@ const TelemetryEvents = [
   {
     type: 'ViewableImpression',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:add ons:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -14589,6 +14705,7 @@ const TelemetryEvents = [
   {
     type: 'Interaction',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene: 'post:add ons:SWQA App e1 ',
       entryReferrerApplicationName: 'rnps-home',
@@ -14756,6 +14873,7 @@ const TelemetryEvents = [
   {
     type: 'Navigation',
     final: {
+      appName: 'game-hub',
       referrerApplicationName: 'game-hub',
       referrerScene:
         'post:add ons:pdp:TITLEID_SIE_SWQA_APP_E1_CN_EN-TITLEID_SIE_SWQA_APP_ADDON_VC_FOR_E1_PN_EN',

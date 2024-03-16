@@ -1,18 +1,10 @@
-import { VStack } from '../../../../../../common/mui-stacks.tsx';
+import { VStack } from '@common/mui-stacks.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import TelemetryRow from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/TelemetryRow.tsx';
-import { getEventDef } from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/utils/telemetry-utils.ts';
 
 export default function TelemetryList() {
-  const { displayEvents, eventTypeFilter } = useTelemetryStore();
+  const { displayEvents } = useTelemetryStore();
   const { eventForDetails, setEventForDetails } = useTelemetryStore();
-  const filteredEvents = displayEvents.filter((event) => {
-    if (eventTypeFilter.length < 1) {
-      return true;
-    }
-    const eventDef = getEventDef(event);
-    return eventTypeFilter.includes(eventDef.type);
-  });
 
   return (
     <VStack
@@ -22,7 +14,7 @@ export default function TelemetryList() {
       spacing={0}
       sx={{ maxWidth: '90vw' }}
     >
-      {filteredEvents.map((event, index) => (
+      {displayEvents.map((event, index) => (
         <TelemetryRow
           key={index}
           event={event}

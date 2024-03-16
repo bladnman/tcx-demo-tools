@@ -129,7 +129,7 @@ can always move things around.
 
 ### BUT, IS IT A FEATURE?
 
-My litmus test for whether something is a **feature** or a **part** is to ask
+My litmus testForActive for whether something is a **feature** or a **part** is to ask
 myself if someone looking at the current element would think of this new thing as a
 thing as a fundamental part of the current element. If the answer is yes, it's a
 **feature**. 

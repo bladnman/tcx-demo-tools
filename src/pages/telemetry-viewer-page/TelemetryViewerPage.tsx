@@ -8,8 +8,13 @@ import { Typography } from '@mui/material';
 
 export default function TelemetryViewerPage() {
   const appBarRef = useRef<HTMLDivElement>(null);
-  const { setAppBarHeight, setEventForDetails, eventForDetails } =
-    useTelemetryStore();
+  const {
+    setAppBarHeight,
+    setEventForDetails,
+    eventForDetails,
+    isFilterDrawerOpen,
+    setIsFilterDrawerOpen,
+  } = useTelemetryStore();
 
   useEffect(() => {
     // Measure the AppBar height and update state
@@ -20,10 +25,25 @@ export default function TelemetryViewerPage() {
   return (
     <AppLayoutDoubleDrawer
       title={<Typography variant={'title'}>Telemetry Viewer</Typography>}
-      leftDrawerContent={<TelemetryLeftDrawer />}
-      rightDrawerContent={<TelemetryRightDrawer />}
       mainContent={<TelemetryMainBody />}
       appBarRef={appBarRef}
+      leftDrawerContent={<TelemetryLeftDrawer />}
+      leftDrawerTitle={
+        <Typography variant="title" fontSize={'0.8em'}>
+          FILTERS
+        </Typography>
+      }
+      leftDrawerWidth={400}
+      isLeftDrawerOpen={isFilterDrawerOpen}
+      onLeftDrawerToggle={(isOpen) => {
+        setIsFilterDrawerOpen(isOpen);
+      }}
+      rightDrawerContent={<TelemetryRightDrawer />}
+      rightDrawerTitle={
+        <Typography variant="title" fontSize={'0.8em'}>
+          EVENT DETAILS
+        </Typography>
+      }
       showRightDrawerIcon={false}
       rightDrawerWidth={550}
       isRightDrawerOpen={!!eventForDetails}
