@@ -9,13 +9,24 @@ export default function FilterMenuItem({
   filterItem: TelemetryFilterItem;
   onClick: () => void;
 }) {
+  const fontSize = '0.9em';
   const color = filterItem.active ? 'appOrange' : 'appBg75';
   return (
     <HStack hFill left spacing={1} sx={{ cursor: 'pointer' }} onClick={onClick}>
       {/* seemingly incapable of quieting this lint error  */}
-      <Radio sx={{ p: 0 }} checked={filterItem.active} color={color} />
+      <Radio
+        sx={{ p: 0 }}
+        size={'small'}
+        checked={filterItem.active}
+        color={color}
+      />
       <HStack hFill spaceBetween>
-        <Typography>{filterItem.value}</Typography>
+        <Typography
+          fontSize={fontSize}
+          fontWeight={filterItem.active ? 'bold' : 'normal'}
+        >
+          {filterItem.value}
+        </Typography>
         <HStack
           sx={{
             borderRadius: '12%',
@@ -24,7 +35,7 @@ export default function FilterMenuItem({
           }}
           color={color}
         >
-          <Typography>{filterItem.count}</Typography>
+          <Typography fontSize={fontSize}>{filterItem.count}</Typography>
         </HStack>
       </HStack>
     </HStack>

@@ -28,6 +28,11 @@ type EventTypeDef = {
   abbreviation: string;
   color: string;
 };
+type EventFilterDef = {
+  type: string;
+  title: string;
+  defaultCollapsed: boolean;
+};
 type TokenMode = 'details' | 'tag' | 'icon';
 type TokenWidth = 'min' | 'max';
 type TokenColorMode = 'dual' | 'single' | 'none';
@@ -42,4 +47,15 @@ interface TelemetryTokenProps {
   tokenFontSize?: number;
   tokenColorMode?: TokenColorMode;
 }
-type FilterType = 'type' | 'platformType' | 'appName' | 'namespace';
+type FilterType =
+  | 'type'
+  | 'platformType'
+  | 'appName'
+  | 'namespace'
+  | 'vshErrorHexCode'
+  | 'severity'
+  | 'hostAppName'
+  | 'errorType'
+  | 'errorSubType'
+  | 'consoleSessionId'
+  | 'appInstanceId';

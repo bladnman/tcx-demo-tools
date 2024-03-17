@@ -2,11 +2,14 @@ import TelemetryFilterItem from '@pages/telemetry-viewer-page/utils/filter-utils
 
 class TelemetryFilter {
   type: FilterType;
+  name: string = '';
   items: TelemetryFilterItem[] = [];
+  collapsed: boolean = false;
 
-  constructor(type: FilterType, values?: string[]) {
-    this.type = type;
-    this.addValues(values);
+  constructor(def: EventFilterDef) {
+    this.name = def.title;
+    this.type = def.type as FilterType;
+    this.collapsed = def.defaultCollapsed;
   }
 
   get values(): string[] {

@@ -16,6 +16,6 @@ export function actionSaveFilters({
 
   return {
     filters: [...state.filters],
-    displayEvents,
+    displayEvents: [...displayEvents],
   };
 }

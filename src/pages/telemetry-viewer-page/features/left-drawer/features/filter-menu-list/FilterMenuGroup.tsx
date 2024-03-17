@@ -14,11 +14,19 @@ export default function FilterMenuGroup({
   filter: TelemetryFilter;
 }) {
   const { republishFilters } = useTelemetryStore();
-  const indentation = '0.4em';
+  const indentation = '2em';
   const renderTitle = () => {
     return (
-      <Typography fontFamily={'anton'} fontSize={'1.3em'} fontWeight={'bold'}>
-        {getNameForFilterType(filter.type)}
+      <Typography
+        fontFamily={'anton'}
+        fontSize={'0.8em'}
+        fontWeight={'bold'}
+        sx={{
+          color: filter.anyActive ? 'appOrange.main' : 'text.primary',
+          textTransform: 'uppercase',
+        }}
+      >
+        {filter.name}
       </Typography>
     );
   };
@@ -50,9 +58,10 @@ export default function FilterMenuGroup({
       <CollapsibleContainer
         title={renderTitle()}
         collapsedChildren={renderCollapsed()}
+        collapsed={filter.collapsed}
         sx={{ width: '100%', userSelect: 'none' }}
       >
-        <VStack topLeft hFill sx={{ pl: indentation }}>
+        <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>
           {filter.items.map((filterItem) => (
             <FilterMenuItem
               key={`${filter.type}-${filterItem.value}`}

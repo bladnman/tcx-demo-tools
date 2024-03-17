@@ -4,7 +4,8 @@ import type {} from '@redux-devtools/extension';
 import TelemetryFilter from '@pages/telemetry-viewer-page/utils/filter-utils/TelemetryFilter.ts';
 import { actionAddEvents } from '@pages/telemetry-viewer-page/store/actions/actionAddEvents.ts';
 import { actionActivateFilterValues } from '@pages/telemetry-viewer-page/store/actions/actionActivateFilterValues.ts';
-import { actionSaveFilters } from '@pages/telemetry-viewer-page/store/actions/actionSaveFilters.ts'; // required for devtools typing
+import { actionSaveFilters } from '@pages/telemetry-viewer-page/store/actions/actionSaveFilters.ts';
+import { EVENT_FILTER_TYPE } from '@pages/telemetry-viewer-page/utils/TELEM_CONST.ts'; // required for devtools typing
 
 export interface StoreAction {
   state: TelemetryStore;
@@ -51,12 +52,7 @@ const useTelemetryStore = create<TelemetryStore>()(
     maxEventCount: 10000,
     allowWrap: false,
     setAllowWrap: (allowWrap: boolean) => set({ allowWrap }),
-    filters: [
-      new TelemetryFilter('type'),
-      new TelemetryFilter('appName'),
-      new TelemetryFilter('platformType'),
-      new TelemetryFilter('namespace'),
-    ],
+    filters: EVENT_FILTER_TYPE.map((def) => new TelemetryFilter(def)),
     setFilters: (filters: TelemetryFilter[]) => set({ filters }),
     setActiveFilterValues: (filterType: FilterType, values: string[]) =>
       set((state) => actionActivateFilterValues({ state, filterType, values })),

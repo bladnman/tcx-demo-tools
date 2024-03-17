@@ -1,5 +1,4 @@
 import { HStack } from '@common/mui-stacks.tsx';
-import EventTypeAutocomplete from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/features/EventTypeAutocomplete.tsx';
 import TelemetryPublisher from '@pages/telemetry-viewer-page/features/TelemetryPublisher.tsx';
 import ClearButton from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/features/ClearButton.tsx';
 import WrapButton from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/features/WrapButton.tsx';
@@ -12,7 +11,6 @@ export default function TelemetryListTools() {
     <HStack spacing={2} sx={{ px: 1 }} hFill hAlign={'leading'}>
       <TelemetryPublisher />
       <WrapButton />
-      <EventTypeAutocomplete />
       <TokenSize />
       <TokenWidth />
       <TokenColorMode />
