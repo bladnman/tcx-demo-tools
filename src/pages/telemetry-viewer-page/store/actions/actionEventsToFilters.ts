@@ -8,17 +8,24 @@ export function actionAddEventsToFilters({
   state,
   events,
 }: StoreAction & { events: TelemetryEventMessage[] }): Partial<TelemetryStore> {
-  // let's add the events to the Filter items
-  state.filters.forEach((filter) => {
-    filter.incrementEvents(events);
-  });
+  // ADD TO EACH FILTER
+  state.filters.forEach((filter) => filter.incrementEvents(events));
 
+  // SEE WHICH EVENTS PASS THE FILTERS
   const filteredNewEvents = applyFilters(events, state.filters);
-  const newDisplayEvents = [...state.displayEvents, ...filteredNewEvents];
+
+  // ADD PASSES TO DISPLAY EVENTS
+  const newDisplayEvents = filteredNewEvents.length
+    ? [...state.displayEvents, ...filteredNewEvents]
+    : null;
+
   return {
     // mark filters as dirty
     filters: [...state.filters],
+
     // splice off if we are over maxEventCount
-    displayEvents: newDisplayEvents.splice(0, state.maxEventCount - 1),
+    displayEvents: newDisplayEvents
+      ? newDisplayEvents.splice(0, state.maxEventCount - 1)
+      : state.displayEvents,
   };
 }

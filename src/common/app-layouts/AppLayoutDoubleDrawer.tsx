@@ -138,7 +138,7 @@ export default function AppLayoutDoubleDrawer({
             hAlign={'trailing'}
             sx={{ justifyContent: 'space-between', paddingLeft: '1em' }}
           >
-            {leftDrawerTitle}
+            <HStack>{leftDrawerTitle}</HStack>
             <Box
               sx={{
                 display: 'flex',
@@ -186,7 +186,7 @@ export default function AppLayoutDoubleDrawer({
                 <ChevronRightIcon />
               </IconButton>
             </Box>
-            {rightDrawerTitle}
+            <HStack>{rightDrawerTitle}</HStack>
           </HStack>
 
           <VStack fill sx={{ overflow: 'hidden' }}>

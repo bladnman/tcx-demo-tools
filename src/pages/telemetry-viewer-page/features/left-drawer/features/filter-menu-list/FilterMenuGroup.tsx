@@ -1,12 +1,11 @@
-import getNameForFilterType from '@pages/telemetry-viewer-page/utils/filter-utils/getNameForFilterType.ts';
-import TelemetryFilter from '@pages/telemetry-viewer-page/utils/filter-utils/TelemetryFilter.ts';
+import TelemetryFilter from '@pages/telemetry-viewer-page/classes/TelemetryFilter.ts';
 import { VStack } from '@common/mui-stacks.tsx';
-import FilterMenuItem from '@pages/telemetry-viewer-page/features/left-drawer/features/filter-menu-list/FilterMenuItem.tsx';
 import { Typography } from '@mui/material';
 import CollapsibleContainer from '@common/CollapsableContainer.tsx';
-import TelemetryFilterItem from '@pages/telemetry-viewer-page/utils/filter-utils/TelemetryFilterItem.ts';
+import TelemetryFilterItem from '@pages/telemetry-viewer-page/classes/TelemetryFilterItem.ts';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { useCallback } from 'react';
+import SelectionMenuItem from '@pages/telemetry-viewer-page/features/left-drawer/components/SelectionMenuItem.tsx';
 
 export default function FilterMenuGroup({
   filter,
@@ -44,9 +43,11 @@ export default function FilterMenuGroup({
     return (
       <VStack topLeft hFill sx={{ pl: indentation }}>
         {activeItems.map((filterItem) => (
-          <FilterMenuItem
+          <SelectionMenuItem
             key={`${filter.type}-${filterItem.value}`}
-            filterItem={filterItem}
+            title={filterItem.value}
+            active={filterItem.active}
+            count={filterItem.count}
             onClick={() => handleFilterItemClick(filterItem)}
           />
         ))}
@@ -60,12 +61,18 @@ export default function FilterMenuGroup({
         collapsedChildren={renderCollapsed()}
         collapsed={filter.collapsed}
         sx={{ width: '100%', userSelect: 'none' }}
+        onToggleCollapse={(isCollapsed) => {
+          filter.collapsed = isCollapsed;
+          republishFilters();
+        }}
       >
         <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>
           {filter.items.map((filterItem) => (
-            <FilterMenuItem
+            <SelectionMenuItem
               key={`${filter.type}-${filterItem.value}`}
-              filterItem={filterItem}
+              title={filterItem.value}
+              active={filterItem.active}
+              count={filterItem.count}
               onClick={() => handleFilterItemClick(filterItem)}
             />
           ))}

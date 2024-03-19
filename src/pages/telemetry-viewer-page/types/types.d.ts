@@ -33,6 +33,34 @@ type EventFilterDef = {
   title: string;
   defaultCollapsed: boolean;
 };
+type FilterType =
+  | 'type'
+  | 'platformType'
+  | 'locationScene'
+  | 'appName'
+  | 'namespace'
+  | 'vshErrorHexCode'
+  | 'severity'
+  | 'hostAppName'
+  | 'errorType'
+  | 'errorSubType'
+  | 'consoleSessionId'
+  | 'appInstanceId';
+
+interface FieldDefinition {
+  field: string;
+  title: string;
+  divider?: {
+    isAvailable: boolean;
+    isDefault: boolean;
+  };
+  filter?: {
+    isAvailable: boolean;
+    isDefault: boolean;
+    isDefaultCollapsed: boolean;
+  };
+  color?: string;
+}
 type TokenMode = 'details' | 'tag' | 'icon';
 type TokenWidth = 'min' | 'max';
 type TokenColorMode = 'dual' | 'single' | 'none';
@@ -47,15 +75,3 @@ interface TelemetryTokenProps {
   tokenFontSize?: number;
   tokenColorMode?: TokenColorMode;
 }
-type FilterType =
-  | 'type'
-  | 'platformType'
-  | 'appName'
-  | 'namespace'
-  | 'vshErrorHexCode'
-  | 'severity'
-  | 'hostAppName'
-  | 'errorType'
-  | 'errorSubType'
-  | 'consoleSessionId'
-  | 'appInstanceId';

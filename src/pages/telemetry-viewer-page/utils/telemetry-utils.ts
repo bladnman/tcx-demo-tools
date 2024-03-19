@@ -1,4 +1,4 @@
-import { EVENT_TYPE_DEF } from './TELEM_CONST.ts';
+import { EVENT_TYPE_DEF } from '../constants/EVENT_TYPE.ts';
 import { EventTypes } from '../types/event-types.ts';
 
 export function getEventDef(event: TelemetryEventMessage) {
@@ -111,4 +111,16 @@ function _getEventStr(event: Hash, field: string, prefix?: string) {
   const val = event[field];
   if (val === undefined) return undefined;
   return [prefix, val].filter((v) => v !== undefined).join(': ');
+}
+export function cleanedFieldValue(
+  field: string | undefined,
+  value: string | undefined,
+) {
+  if (!field || !value) return value;
+  switch (field) {
+    case 'locationScene':
+      return getSimpleSceneName(value);
+    default:
+      return value;
+  }
 }

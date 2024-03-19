@@ -28,11 +28,6 @@ export default function TelemetryViewerPage() {
       mainContent={<TelemetryMainBody />}
       appBarRef={appBarRef}
       leftDrawerContent={<TelemetryLeftDrawer />}
-      leftDrawerTitle={
-        <Typography variant="title" fontSize={'0.8em'}>
-          FILTERS
-        </Typography>
-      }
       leftDrawerWidth={400}
       isLeftDrawerOpen={isFilterDrawerOpen}
       onLeftDrawerToggle={(isOpen) => {

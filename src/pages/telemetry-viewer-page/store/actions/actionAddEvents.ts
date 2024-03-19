@@ -9,10 +9,15 @@ export function actionAddEvents({
   state,
   events,
 }: StoreAction & { events: TelemetryEventMessage[] }): Partial<TelemetryStore> {
-  const newSpreadEvents = getEventsFromReceivedData(events); // conditionally explodes the events
-  const newAllEvents = [...state.allEvents, ...newSpreadEvents];
+  // EXPLODE THE EVENTS (if necessary)
+  const explodedEvents = getEventsFromReceivedData(events);
+
   return {
-    ...actionAddEventsToFilters({ state, events: newSpreadEvents }),
-    allEvents: newAllEvents,
+    // spread whatever this action authors
+    // (displayEvents, filters, etc.)
+    ...actionAddEventsToFilters({ state, events: explodedEvents }),
+
+    // post the data this action authors
+    allEvents: [...state.allEvents, ...explodedEvents],
   };
 }

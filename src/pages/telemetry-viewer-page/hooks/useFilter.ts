@@ -1,6 +1,6 @@
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { useCallback, useMemo } from 'react';
-import TelemetryFilter from '@pages/telemetry-viewer-page/utils/filter-utils/TelemetryFilter.ts';
+import TelemetryFilter from '@pages/telemetry-viewer-page/classes/TelemetryFilter.ts';
 
 export default function useFilter(
   type: FilterType,

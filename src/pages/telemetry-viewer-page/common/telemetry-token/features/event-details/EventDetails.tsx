@@ -1,4 +1,4 @@
-import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/utils/TELEM_CONST.ts';
+import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import {
   getEventDef,
   getSimpleSceneName,

@@ -1,15 +1,17 @@
-import TelemetryFilterItem from '@pages/telemetry-viewer-page/utils/filter-utils/TelemetryFilterItem.ts';
+import TelemetryFilterItem from '@pages/telemetry-viewer-page/classes/TelemetryFilterItem.ts';
 
 class TelemetryFilter {
   type: FilterType;
+  field: FilterType;
   name: string = '';
   items: TelemetryFilterItem[] = [];
   collapsed: boolean = false;
 
-  constructor(def: EventFilterDef) {
-    this.name = def.title;
-    this.type = def.type as FilterType;
-    this.collapsed = def.defaultCollapsed;
+  constructor(fieldDef: FieldDefinition) {
+    this.name = fieldDef.title;
+    this.type = fieldDef.field as FilterType; // TODO: is this real? can we just use strings here?
+    this.field = fieldDef.field as FilterType; // TODO: is this real? can we just use strings here?
+    this.collapsed = fieldDef.filter?.isDefaultCollapsed ?? false;
   }
 
   get values(): string[] {

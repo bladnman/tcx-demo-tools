@@ -5,7 +5,7 @@ import FilterMenuGroup from '@pages/telemetry-viewer-page/features/left-drawer/f
 export default function FilterMenuList() {
   const { filters } = useTelemetryStore();
   return (
-    <VStack fill topLeft spacing={0}>
+    <VStack hFill topLeft spacing={0}>
       {filters.map((filter) => (
         <FilterMenuGroup key={filter.type} filter={filter} />
       ))}

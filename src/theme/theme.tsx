@@ -38,16 +38,22 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       appPurple: ['#7129f6', '#7129F6'],
       appPink: ['#f629d7', '#f629d7'],
       appSlate: ['#769386', '#769386'],
-      appGray: ['#8b8b8b', '#8b8b8b'],
+      appGray: ['#8b8bE8b', '#8b8b8b'],
       appGrayDark: ['#464646', '#464646'],
 
       appBg25: ['#3e3e3e', '#cecece'],
       appBg50: ['#8b8b8b', '#8b8b8b'],
       appBg75: ['#cecece', '#3e3e3e'],
+      bg25: ['#3e3e3e', '#cecece'],
+      bg50: ['#8b8b8b', '#8b8b8b'],
+      bg75: ['#cecece', '#3e3e3e'],
 
       appFg25: ['#cecece', '#3e3e3e'],
       appFg50: ['#8b8b8b', '#8b8b8b'],
       appFg75: ['#3e3e3e', '#cecece'],
+      fg25: ['#cecece', '#3e3e3e'],
+      fg50: ['#8b8b8b', '#8b8b8b'],
+      fg75: ['#3e3e3e', '#cecece'],
 
       // TOKEN COLORS
       tokenYellow: ['#E3CF44', '#E3CF44'],
@@ -144,6 +150,14 @@ export const createDynamicTheme = (
       tokenDetailMessage: {
         fontFamily: 'elza-narrow, Arial, sans-serif',
         fontSize: '0.85em',
+      },
+      dividerValue: {
+        fontFamily: 'urbana, Arial, sans-serif',
+        fontSize: '1.4em',
+      },
+      dividerField: {
+        fontFamily: 'elza-narrow, Arial, sans-serif',
+        fontSize: '1em',
       },
     },
   });

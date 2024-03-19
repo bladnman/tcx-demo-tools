@@ -6,7 +6,7 @@ import FlagIcon from '@mui/icons-material/Flag';
 import NearbyErrorIcon from '@mui/icons-material/NearbyError';
 import SignalWifiStatusbarConnectedNoInternet4Icon from '@mui/icons-material/SignalWifiStatusbarConnectedNoInternet4';
 import AssistantDirectionIcon from '@mui/icons-material/AssistantDirection';
-import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/utils/TELEM_CONST.ts';
+import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import { getEventDef } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 export default function EventIcon({
   event,
