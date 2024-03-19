@@ -1,31 +1,51 @@
 import CollapsibleContainer from '@common/CollapsableContainer.tsx';
 import SelectionMenuItem from '@pages/telemetry-viewer-page/features/left-drawer/components/SelectionMenuItem.tsx';
 import { VStack } from '@common/mui-stacks.tsx';
-import { getAllDividerFieldDefs } from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useDividerDefinitions from '@pages/telemetry-viewer-page/features/left-drawer/features/divier-menu-list/hooks/useDividerDefinitions.ts';
+import { Typography } from '@mui/material';
 
 export default function DividerMenuList() {
-  const { dividerField, setDividerField } = useTelemetryStore();
   const indentation = '2em';
-  const dividers = getAllDividerFieldDefs();
-  const handleItemClick = (item: FieldDefinition) => {
-    setDividerField(item.field);
+  const { dividerFieldList, selectedDividerFields, toggleDivider } =
+    useDividerDefinitions();
+
+  const renderTitle = () => {
+    return (
+      <Typography fontFamily={'anton'} fontSize={'0.8em'} fontWeight={'bold'}>
+        DIVIDERS
+      </Typography>
+    );
+  };
+  const renderItem = (item: FieldDefinition) => {
+    return (
+      <SelectionMenuItem
+        key={`${item.field}`}
+        title={item.title}
+        active={selectedDividerFields.includes(item.field)}
+        onClick={() => toggleDivider(item)}
+      />
+    );
+  };
+  const renderCollapsed = () => {
+    return (
+      <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>
+        {selectedDividerFields.map((field) => {
+          const def = dividerFieldList.find((item) => item.field === field);
+          if (!def) return null;
+          return <>{renderItem(def)}</>;
+        })}
+      </VStack>
+    );
   };
   return (
     <CollapsibleContainer
-      title={'Dividers'}
-      collapsed={false}
+      title={renderTitle()}
+      collapsed={true}
       sx={{ width: '100%' }}
+      collapsedChildren={renderCollapsed()}
     >
       <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>
-        {dividers.map((item) => (
-          <SelectionMenuItem
-            key={`${item.field}`}
-            title={item.title}
-            active={item.field === dividerField}
-            onClick={() => handleItemClick(item)}
-          />
-        ))}
+        {dividerFieldList.map((def) => renderItem(def))}
       </VStack>
     </CollapsibleContainer>
   );

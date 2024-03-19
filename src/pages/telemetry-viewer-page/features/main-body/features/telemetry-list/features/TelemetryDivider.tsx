@@ -1,22 +1,24 @@
-import { HStack } from '@common/mui-stacks.tsx';
+import { HStack, StackProps } from '@common/mui-stacks.tsx';
 import { Typography } from '@mui/material';
 
-export default function TelemetryDivider({
-  field,
-  value,
-}: {
+interface TelemetryDividerProps extends StackProps {
   field: string;
   value: string;
-}) {
+}
+export default function TelemetryDivider(props: TelemetryDividerProps) {
+  const { field, value, sx: inSx, ...otherProps } = props;
   return (
     <HStack
       hFill
       spaceBetween
       sx={{
         px: 1,
-        pt: 3,
+        pt: 1,
         pb: 1,
+        ...inSx,
       }}
+      {...otherProps}
+      data-id={'telemetry-divider'}
     >
       <Typography
         variant={'dividerValue'}

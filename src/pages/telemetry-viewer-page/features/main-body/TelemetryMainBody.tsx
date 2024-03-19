@@ -50,8 +50,8 @@ export default function TelemetryMainBody() {
         fill
         vAlign={'leading'}
         hAlign={'leading'}
-        padding={1}
         sx={{
+          px: 1,
           overflow: 'auto',
         }}
         ref={containerRef}

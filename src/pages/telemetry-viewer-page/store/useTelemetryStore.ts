@@ -40,8 +40,8 @@ export interface TelemetryStore {
   setTokenWidth: (tokenWidth: TokenWidth) => void;
   tokenMode: TokenMode;
   setTokenMode: (tokenMode: TokenMode) => void;
-  dividerField: string | undefined;
-  setDividerField: (dividerField: string) => void;
+  dividerFields: string[];
+  setDividerFields: (dividerFields: string[]) => void;
 
   // MAIN BODY
   isFilterDrawerOpen: boolean;
@@ -61,7 +61,7 @@ const useTelemetryStore = create<TelemetryStore>()(
       setAllowWrap: (allowWrap: boolean) => set({ allowWrap }),
       filters: initializeFilters(),
       setFilters: (filters: TelemetryFilter[]) =>
-        set((state) => actionSetFilters({ state, filters })),
+        set((state) => actionSetFilters({ state, filters: [...filters] })),
       setActiveFilterValues: (filterType: FilterType, values: string[]) =>
         set((state) =>
           actionActivateFilterValues({ state, filterType, values }),
@@ -77,7 +77,7 @@ const useTelemetryStore = create<TelemetryStore>()(
         }),
       eventTypeFilter: [],
       setEventTypeFilter: (eventTypeFilter: string[]) =>
-        set({ eventTypeFilter }),
+        set({ eventTypeFilter: [...eventTypeFilter] }),
       eventForDetails: null,
       setEventForDetails: (event: TelemetryEventMessage | null) =>
         set({ eventForDetails: event }),
@@ -92,8 +92,9 @@ const useTelemetryStore = create<TelemetryStore>()(
       setTokenWidth: (tokenWidth: TokenWidth) => set({ tokenWidth }),
       tokenMode: 'details',
       setTokenMode: (tokenMode: TokenMode) => set({ tokenMode }),
-      dividerField: undefined,
-      setDividerField: (dividerField: string) => set({ dividerField }),
+      dividerFields: initializeDividerFields(),
+      setDividerFields: (dividerFields: string[]) =>
+        set({ dividerFields: [...dividerFields] }),
 
       // MAIN BODY
       isFilterDrawerOpen: true,
@@ -108,6 +109,7 @@ const useTelemetryStore = create<TelemetryStore>()(
             field: f.field,
             isCollapsed: f.collapsed,
           })),
+          __divider_fields: state.dividerFields ?? [],
         };
       },
     },
@@ -115,6 +117,7 @@ const useTelemetryStore = create<TelemetryStore>()(
 );
 interface SavedTelemetryStore {
   __filter_fields: { field: string; isCollapsed: boolean }[];
+  __divider_fields: string[];
 }
 export default useTelemetryStore;
 function initializeFilters() {
@@ -140,6 +143,9 @@ function initializeFilters() {
   return getDefaultFiltersFieldDefs().map(
     (fieldDef) => new TelemetryFilter(fieldDef),
   );
+}
+function initializeDividerFields() {
+  return getSavedStore().__divider_fields || [];
 }
 function getSavedStore(): SavedTelemetryStore {
   const savedStore = JSON.parse(

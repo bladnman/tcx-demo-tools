@@ -7,6 +7,10 @@ const FIELD_DEF: FieldDefinition[] = [
       isDefault: true,
       isDefaultCollapsed: false,
     },
+    divider: {
+      isAvailable: true,
+      isDefault: false,
+    },
   },
   {
     field: 'appName',

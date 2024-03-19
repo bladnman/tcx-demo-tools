@@ -1,15 +1,13 @@
 import TelemetryEventToken from '@pages/telemetry-viewer-page/common/telemetry-token/TelemetryEventToken.tsx';
-import { HStack } from '@common/mui-stacks';
+import { HStack, StackProps } from '@common/mui-stacks';
 
-export default function TelemetryRow({
-  event,
-  onClick,
-  selected = false,
-}: {
+interface TelemetryRowProps extends StackProps {
   event: TelemetryEventMessage;
   onClick?: () => void;
   selected?: boolean;
-}) {
+}
+export default function TelemetryRow(props: TelemetryRowProps) {
+  const { event, onClick, selected = false, sx: inSx, ...otherProps } = props;
   return (
     <HStack
       hFill
@@ -22,8 +20,11 @@ export default function TelemetryRow({
         wordBreak: 'break-word',
         cursor: 'pointer',
         backgroundColor: selected ? 'primary.main' : 'transparent',
+        ...inSx,
       }}
       onClick={onClick}
+      data-id={'telemetry-row'}
+      {...otherProps}
     >
       <TelemetryEventToken event={event} />
     </HStack>
