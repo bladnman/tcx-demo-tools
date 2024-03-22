@@ -7,7 +7,9 @@ import applyFilters from '@pages/telemetry-viewer-page/utils/filter-utils/applyF
 export function actionAddEventsToFilters({
   state,
   events,
-}: StoreAction & { events: TelemetryEventMessage[] }): Partial<TelemetryStore> {
+}: StoreAction & {
+  events: TVEvent[];
+}): Partial<TelemetryStore> {
   // ADD TO EACH FILTER
   state.filters.forEach((filter) => filter.incrementEvents(events));
 

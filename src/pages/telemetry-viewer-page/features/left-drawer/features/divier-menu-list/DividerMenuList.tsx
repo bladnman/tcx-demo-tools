@@ -1,6 +1,6 @@
 import CollapsibleContainer from '@common/CollapsableContainer.tsx';
 import SelectionMenuItem from '@pages/telemetry-viewer-page/features/left-drawer/components/SelectionMenuItem.tsx';
-import { VStack } from '@common/mui-stacks.tsx';
+import { HStack, VStack } from '@common/mui-stacks.tsx';
 import useDividerDefinitions from '@pages/telemetry-viewer-page/features/left-drawer/features/divier-menu-list/hooks/useDividerDefinitions.ts';
 import { Typography } from '@mui/material';
 
@@ -32,7 +32,11 @@ export default function DividerMenuList() {
         {selectedDividerFields.map((field) => {
           const def = dividerFieldList.find((item) => item.field === field);
           if (!def) return null;
-          return <>{renderItem(def)}</>;
+          return (
+            <HStack hFill key={field}>
+              {renderItem(def)}
+            </HStack>
+          );
         })}
       </VStack>
     );

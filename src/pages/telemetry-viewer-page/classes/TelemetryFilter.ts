@@ -1,4 +1,5 @@
 import TelemetryFilterItem from '@pages/telemetry-viewer-page/classes/TelemetryFilterItem.ts';
+import { getValueFromEvent } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 
 class TelemetryFilter {
   type: FilterType;
@@ -53,7 +54,7 @@ class TelemetryFilter {
       /**
        * Oddly, we need to be able to 'activate' values
        * that this filter has not yet seen. This will allow us
-       * to rebuild old filters (eg. from disk)
+       * to rebuild old filters (e.g. from disk)
        */
       if (!item) {
         item = this.addValue(value);
@@ -74,30 +75,26 @@ class TelemetryFilter {
     });
   }
 
-  incrementEvents(
-    events: TelemetryEventMessage | TelemetryEventMessage[] | undefined,
-  ) {
+  incrementEvents(events: TVEvent | TVEvent[] | undefined) {
     if (!events) return;
     if (!Array.isArray(events)) {
       events = [events];
     }
     const values = events
-      .map((event: TelemetryEventMessage) => {
-        return event.final[this.type] as string;
+      .map((event: TVEvent) => {
+        return this.valueForEvent(event);
       })
       .filter((v) => v !== undefined);
     this.incrementValues(values as string[]);
   }
-  decrementEvents(
-    events: TelemetryEventMessage | TelemetryEventMessage[] | undefined,
-  ) {
+  decrementEvents(events: TVEvent | TVEvent[] | undefined) {
     if (!events) return;
     if (!Array.isArray(events)) {
       events = [events];
     }
     const values = events
-      .map((event: TelemetryEventMessage) => {
-        return event.final[this.type] as string;
+      .map((event: TVEvent) => {
+        return this.valueForEvent(event);
       })
       .filter((v) => v !== undefined);
     this.decrementValues(values as string[]);
@@ -156,17 +153,21 @@ class TelemetryFilter {
     });
   }
 
-  testForActive(event: TelemetryEventMessage) {
-    if (this.items.length === 0) return true; // no items -- pass
-    if (!this.anyActive) return true; // property does not exist in event -- pass
-
-    return this.activeValues.includes(event.final[this.type]);
+  private valueForEvent(event: TVEvent): string {
+    return getValueFromEvent(event, this.type) ?? 'Unknown';
   }
-  testExists(event: TelemetryEventMessage) {
+
+  testForActive(event: TVEvent) {
     if (this.items.length === 0) return true; // no items -- pass
     if (!this.anyActive) return true; // property does not exist in event -- pass
 
-    return this.values.includes(event.final[this.type]);
+    return this.activeValues.includes(this.valueForEvent(event));
+  }
+  testExists(event: TVEvent) {
+    if (this.items.length === 0) return true; // no items -- pass
+    if (!this.anyActive) return true; // property does not exist in event -- pass
+
+    return this.values.includes(this.valueForEvent(event));
   }
 }
 

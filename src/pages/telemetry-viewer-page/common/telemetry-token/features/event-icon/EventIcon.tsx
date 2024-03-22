@@ -12,7 +12,7 @@ export default function EventIcon({
   event,
   fontSize = '1em',
 }: {
-  event: TelemetryEventMessage;
+  event: TVEvent;
   fontSize?: string;
 }) {
   const eventDef = getEventDef(event);

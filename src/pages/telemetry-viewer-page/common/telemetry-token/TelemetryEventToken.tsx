@@ -5,7 +5,7 @@ import EventDetails from '@pages/telemetry-viewer-page/common/telemetry-token/fe
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 
 interface TelemetryEventTokenProps extends TelemetryTokenProps {
-  event: TelemetryEventMessage;
+  event: TVEvent;
 }
 export default function TelemetryEventToken(props: TelemetryEventTokenProps) {
   const { event } = props;

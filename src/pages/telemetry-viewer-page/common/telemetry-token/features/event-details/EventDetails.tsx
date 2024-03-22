@@ -10,7 +10,7 @@ export default function EventDetails({
   colorMode = 'dual',
   displayMode = 'details',
 }: {
-  event: TelemetryEventMessage;
+  event: TVEvent;
   fontSize?: string;
   colorMode?: TokenColorMode;
   displayMode?: TokenMode;
@@ -23,25 +23,27 @@ export default function EventDetails({
 
   switch (eventDef) {
     case EVENT_TYPE_DEF.ViewableImpression:
-      highlight = event.final.visualEntityType;
-      message = event.final.interactCta;
+      highlight = event.tdEvent.clientEvent?.visualEntityType;
+      message = event.tdEvent.clientEvent?.interactCta;
       break;
     case EVENT_TYPE_DEF.Interaction:
-      highlight = event.final.interactAction;
-      message = event.final.interactCta;
+      highlight = event.tdEvent.clientEvent?.interactAction;
+      message = event.tdEvent.clientEvent?.interactCta;
       break;
     case EVENT_TYPE_DEF.Navigation:
-      highlight = getSimpleSceneName(event.final.locationScene);
+      highlight = getSimpleSceneName(event.tdEvent.clientEvent?.locationScene);
       message = 'location';
       color = 'tokenDetailsFGBlue.main';
       break;
     case EVENT_TYPE_DEF.NetworkError:
     case EVENT_TYPE_DEF.ApplicationError:
-      highlight = event.final.severity;
-      message = `${event.final.vshErrorHexCode} | ${event.final.errorMessage}`;
-      if (event.final.severity === 'critical') color = 'tokenDetailsFGRed.main';
-      if (event.final.severity === 'major') color = 'tokenDetailsFGRed.main';
-      if (event.final.severity === 'normal')
+      highlight = event.tdEvent.clientEvent?.severity;
+      message = `${event.tdEvent.clientEvent?.vshErrorHexCode} | ${event.tdEvent.clientEvent?.errorMessage}`;
+      if (event.tdEvent.clientEvent?.severity === 'critical')
+        color = 'tokenDetailsFGRed.main';
+      if (event.tdEvent.clientEvent?.severity === 'major')
+        color = 'tokenDetailsFGRed.main';
+      if (event.tdEvent.clientEvent?.severity === 'normal')
         color = 'tokenDetailsFGOrange.main';
       break;
     case EVENT_TYPE_DEF.Startup:
@@ -49,7 +51,7 @@ export default function EventDetails({
       color = 'tokenDetailsFGRed.main';
       break;
     case EVENT_TYPE_DEF.LoadTime:
-      const metric = event.final.metricsData?.[0];
+      const metric = event.tdEvent.clientEvent?.metricsData?.[0];
       highlight = formatMilliseconds(metric?.latency ?? 0);
       message = metric?.metric;
       color = 'tokenDetailsFGOrange.main';
@@ -58,7 +60,7 @@ export default function EventDetails({
       }
       break;
     default:
-      message = event.final?.type;
+      message = event.tdEvent.clientEvent?.type;
       color = 'tokenDetailsFG.main';
       break;
   }

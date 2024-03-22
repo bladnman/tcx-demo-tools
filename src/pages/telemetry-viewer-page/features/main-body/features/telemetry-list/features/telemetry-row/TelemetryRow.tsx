@@ -2,7 +2,7 @@ import TelemetryEventToken from '@pages/telemetry-viewer-page/common/telemetry-t
 import { HStack, StackProps } from '@common/mui-stacks';
 
 interface TelemetryRowProps extends StackProps {
-  event: TelemetryEventMessage;
+  event: TVEvent;
   onClick?: () => void;
   selected?: boolean;
 }

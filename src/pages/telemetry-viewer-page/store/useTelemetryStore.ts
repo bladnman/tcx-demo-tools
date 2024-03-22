@@ -15,10 +15,10 @@ export interface StoreAction {
   state: TelemetryStore;
 }
 export interface TelemetryStore {
-  displayEvents: TelemetryEventMessage[];
+  displayEvents: TVEvent[];
   clearDisplayEvents: () => void;
-  allEvents: TelemetryEventMessage[];
-  addEvents: (events: TelemetryEventMessage[]) => void;
+  allEvents: TVEvent[];
+  addEvents: (events: TVEvent[]) => void;
   maxEventCount: number;
   allowWrap: boolean;
   setAllowWrap: (allowWrap: boolean) => void;
@@ -28,8 +28,8 @@ export interface TelemetryStore {
   setActiveFilterValues: (filterType: FilterType, values: string[]) => void;
   eventTypeFilter: string[];
   setEventTypeFilter: (eventCodeFilter: string[]) => void;
-  eventForDetails: TelemetryEventMessage | null;
-  setEventForDetails: (event: TelemetryEventMessage | null) => void;
+  eventForDetails: TVEvent | null;
+  setEventForDetails: (event: TVEvent | null) => void;
   appBarHeight: number;
   setAppBarHeight: (height: number) => void;
   tokenColorMode: TokenColorMode;
@@ -54,7 +54,7 @@ const useTelemetryStore = create<TelemetryStore>()(
       displayEvents: [],
       clearDisplayEvents: () => set({ displayEvents: [] }),
       allEvents: [],
-      addEvents: (events: TelemetryEventMessage[]) =>
+      addEvents: (events: TVEvent[]) =>
         set((state) => actionAddEvents({ state, events })),
       maxEventCount: 10000,
       allowWrap: false,
@@ -79,7 +79,7 @@ const useTelemetryStore = create<TelemetryStore>()(
       setEventTypeFilter: (eventTypeFilter: string[]) =>
         set({ eventTypeFilter: [...eventTypeFilter] }),
       eventForDetails: null,
-      setEventForDetails: (event: TelemetryEventMessage | null) =>
+      setEventForDetails: (event: TVEvent | null) =>
         set({ eventForDetails: event }),
       appBarHeight: 0,
       setAppBarHeight: (height: number) => set({ appBarHeight: height }),

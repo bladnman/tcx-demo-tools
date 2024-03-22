@@ -1,7 +1,7 @@
 import { EVENT_TYPE_DEF } from '../constants/EVENT_TYPE.ts';
 import { EventTypes } from '../types/event-types.ts';
 
-export function getEventDef(event: TelemetryEventMessage) {
+export function getEventDef(event: TVEvent) {
   return EVENT_TYPE_DEF[event.type as EventTypes] ?? EVENT_TYPE_DEF.Other;
 }
 export function getImpressionMessage(event: Hash) {
@@ -123,4 +123,18 @@ export function cleanedFieldValue(
     default:
       return value;
   }
+}
+export function getValueFromEvent(event: TVEvent, field: string) {
+  const clientEvent = event.tdEvent.clientEvent ?? {};
+  const firstDispatched = event.tdEvent.dispatchedEvents?.[0] ?? {};
+  const inputEvent = (firstDispatched as Hash).inputEvent ?? {};
+  const filteredEvent = (firstDispatched as Hash).filteredEvent ?? {};
+  const value = getFromFirst([clientEvent, inputEvent, filteredEvent], field);
+  return cleanedFieldValue(field, value);
+}
+export function getFromFirst(objects: Hash[], field: string) {
+  for (const obj of objects) {
+    if (obj[field]) return obj[field];
+  }
+  return undefined;
 }

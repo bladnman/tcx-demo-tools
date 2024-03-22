@@ -1,9 +1,9 @@
 import TelemetryFilter from '@pages/telemetry-viewer-page/classes/TelemetryFilter.ts';
 
 export default function applyFilters(
-  events: TelemetryEventMessage[],
+  events: TVEvent[],
   filters: TelemetryFilter[],
-): TelemetryEventMessage[] {
+): TVEvent[] {
   // no filters -- return all events
   if (filters.length === 0) return events;
   const anyActive = filters.some((filter) => filter.anyActive);

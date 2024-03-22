@@ -1,9 +1,12 @@
-import { HStack, VStack } from '@common/mui-stacks.tsx';
+import { VStack } from '@common/mui-stacks.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import TelemetryRow from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/TelemetryRow.tsx';
 import { ReactNode, useRef } from 'react';
 import TelemetryDivider from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/TelemetryDivider.tsx';
-import { cleanedFieldValue } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
+import {
+  cleanedFieldValue,
+  getValueFromEvent,
+} from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 
 export default function TelemetryList() {
   const { displayEvents } = useTelemetryStore();
@@ -14,14 +17,13 @@ export default function TelemetryList() {
   const renderRows = () => {
     const rows: ReactNode[] = [];
     displayEvents.forEach((event, index) => {
-      let isFirstDividerChange = true;
       if (dividerFields.length > 0) {
         for (let i = 0; i < dividerFields.length; i++) {
           const dividerField = dividerFields[i];
           const dividerValue = dividerValues[i];
           const eventValue = cleanedFieldValue(
             dividerField,
-            (event.final as Hash)[dividerField],
+            getValueFromEvent(event, dividerField) ?? 'Unknown',
           );
 
           if (dividerValue !== eventValue) {
@@ -37,7 +39,6 @@ export default function TelemetryList() {
                 value={dividerValues[i] ?? ''}
                 sx={{
                   pl: `${i}em`,
-                  // pt: isFirstDividerChange ? 3 : 0,
                   pt: 0,
                   pb: 0,
                   position: 'sticky',
@@ -46,7 +47,6 @@ export default function TelemetryList() {
                 }}
               />,
             );
-            isFirstDividerChange = false;
           }
         }
       }

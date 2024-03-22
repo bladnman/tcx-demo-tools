@@ -22,6 +22,32 @@ type TelemetryEventMessage = {
   final: Hash;
   request?: Hash;
 };
+interface TVEventSummary {
+  tracingId: string;
+  type: string;
+  namespace: string;
+  appName?: string;
+  platformType?: string;
+}
+interface TVEvent extends TVEventSummary {
+  tdEvent: TelemetryDebuggerEvent;
+}
+interface TelemetryDebuggerEvent {
+  id: string;
+  eventName: string;
+  appName: string | null;
+  clientEvent: Hash | null;
+  dispatchedEvents:
+    | null
+    | [
+        {
+          inputEvent?: Hash | null;
+          filteredEvent?: Hash | null;
+          payloads: Hash | null;
+          failures: Hash | null;
+        },
+      ];
+}
 type EventTypeDef = {
   type: string;
   icon: string;

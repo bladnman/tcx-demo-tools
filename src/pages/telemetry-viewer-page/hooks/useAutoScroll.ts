@@ -26,7 +26,7 @@ const useAutoScroll = ({
     if (userHasScrolledUp || !containerRef.current) return;
 
     const scrollHeight = containerRef.current.scrollHeight;
-    containerRef.current.scrollTo({ top: scrollHeight, behavior: 'smooth' });
+    containerRef.current.scrollTo({ top: scrollHeight, behavior: 'instant' });
   }, [userHasScrolledUp]);
 
   useEffect(() => {
