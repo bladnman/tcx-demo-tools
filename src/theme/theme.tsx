@@ -41,12 +41,21 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       appGray: ['#8b8bE8b', '#8b8b8b'],
       appGrayDark: ['#464646', '#464646'],
 
+      appBg10: ['#3e3e3e', '#ebebeb'],
       appBg25: ['#3e3e3e', '#cecece'],
       appBg50: ['#8b8b8b', '#8b8b8b'],
       appBg75: ['#cecece', '#3e3e3e'],
-      bg25: ['#3e3e3e', '#cecece'],
+      appBg90: ['#cecece', '#3e3e3e'],
+
+      bg10: ['#2d2d30', '#ebebeb'],
+      bg15: ['#323235', '#e0e0e0'],
+      bg20: ['#38383b', '#e0e0e0'],
+      bg25: ['#4b4b50', '#cecece'],
       bg50: ['#8b8b8b', '#8b8b8b'],
-      bg75: ['#cecece', '#3e3e3e'],
+      bg75: ['#cecece', '#4b4b50'],
+      bg80: ['#e0e0e0', '#38383b'],
+      bg85: ['#e0e0e0', '#323235'],
+      bg90: ['#ebebeb', '#2d2d30'],
 
       appFg25: ['#cecece', '#3e3e3e'],
       appFg50: ['#8b8b8b', '#8b8b8b'],

@@ -4,6 +4,7 @@ import useThemeOnDocument from '@hooks/useThemeOnDocument.ts';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TelemetryViewerPage from '@pages/telemetry-viewer-page/TelemetryViewerPage.tsx';
 import WelcomePage from '@pages/welcome-page/WelcomePage.tsx';
+import TCx2 from '@pages/tcx2/TCx2.tsx';
 
 function App() {
   useThemeOnDocument();
@@ -18,6 +19,7 @@ function App() {
               element={<TelemetryViewerPage />}
               data-id={'route'}
             />
+            <Route path="/tcx2" element={<TCx2 />} data-id={'route'} />
           </Routes>
         </VStack>
       </Router>
