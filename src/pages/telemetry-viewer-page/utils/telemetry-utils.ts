@@ -125,8 +125,8 @@ export function cleanedFieldValue(
   }
 }
 export function getValueFromEvent(event: TVEvent, field: string) {
-  const clientEvent = event.tdEvent.clientEvent ?? {};
-  const firstDispatched = event.tdEvent.dispatchedEvents?.[0] ?? {};
+  const clientEvent = event?.clientEvent ?? {};
+  const firstDispatched = event?.dispatchedEvents?.[0] ?? {};
   const inputEvent = (firstDispatched as Hash).inputEvent ?? {};
   const filteredEvent = (firstDispatched as Hash).filteredEvent ?? {};
   const value = getFromFirst([clientEvent, inputEvent, filteredEvent], field);
@@ -137,4 +137,35 @@ export function getFromFirst(objects: Hash[], field: string) {
     if (obj[field]) return obj[field];
   }
   return undefined;
+}
+export function arrayLastItem<T>(array: T[] | undefined | null): T | undefined {
+  if (!array) return undefined;
+  return array[array.length - 1] as T;
+}
+export function getFailures(
+  dispatchedEvents: TelemetryDebuggerDispatchedEvent[] | undefined | null,
+) {
+  const lastDispatchedEvent = arrayLastItem(dispatchedEvents);
+  const failures = lastDispatchedEvent?.failures;
+
+  // failures seems to be {} empty object by default
+  if (Object.keys(failures ?? {}).length < 1) return undefined;
+
+  return failures;
+}
+export function getPayloads(
+  dispatchedEvents: TelemetryDebuggerDispatchedEvent[] | undefined | null,
+) {
+  if (!dispatchedEvents || dispatchedEvents.length < 1) return undefined;
+
+  const payloads = [];
+  for (const dispatchedEvent of dispatchedEvents) {
+    if (dispatchedEvent.payloads) {
+      payloads.push(dispatchedEvent.payloads);
+    }
+  }
+
+  if (payloads.length === 0) return undefined;
+
+  return payloads;
 }

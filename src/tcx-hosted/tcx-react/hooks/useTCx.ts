@@ -14,10 +14,16 @@ interface TcxSSConfig {
   path: string;
   debug: boolean;
 }
+
+export interface TCxState {
+  isConnectedToSignalServer: boolean;
+  isConnectedToPeer: boolean;
+}
 export default function useTCx(
   name: string,
   tcxTssOptions: TcxSSConfig,
   onData?: (data: unknown) => void,
+  onStateChange?: (state: TCxState) => void,
 ) {
   // we want renders to happen when anything within the TCx instance changes
   const [_updateCount, setUpdateCount] = useState(0);
@@ -30,6 +36,10 @@ export default function useTCx(
       name,
       () => {
         setUpdateCount((prev) => prev + 1);
+        onStateChange?.({
+          isConnectedToPeer: tcx.isConnectedToPeer,
+          isConnectedToSignalServer: tcx.isConnectedToSignalServer,
+        });
       },
       tcxTssOptions,
       onData,
@@ -40,5 +50,5 @@ export default function useTCx(
       console.error('Failed to register with signal server', e);
     });
     return tcx;
-  }, [onData, name]);
+  }, [name, tcxTssOptions, onData, onStateChange]);
 }

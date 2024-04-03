@@ -63,7 +63,6 @@ export default class TCxSignalServerManager {
 
   connect(WS: IWebSocketConstructor): Promise<void> {
     return new Promise((resolve, reject) => {
-      console.log(`[🐽](TCxSignalServerManager.ts) this.baseUrl`, this.baseUrl);
       this.debug && console.log(`🛜 [${this.tcxName}] Connecting`);
       // Create a new WebSocket instance
       this.connection = new WS(this.baseUrl);
@@ -77,7 +76,6 @@ export default class TCxSignalServerManager {
       this.connection.onmessage = this.cnx_onmessage.bind(this);
       this.connection.onclose = this.cnx_onclose.bind(this);
       this.connection.onerror = (event) => {
-        console.log(`[🐽](TCxSignalServerManager) event`, event);
         this.cnx_onerror(event); // Call the original error handler
         reject(event); // Reject the promise on error
       };
@@ -105,9 +103,7 @@ export default class TCxSignalServerManager {
   //  | (_| (_) | .` | .` | _| (__  | |  | | (_) | .` |
   //   \___\___/|_|\_|_|\_|___\___| |_| |___\___/|_|\_|
   private cnx_onmessage(event: IWSCustomEvent) {
-    console.log(`[🐽](TCxSignalServerManager) event`, event);
     if (event.data instanceof Blob) {
-      console.log(`[🐽](TCxSignalServerManager.ts) I AM BLOB`);
       const reader = new FileReader();
       reader.onload = () => {
         this.debug &&

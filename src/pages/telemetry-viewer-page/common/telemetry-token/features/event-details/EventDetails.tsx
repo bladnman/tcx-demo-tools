@@ -23,27 +23,27 @@ export default function EventDetails({
 
   switch (eventDef) {
     case EVENT_TYPE_DEF.ViewableImpression:
-      highlight = event.tdEvent.clientEvent?.visualEntityType;
-      message = event.tdEvent.clientEvent?.interactCta;
+      highlight = event?.clientEvent?.visualEntityType;
+      message = event?.clientEvent?.interactCta;
       break;
     case EVENT_TYPE_DEF.Interaction:
-      highlight = event.tdEvent.clientEvent?.interactAction;
-      message = event.tdEvent.clientEvent?.interactCta;
+      highlight = event?.clientEvent?.interactAction;
+      message = event?.clientEvent?.interactCta;
       break;
     case EVENT_TYPE_DEF.Navigation:
-      highlight = getSimpleSceneName(event.tdEvent.clientEvent?.locationScene);
+      highlight = getSimpleSceneName(event?.clientEvent?.locationScene);
       message = 'location';
       color = 'tokenDetailsFGBlue.main';
       break;
     case EVENT_TYPE_DEF.NetworkError:
     case EVENT_TYPE_DEF.ApplicationError:
-      highlight = event.tdEvent.clientEvent?.severity;
-      message = `${event.tdEvent.clientEvent?.vshErrorHexCode} | ${event.tdEvent.clientEvent?.errorMessage}`;
-      if (event.tdEvent.clientEvent?.severity === 'critical')
+      highlight = event?.clientEvent?.severity;
+      message = `${event?.clientEvent?.vshErrorHexCode} | ${event?.clientEvent?.errorMessage}`;
+      if (event?.clientEvent?.severity === 'critical')
         color = 'tokenDetailsFGRed.main';
-      if (event.tdEvent.clientEvent?.severity === 'major')
+      if (event?.clientEvent?.severity === 'major')
         color = 'tokenDetailsFGRed.main';
-      if (event.tdEvent.clientEvent?.severity === 'normal')
+      if (event?.clientEvent?.severity === 'normal')
         color = 'tokenDetailsFGOrange.main';
       break;
     case EVENT_TYPE_DEF.Startup:
@@ -51,7 +51,7 @@ export default function EventDetails({
       color = 'tokenDetailsFGRed.main';
       break;
     case EVENT_TYPE_DEF.LoadTime:
-      const metric = event.tdEvent.clientEvent?.metricsData?.[0];
+      const metric = event?.clientEvent?.metricsData?.[0];
       highlight = formatMilliseconds(metric?.latency ?? 0);
       message = metric?.metric;
       color = 'tokenDetailsFGOrange.main';
@@ -60,7 +60,7 @@ export default function EventDetails({
       }
       break;
     default:
-      message = event.tdEvent.clientEvent?.type;
+      message = event?.clientEvent?.type;
       color = 'tokenDetailsFG.main';
       break;
   }

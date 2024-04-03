@@ -14,13 +14,13 @@ export default function getEventsFromReceivedData(
     }
     // LOAD TIME EVENTS -- explode into multiple allEvents
     else {
-      const origMetricsData = event.tdEvent.clientEvent?.metricsData;
+      const origMetricsData = event?.clientEvent?.metricsData;
       // bail if it doesn't look right
       if (!origMetricsData) return [event];
 
       const syntheticEvents: TVEvent[] = [];
       origMetricsData.forEach((metric: Hash) => {
-        const clientEvent = event.tdEvent.clientEvent ?? {};
+        const clientEvent = event?.clientEvent ?? {};
         const syntheticEvent = {
           ...event,
           _synthetic: true,
@@ -34,10 +34,10 @@ export default function getEventsFromReceivedData(
       // order the exploded allEvents by
       // event.final.metricsData[0].startTime
       syntheticEvents.sort((a, b) => {
-        const aStart = a.tdEvent.clientEvent?.metricsData[0]?.startTime ?? 0;
-        const bStart = b.tdEvent.clientEvent?.metricsData[0]?.startTime ?? 0;
-        const aDuration = a.tdEvent.clientEvent?.metricsData[0]?.latency ?? 0;
-        const bDuration = b.tdEvent.clientEvent?.metricsData[0]?.latency ?? 0;
+        const aStart = a?.clientEvent?.metricsData[0]?.startTime ?? 0;
+        const bStart = b?.clientEvent?.metricsData[0]?.startTime ?? 0;
+        const aDuration = a?.clientEvent?.metricsData[0]?.latency ?? 0;
+        const bDuration = b?.clientEvent?.metricsData[0]?.latency ?? 0;
         if (aStart === bStart) {
           return aDuration - bDuration;
         }

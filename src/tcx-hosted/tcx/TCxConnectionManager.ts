@@ -22,6 +22,7 @@ export default class TCxConnectionManager {
   private targetTcxName?: string;
   private unsentCandidates: (TCxRTC.IRTCIceCandidate | null)[] = [];
   private readonly onData: (data: unknown) => void;
+  private _ssConnectionPromise?: Promise<void>;
 
   get isConnectedToSignalServer(): boolean {
     return this.signalServer?.isConnected ?? false;
@@ -51,8 +52,7 @@ export default class TCxConnectionManager {
   }
 
   registerWithSignalServer(): Promise<void> {
-    // already registered
-    if (this.signalServer?.isConnected) return Promise.resolve();
+    if (this._ssConnectionPromise) return this._ssConnectionPromise;
 
     this.signalServer = new TCxSignalServerManager(
       this.tcxName,
@@ -62,41 +62,44 @@ export default class TCxConnectionManager {
 
     // connect to the signal server
     // event handlers take care of the rest
-    return this.signalServer.connect(this.WS);
+    this._ssConnectionPromise = this.signalServer.connect(this.WS);
+    return this._ssConnectionPromise;
   }
 
   connectTo(targetTcxName: string): void {
-    if (targetTcxName) {
-      this.targetTcxName = targetTcxName;
-      this.isDebug &&
-        console.log(
-          `🔩👉💌 [${this.tcxName}] Sending an offer to: ${targetTcxName}`,
-        );
-      this.createPeerConnection();
-      const peerConnection = this.peerConnection;
+    this.registerWithSignalServer().then(() => {
+      if (targetTcxName) {
+        this.targetTcxName = targetTcxName;
+        this.isDebug &&
+          console.log(
+            `🔩👉💌 [${this.tcxName}] Sending an offer to: ${targetTcxName}`,
+          );
+        this.createPeerConnection();
+        const peerConnection = this.peerConnection;
 
-      // do we create this now (need to keep track of un sent candidates, if so)
-      this.createDataChannel();
+        // do we create this now (need to keep track of un sent candidates, if so)
+        this.createDataChannel();
 
-      if (!peerConnection) {
-        console.error(
-          `🔩❌ [${this.tcxName}] No peer connection to send offer`,
-        );
-        return;
-      }
+        if (!peerConnection) {
+          console.error(
+            `🔩❌ [${this.tcxName}] No peer connection to send offer`,
+          );
+          return;
+        }
 
-      peerConnection.createOffer().then((offer) => {
-        peerConnection.setLocalDescription(offer).then(() => {
-          const message = {
-            type: 'offer',
-            offer,
-            targetTcxName,
-            fromTcxName: this.tcxName,
-          };
-          this.signalServer?.connection?.send(JSON.stringify(message));
+        peerConnection.createOffer().then((offer) => {
+          peerConnection.setLocalDescription(offer).then(() => {
+            const message = {
+              type: 'offer',
+              offer,
+              targetTcxName,
+              fromTcxName: this.tcxName,
+            };
+            this.signalServer?.connection?.send(JSON.stringify(message));
+          });
         });
-      });
-    }
+      }
+    });
   }
   send(data: string): void {
     if (this.dataChannel?.readyState === 'open') {
@@ -105,6 +108,10 @@ export default class TCxConnectionManager {
   }
   disconnect() {
     this.signalServer?.disconnect();
+    this.dataChannel?.close();
+    this.peerConnection?.close();
+    this._ssConnectionPromise = undefined;
+    this.publishChanges();
   }
   closeDataChannel() {
     this.dataChannel?.close();
@@ -118,10 +125,6 @@ export default class TCxConnectionManager {
     const peerConnection = new (this
       .RTC as unknown as TCxRTC.IRTCPeerConnectionConstructor)();
 
-    this.isDebug &&
-      console.log(
-        `[🐽](TCxConnectionManager.ts) [${this.tcxName}] setting up ice candidate handler`,
-      );
     peerConnection.onicecandidate = (event) => this.rtc_onicecandidate(event);
     peerConnection.ondatachannel = (event) => this.rtc_ondatachannel(event);
 
@@ -169,6 +172,7 @@ export default class TCxConnectionManager {
     this.dataChannel = undefined;
     this.peerConnection = undefined;
     this.targetTcxName = undefined;
+    this._ssConnectionPromise = undefined;
 
     this.publishChanges();
   }

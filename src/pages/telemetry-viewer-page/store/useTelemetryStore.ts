@@ -48,6 +48,8 @@ export interface TelemetryStore {
   setIsFilterDrawerOpen: (isFilterDrawerOpen: boolean) => void;
 
   // TCx Options
+  isConnectedViaTCx: boolean;
+  setConnectedViaTCx: (isConnectedViaTCx: boolean) => void;
   connectToTCxName: string | null;
   setConnectToTCxName: (connectToTCxName: string | null) => void;
 }
@@ -106,7 +108,10 @@ const useTelemetryStore = create<TelemetryStore>()(
         set({ isFilterDrawerOpen }),
 
       // TCx Options
-      connectToTCxName: null,
+      isConnectedViaTCx: false,
+      setConnectedViaTCx: (isConnectedViaTCx: boolean) =>
+        set({ isConnectedViaTCx }),
+      connectToTCxName: 'TDServer',
       setConnectToTCxName: (connectToTCxName: string | null) =>
         set({ connectToTCxName }),
     }),

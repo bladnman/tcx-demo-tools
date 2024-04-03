@@ -45,7 +45,7 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       appBg25: ['#3e3e3e', '#cecece'],
       appBg50: ['#8b8b8b', '#8b8b8b'],
       appBg75: ['#cecece', '#3e3e3e'],
-      appBg90: ['#cecece', '#3e3e3e'],
+      appBg90: ['#cecece', '#292929'],
 
       bg10: ['#2d2d30', '#ebebeb'],
       bg15: ['#323235', '#e0e0e0'],

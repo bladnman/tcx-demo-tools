@@ -5,7 +5,7 @@ import { Button, Typography } from '@mui/material';
 import telemetryDebuggerEvents from '@pages/telemetry-viewer-page/data/telemetry_debugger_events_small.ts';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
-import TelemetryReceiver from '@pages/telemetry-viewer-page/classes/TelemetryReceiver.ts';
+import TelemetryReceiver from '@pages/telemetry-viewer-page/classes/telemetry-receiver/TelemetryReceiver.ts';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 export default function TelemetryMockPublisherReceiverInterface() {
   // the store is where events end up

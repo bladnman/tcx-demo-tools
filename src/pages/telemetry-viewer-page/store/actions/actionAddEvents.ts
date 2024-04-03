@@ -3,6 +3,10 @@ import {
   TelemetryStore,
 } from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { actionAddEventsToFilters } from '@pages/telemetry-viewer-page/store/actions/actionEventsToFilters.ts';
+import {
+  getFailures,
+  getPayloads,
+} from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 
 export function actionAddEvents({
   state,
@@ -15,12 +19,17 @@ export function actionAddEvents({
   // but, we also don't want to add duplicates to the allEvents
   // nor do we want to add duplicates to the filters
   const newEvents = events.filter((event) => {
-    const previousEvent = state.allEvents.find(
-      (e) => e.tracingId === event.tracingId,
-    );
+    const previousEvent = state.allEvents.find((e) => e.id === event.id);
     // EXISTING - update the existing event
     if (previousEvent) {
-      Object.assign(previousEvent, event);
+      previousEvent.dispatchedEvents = previousEvent.dispatchedEvents ?? [];
+
+      // add on any dispatched events
+      previousEvent.dispatchedEvents.push(...(event?.dispatchedEvents ?? []));
+
+      previousEvent.hasFailures = !!getFailures(previousEvent.dispatchedEvents);
+      previousEvent.hasPayloads = !!getPayloads(previousEvent.dispatchedEvents);
+
       return false;
     }
     // NEW
