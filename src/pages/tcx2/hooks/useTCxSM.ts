@@ -1,7 +1,7 @@
+import { useMemo, useState } from 'react';
 import TCxSignalServerManager, {
   TCxSSEvents,
-} from '@pages/tcx2/classes/TCxSignalServerManager.ts';
-import { useMemo, useState } from 'react';
+} from '@tcx-hosted/tcx/TCxSignalServerManager.ts';
 
 const TcxSS_CONFIG = {
   host: 'localhost',

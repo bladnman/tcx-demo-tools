@@ -46,6 +46,10 @@ export interface TelemetryStore {
   // MAIN BODY
   isFilterDrawerOpen: boolean;
   setIsFilterDrawerOpen: (isFilterDrawerOpen: boolean) => void;
+
+  // TCx Options
+  connectToTCxName: string | null;
+  setConnectToTCxName: (connectToTCxName: string | null) => void;
 }
 
 const useTelemetryStore = create<TelemetryStore>()(
@@ -100,6 +104,11 @@ const useTelemetryStore = create<TelemetryStore>()(
       isFilterDrawerOpen: true,
       setIsFilterDrawerOpen: (isFilterDrawerOpen: boolean) =>
         set({ isFilterDrawerOpen }),
+
+      // TCx Options
+      connectToTCxName: null,
+      setConnectToTCxName: (connectToTCxName: string | null) =>
+        set({ connectToTCxName }),
     }),
     {
       name: 'telemetry-store',

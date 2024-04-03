@@ -3,40 +3,24 @@ import TCxSignalServerManager, {
   IWSCustomEvent,
   TCxSSEvents,
   TCxSSOptions,
-} from './TCxSignalServerManager.ts';
-
-interface IRTCOfferOptions {
-  // Define the necessary properties based on RTCOfferOptions
-}
+} from './TCxSignalServerManager';
 
 interface IRTCSessionDescriptionInit {
   type: 'offer' | 'pranswer' | 'answer' | 'rollback';
   sdp?: string;
 }
 
-export interface IRTCPeerConnection {
-  createOffer(options?: IRTCOfferOptions): Promise<IRTCSessionDescriptionInit>;
-  createAnswer(options?: IRTCOfferOptions): Promise<IRTCSessionDescriptionInit>;
-  createDataChannel(label: string): RTCDataChannel; // TODO: see if we can use standard types like this!
-  setLocalDescription(description: IRTCSessionDescriptionInit): Promise<void>;
-  setRemoteDescription(description: IRTCSessionDescriptionInit): Promise<void>;
-  onicecandidate: (event: unknown) => void;
-}
-export interface RTCPeerConnectionConstructor {
-  new (): RTCPeerConnection;
-}
-
 export default class TCxConnectionManager {
   private readonly WS: IWebSocketConstructor;
-  private readonly RTC: RTCPeerConnection;
+  private readonly RTC: TCxRTC.IRTCPeerConnectionConstructor;
   private signalServer?: TCxSignalServerManager;
   private readonly tcxName: string;
   private readonly ssOptions: TCxSSOptions;
   private readonly onStateChange: () => void;
-  private peerConnection?: RTCPeerConnection;
-  private dataChannel?: RTCDataChannel;
+  private peerConnection?: TCxRTC.IRTCPeerConnection;
+  private dataChannel?: TCxRTC.RTCDataChannel;
   private targetTcxName?: string;
-  private unsentCandidates: (RTCIceCandidate | null)[] = [];
+  private unsentCandidates: (TCxRTC.IRTCIceCandidate | null)[] = [];
   private readonly onData: (data: unknown) => void;
 
   get isConnectedToSignalServer(): boolean {
@@ -53,7 +37,7 @@ export default class TCxConnectionManager {
   constructor(
     tcxName: string,
     WS: IWebSocketConstructor,
-    RTC: RTCPeerConnection,
+    RTC: TCxRTC.IRTCPeerConnectionConstructor,
     signalManagerOptions: TCxSSOptions,
     onStateChange: () => void,
     onData: (data: unknown) => void,
@@ -132,7 +116,7 @@ export default class TCxConnectionManager {
   }
   private createPeerConnection() {
     const peerConnection = new (this
-      .RTC as unknown as RTCPeerConnectionConstructor)();
+      .RTC as unknown as TCxRTC.IRTCPeerConnectionConstructor)();
 
     this.isDebug &&
       console.log(
@@ -158,10 +142,10 @@ export default class TCxConnectionManager {
   }
 
   /**
-      ___ ___ ___ _  _   _   _      ___ ___ _____   _____ ___
-     / __|_ _/ __| \| | /_\ | |    / __| __| _ \ \ / / __| _ \
-     \__ \| | (_ | .` |/ _ \| |__  \__ \ _||   /\ V /| _||   /
-     |___/___\___|_|\_/_/ \_\____| |___/___|_|_\ \_/ |___|_|_\
+   ___ ___ ___ _  _   _   _      ___ ___ _____   _____ ___
+   / __|_ _/ __| \| | /_\ | |    / __| __| _ \ \ / / __| _ \
+   \__ \| | (_ | .` |/ _ \| |__  \__ \ _||   /\ V /| _||   /
+   |___/___\___|_|\_/_/ \_\____| |___/___|_|_\ \_/ |___|_|_\
    */
   private get ssEventHandlers(): TCxSSEvents {
     return {
@@ -192,7 +176,11 @@ export default class TCxConnectionManager {
     console.error(`🔩❌ [${this.tcxName}] WebSocket Error:`, error);
   }
   private ss_onmessage(event: IWSCustomEvent) {
-    const data = JSON.parse(event.data as unknown as string);
+    const data =
+      typeof event.data === 'string'
+        ? JSON.parse(event.data as string)
+        : event.data;
+
     const { type } = data;
 
     switch (type) {
@@ -206,25 +194,34 @@ export default class TCxConnectionManager {
         this.ss_onicecandidate(data.candidate);
         break;
       default:
-        console.error(`🔩 [${this.tcxName}] Unknown event:`, data);
+        console.error(`🔩❌ [${this.tcxName}] Unknown event:`, data);
     }
   }
-  private ss_onicecandidate(candidate: RTCIceCandidate) {
+  private ss_onicecandidate(candidate: TCxRTC.IRTCIceCandidate) {
     this.isDebug &&
       console.log(`🔩🧊 [${this.tcxName}] ICE Candidate received:`, candidate);
-    this.peerConnection?.addIceCandidate(candidate);
+    this.peerConnection?.addIceCandidate(candidate).catch((error) => {
+      // some clients complain about null candidates
+      // but this is part of the spec
+      if (!candidate) return;
+      // but if it's not null, we should log the error
+      console.error(
+        `🔩🧊❌ [${this.tcxName}] Error sending ICE candidate:`,
+        error,
+      );
+    });
   }
   private ss_onoffer(event: unknown) {
     if (this.isConnectedToPeer) {
       this.isDebug &&
         console.log(
-          `🔩❌ [${this.tcxName}] OFFER: Already connected to a peer`,
+          `🔩💌❌ [${this.tcxName}] OFFER: Already connected to a peer`,
         );
       return;
     }
     this.isDebug &&
       console.log(
-        `🔩📬💌 [${this.tcxName}] OFFER: We were invited to a dance! :`,
+        `🔩💌📬 [${this.tcxName}] OFFER: We were invited to a dance! :`,
         event,
       );
     const { offer, fromTcxName } = event as {
@@ -238,7 +235,7 @@ export default class TCxConnectionManager {
     this.createPeerConnection();
     const peerConnection = this.peerConnection;
     if (!peerConnection) {
-      console.error(`🔩❌ [${this.tcxName}] No peer connection to set offer`);
+      console.error(`🔩💌❌ [${this.tcxName}] No peer connection to set offer`);
       return;
     }
 
@@ -260,12 +257,14 @@ export default class TCxConnectionManager {
   private ss_onanswer(event: unknown) {
     const { answer } = event as { answer: IRTCSessionDescriptionInit };
     if (!this.peerConnection) {
-      console.error(`🔩❌ [${this.tcxName}] No peer connection to set answer`);
+      console.error(
+        `🔩📝❌ [${this.tcxName}] No peer connection to set answer`,
+      );
       return;
     }
     this.peerConnection.setRemoteDescription(answer).then(() => {
       this.isDebug &&
-        console.log(`🔩✅ [${this.tcxName}] ANSWER : OFFER ACCEPTED!`);
+        console.log(`🔩📝✅ [${this.tcxName}] ANSWER : OFFER ACCEPTED!`);
 
       // let's send all the ice candidates we have
       const iceCandidates = [...this.unsentCandidates];
@@ -286,11 +285,12 @@ export default class TCxConnectionManager {
    */
 
   private rtc_onicecandidate(event: unknown) {
-    const { candidate } = event as { candidate: RTCIceCandidate | null };
-
+    const { candidate } = event as {
+      candidate: TCxRTC.IRTCIceCandidate | null;
+    };
     this._rtc_sendIceCandidate(candidate);
   }
-  private rtc_ondatachannel(event: RTCDataChannelEvent) {
+  private rtc_ondatachannel(event: TCxRTC.RTCDataChannelEvent) {
     const { channel } = event;
     this.isDebug &&
       console.log(`🔩💿 [${this.tcxName}] DataChannel Received:`, event);
@@ -299,7 +299,7 @@ export default class TCxConnectionManager {
     channel.onclose = () => this.data_onclose();
     this.dataChannel = channel;
   }
-  private _rtc_sendIceCandidate(candidate: RTCIceCandidate | null) {
+  private _rtc_sendIceCandidate(candidate: TCxRTC.IRTCIceCandidate | null) {
     // CACHE THE CANDIDATE if connection is not stable
     if (this.peerConnection?.signalingState !== 'stable') {
       this.unsentCandidates.push(candidate);
@@ -316,7 +316,7 @@ export default class TCxConnectionManager {
     if (!this.targetTcxName) {
       this.isDebug &&
         console.log(
-          `🔩❌ [${this.tcxName}] ERROR : we do not have a target TCx to send ICE candidate to`,
+          `🔩🧊❌ [${this.tcxName}] ERROR : we do not have a target TCx to send ICE candidate to`,
         );
       return;
     }
@@ -332,11 +332,11 @@ export default class TCxConnectionManager {
     this.signalServer?.connection?.send(JSON.stringify(message));
   }
 
-  // ___   _ _____ _
+  //  ___   _ _____ _
   // |   \ /_\_   _/_\
   // | |) / _ \| |/ _ \
   // |___/_/ \_\_/_/ \_\
-  private data_onmessage(event: MessageEvent) {
+  private data_onmessage(event: { data: unknown }) {
     this.isDebug &&
       console.log(`🔩💿 [${this.tcxName}] DataChannel Data:`, event.data);
     this.onData(event.data);

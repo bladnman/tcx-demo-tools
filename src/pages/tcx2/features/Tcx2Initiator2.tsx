@@ -3,7 +3,8 @@ import { Button, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CableIcon from '@mui/icons-material/Cable';
 import { useCallback } from 'react';
-import useTCx2 from '@pages/tcx2/hooks/useTCx2.ts';
+import { useTCx } from '@tcx-hosted/tcx-react';
+import { TcxSS_CONFIG } from '@tcx-hosted/tcx-react/hooks/useTCx.ts';
 
 export default function Tcx2Initiator2({ tcxName }: { tcxName: string }) {
   const onData = useCallback(
@@ -13,7 +14,7 @@ export default function Tcx2Initiator2({ tcxName }: { tcxName: string }) {
     [tcxName],
   );
 
-  const tcx = useTCx2(tcxName, onData);
+  const tcx = useTCx(tcxName, TcxSS_CONFIG, onData);
 
   const handleClose = () => {
     tcx.disconnect();
@@ -61,6 +62,7 @@ export default function Tcx2Initiator2({ tcxName }: { tcxName: string }) {
           <Button onClick={() => handleConnectTo('bob')}>bob</Button>
           <Button onClick={() => handleConnectTo('sally')}>sally</Button>
           <Button onClick={() => handleConnectTo('jim')}>jim</Button>
+          <Button onClick={() => handleConnectTo('TDServer')}>TDServer</Button>
         </HStack>
         <Button
           onClick={() => {

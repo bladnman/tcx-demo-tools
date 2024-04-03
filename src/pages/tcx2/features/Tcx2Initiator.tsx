@@ -5,10 +5,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import CableIcon from '@mui/icons-material/Cable';
 import useRtc from '@pages/tcx2/hooks/useRtc.ts';
 import { useEffect, useMemo, useState } from 'react';
-import useTCx2 from '@pages/tcx2/hooks/useTCx2.ts';
+import { useTCx } from '@tcx-hosted/tcx-react';
+import { TcxSS_CONFIG } from '@tcx-hosted/tcx-react/hooks/useTCx.ts';
 
 export default function Tcx2Initiator({ tcxName }: { tcxName: string }) {
-  const tcx = useTCx2();
   const tcxSM = useTCxSM({ tcxName });
 
   const [targetTcxName, setTargetTcxName] = useState<string | null>(null);

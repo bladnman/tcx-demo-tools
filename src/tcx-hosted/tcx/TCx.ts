@@ -1,151 +1,77 @@
-import Peer, { DataConnection, PeerOptions } from 'peerjs';
-
-export interface TCxConnectionState {
-  tcxName: string;
-  isPeerReady: boolean;
-  isConnectionReady: boolean;
-  peer?: Peer;
-  connection?: DataConnection;
-}
-export interface TCxInterface extends TCxConnectionState {
-  connectTo: (targetName: string) => void;
-  sendData: (data: never) => void;
-}
+import { IWebSocketConstructor, TCxSSOptions } from './TCxSignalServerManager';
+import TCxConnectionManager from './TCxConnectionManager';
 
 export default class TCx {
-  public peer?: Peer;
-  protected _name: string;
-  protected _connection?: DataConnection;
+  private readonly WS: IWebSocketConstructor;
+  private readonly RTC: TCxRTC.IRTCPeerConnectionConstructor;
+  name: string;
+  onStateChange: () => void;
+  options: TCxSSOptions;
+  onData?: (data: unknown) => void;
+  connectToName?: string;
 
-  get name(): string {
-    return this._name;
+  private readonly ssCnxMgr: TCxConnectionManager;
+
+  get isConnectedToSignalServer(): boolean {
+    return this.ssCnxMgr.isConnectedToSignalServer;
   }
-  get connection(): DataConnection | undefined {
-    return this._connection;
-  }
-  get connectedToName(): string | undefined {
-    return this.connection?.peer;
-  }
-  get isRegistered(): boolean {
-    return this.peer?.open ?? false;
-  }
-  get isConnected(): boolean {
-    return !!this.connection;
+  get isConnectedToPeer(): boolean {
+    return this.ssCnxMgr.isConnectedToPeer;
   }
 
   constructor(
+    WS: IWebSocketConstructor,
+    RTC: TCxRTC.IRTCPeerConnectionConstructor,
     name: string,
-    public onStateChange: (tcx: TCx) => void,
-    public onData?: (data: unknown) => void,
-    public connectToName?: string,
-    private options?: PeerOptions,
+    onStateChange: () => void,
+    options: TCxSSOptions,
+    onData?: (data: unknown) => void,
+    connectToName?: string,
   ) {
-    this._name = name;
-    this.register();
+    this.WS = WS;
+    this.RTC = RTC;
+    this.name = name;
+    this.onStateChange = onStateChange;
+    this.options = options;
+    this.onData = onData;
+    this.connectToName = connectToName;
 
-    // If we were given a peer to connect to, do so now
-    if (this.connectToName) {
-      this.connectTo(this.connectToName);
+    // INERT
+    // define the WS and RTC classes
+    // but don't start anything yet
+    // ... that's what register() is for
+    this.ssCnxMgr = new TCxConnectionManager(
+      this.name,
+      this.WS,
+      this.RTC,
+      this.options,
+      this.onStateChange,
+      this.receive.bind(this),
+    );
+  }
+  register(): Promise<void> {
+    return this.ssCnxMgr.registerWithSignalServer();
+  }
+  private registerIfNotRegistered(): Promise<void> {
+    if (!this.ssCnxMgr) {
+      return this.register();
     }
+    return Promise.resolve();
   }
-
-  public destroy(): void {
-    this.peer?.destroy();
-    this.disconnect();
+  async connectTo(name: string): Promise<void> {
+    await this.registerIfNotRegistered();
+    this.ssCnxMgr.connectTo(name);
   }
-
-  public register(): void {
-    this.peer = new Peer(this.name, this.options); // TODO: Add error handling
-    this.setupPeerEvents(this.peer);
+  send(data: unknown): void {
+    this.ssCnxMgr.send(JSON.stringify(data));
   }
-
-  private setupPeerEvents(peer: Peer): void {
-    peer.on('open', (id: string) => {
-      this._name = id;
-      this.publishStateChange();
-    });
-
-    peer.on('connection', (cnx: DataConnection) => {
-      this.setupConnectionEvents(cnx);
-      this._connection = cnx;
-      this.publishStateChange();
-    });
-
-    peer.on('disconnected', () => {
-      this._connection = undefined;
-      this.publishStateChange();
-    });
+  private receive(data: unknown): void {
+    this.onData?.(JSON.parse(data as string));
   }
-
-  private setupConnectionEvents(cnx: DataConnection): void {
-    cnx.on('open', () => {
-      console.log(`🐽🕹️ Connection opened to [${cnx.peer}]`);
-    });
-
-    cnx.on('data', (data: unknown) => {
-      this.onData?.(data);
-    });
-
-    cnx.on('close', () => {
-      this._connection = undefined;
-      this.publishStateChange();
-    });
+  disconnect(): void {
+    this.ssCnxMgr?.disconnect();
   }
-
-  private publishStateChange(): void {
-    this.onStateChange(this);
-  }
-
-  public connectTo(targetName: string): void {
-    if (!this.peer) {
-      console.warn(`🐽🧤 No peer to connect to`);
-      return;
-    }
-
-    this._connection = this.peer.connect(targetName); // TODO: Add error handling
-
-    if (this.connection) {
-      this.setupConnectionEvents(this.connection);
-    } else {
-      console.warn(`🐽🧤 No connection established`);
-    }
-
-    this.publishStateChange();
-  }
-  public disconnect(): void {
-    if (!this.peer) return;
-
-    this.connection?.close();
-    this._connection = undefined;
-
-    this.publishStateChange();
-  }
-  public unregister(): void {
-    if (!this.peer) return;
-
-    this.connection?.close();
-    this._connection = undefined;
-    this.peer.disconnect();
-
-    this.publishStateChange();
-  }
-
-  public sendData(data: unknown): void {
-    if (this.connection) {
-      this.connection.send(data);
-    }
-  }
-
-  /**
-   * This method is for testing purposes only. It simulates receiving data from a peer.
-   *
-   * This interface may be helpful to testForActive your application without needing
-   * to have a peer on the other end running and publishing.
-   * @param data : any
-   */
-  public mockReceiveData(data: unknown): void {
-    if (this.onData) {
-      this.onData(data);
-    }
+  closeDataChannel(): void {
+    this.ssCnxMgr?.closeDataChannel();
   }
 }
