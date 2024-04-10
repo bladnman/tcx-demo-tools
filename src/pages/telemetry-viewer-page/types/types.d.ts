@@ -45,7 +45,7 @@ interface TelemetryDebuggerEvent {
   id: string;
   eventName: string;
   appName: string | null | undefined;
-  clientEvent: Hash | null;
+  clientEvent: Hash | null | undefined;
   dispatchedEvents: null | TelemetryDebuggerDispatchedEvent[];
 }
 
@@ -77,6 +77,7 @@ type FilterType =
 interface FieldDefinition {
   field: string;
   title: string;
+  paths: string[];
   divider?: {
     isAvailable: boolean;
     isDefault: boolean;
@@ -102,3 +103,10 @@ interface TelemetryTokenProps {
   tokenFontSize?: number;
   tokenColorMode?: TokenColorMode;
 }
+type FieldDef = {
+  label: string;
+  paths: string[];
+  alwaysShow?: boolean;
+  isKeyField?: boolean;
+  color?: string;
+};

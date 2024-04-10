@@ -39,7 +39,7 @@ export default function TelemetryMainBody() {
           position: 'fixed',
           top: `${appBarHeight - 1}px`,
           width: '100%',
-          backgroundColor: 'bg.dark',
+          backgroundColor: 'paper.main',
           py: 1,
         }}
       >

@@ -1,10 +1,8 @@
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
-import {
-  getEventDef,
-  getSimpleSceneName,
-} from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
-import formatMilliseconds from '@utils/formatMilliseconds.ts';
+import { getSimpleSceneName } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 import DetailDisplay from '@pages/telemetry-viewer-page/common/telemetry-token/features/event-details/parts/DetailDisplay.tsx';
+import { getEventDef } from '@pages/telemetry-viewer-page/utils/getEventDef.ts';
+import { getLoadTimeDetails } from '@pages/telemetry-viewer-page/utils/getLoadTimeDetails.ts';
 export default function EventDetails({
   event,
   colorMode = 'dual',
@@ -20,6 +18,7 @@ export default function EventDetails({
   const includeMessage = displayMode === 'details';
 
   let highlight, message, color;
+  color = `tokenDetailsFGWhite.main`;
 
   switch (eventDef) {
     case EVENT_TYPE_DEF.ViewableImpression:
@@ -43,24 +42,27 @@ export default function EventDetails({
         color = 'tokenDetailsFGRed.main';
       if (event?.clientEvent?.severity === 'major')
         color = 'tokenDetailsFGRed.main';
-      if (event?.clientEvent?.severity === 'normal')
-        color = 'tokenDetailsFGOrange.main';
+      // if (event?.clientEvent?.severity === 'normal')
+      //   // color = 'tokenDetailsFGOrange.main';
       break;
     case EVENT_TYPE_DEF.Startup:
       highlight = 'Vroom';
-      color = 'tokenDetailsFGRed.main';
+      // color = 'tokenDetailsFGRed.main';
       break;
     case EVENT_TYPE_DEF.LoadTime:
-      const metric = event?.clientEvent?.metricsData?.[0];
-      highlight = formatMilliseconds(metric?.latency ?? 0);
-      message = metric?.metric;
-      color = 'tokenDetailsFGOrange.main';
-      if (message === 'timeToInteractive') {
-        color = 'tokenDetailsFGRed.main';
+      const loadTimeData = getLoadTimeDetails(event);
+      message = loadTimeData?.message;
+      highlight = loadTimeData?.highlight;
+      color = `${eventDef.color}.main`;
+      if (message?.includes('timeToInteractive')) {
+        color = 'tokenDetailsFGOrange.main';
       }
       break;
     default:
-      message = event?.clientEvent?.type;
+      // message = undefined;
+      // highlight = event?.clientEvent?.type ?? event?.type;
+      message = event?.clientEvent?.type ?? event?.type;
+      highlight = undefined;
       color = 'tokenDetailsFG.main';
       break;
   }

@@ -22,11 +22,17 @@ export interface TCxState {
 export default function useTCx(
   name: string,
   tcxTssOptions: TcxSSConfig,
-  onData?: (data: unknown) => void,
-  onStateChange?: (state: TCxState) => void,
+  handlers?: {
+    onData?: (data: unknown) => void;
+    onStateChange?: (state: TCxState) => void;
+    onConnect?: () => void;
+    onDisconnect?: () => void;
+  },
 ) {
   // we want renders to happen when anything within the TCx instance changes
   const [_updateCount, setUpdateCount] = useState(0);
+
+  const { onData, onStateChange, onConnect, onDisconnect } = handlers || {};
 
   return useMemo(() => {
     // create a new TCx instance
@@ -35,11 +41,11 @@ export default function useTCx(
       RTCPeerConnection as unknown as TCxRTC.IRTCPeerConnectionConstructor,
       name,
       () => {
-        setUpdateCount((prev) => prev + 1);
         onStateChange?.({
           isConnectedToPeer: tcx.isConnectedToPeer,
           isConnectedToSignalServer: tcx.isConnectedToSignalServer,
         });
+        setUpdateCount((prev) => prev + 1);
       },
       tcxTssOptions,
       onData,
@@ -50,5 +56,5 @@ export default function useTCx(
       console.error('Failed to register with signal server', e);
     });
     return tcx;
-  }, [name, tcxTssOptions, onData, onStateChange]);
+  }, [name, tcxTssOptions, onData, onStateChange, onConnect, onDisconnect]);
 }

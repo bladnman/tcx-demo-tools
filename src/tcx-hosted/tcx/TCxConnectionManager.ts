@@ -22,6 +22,10 @@ export default class TCxConnectionManager {
   private targetTcxName?: string;
   private unsentCandidates: (TCxRTC.IRTCIceCandidate | null)[] = [];
   private readonly onData: (data: unknown) => void;
+  private readonly connectionHandlers: {
+    onConnect: () => void;
+    onDisconnect: () => void;
+  };
   private _ssConnectionPromise?: Promise<void>;
 
   get isConnectedToSignalServer(): boolean {
@@ -42,6 +46,10 @@ export default class TCxConnectionManager {
     signalManagerOptions: TCxSSOptions,
     onStateChange: () => void,
     onData: (data: unknown) => void,
+    connectionHandlers: {
+      onConnect: () => void;
+      onDisconnect: () => void;
+    },
   ) {
     this.WS = WS;
     this.RTC = RTC;
@@ -49,6 +57,7 @@ export default class TCxConnectionManager {
     this.onStateChange = onStateChange;
     this.ssOptions = signalManagerOptions;
     this.onData = onData;
+    this.connectionHandlers = connectionHandlers;
   }
 
   registerWithSignalServer(): Promise<void> {
@@ -351,11 +360,13 @@ export default class TCxConnectionManager {
 
     this.isDebug &&
       console.log(`🔩💿 [${this.tcxName}] DataChannel Fully Opened`);
+    this.connectionHandlers.onConnect();
     this.publishChanges();
   }
   private data_onclose() {
     this.isDebug &&
       console.log(`🔩💿 [${this.tcxName}] DataChannel Fully Closed`);
+    this.connectionHandlers.onDisconnect();
     this.publishChanges();
   }
 }

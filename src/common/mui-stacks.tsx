@@ -210,6 +210,9 @@ const useAlignmentValues = (
   const alignItems =
     flexDirection === 'column' ? alignmentMap[hAlign] : alignmentMap[vAlign];
 
+  const textAlign =
+    hAlign === 'center' ? 'center' : hAlign === 'trailing' ? 'right' : 'left';
+
   return {
     flexDirection,
     alignItems,
@@ -217,5 +220,6 @@ const useAlignmentValues = (
     width: getFill(fill, hFill),
     height: getFill(fill, vFill),
     flexGrow: fill ? 1 : 0,
+    textAlign,
   };
 };

@@ -5,9 +5,9 @@ import { HStack, VStack } from '@common/mui-stacks.tsx';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
-import SumHistoryLastX from '@pages/telemetry-viewer-page/common/summary-widgets/SumHistoryLastX.tsx';
+import SumLoadTimeMetricList from '@pages/telemetry-viewer-page/features/right-drawer/features/details-summary-viewer/features/load-time/features/SumLoadTimeMetricList.tsx';
 
-export default function SummaryImpression({ event }: { event: TVEvent }) {
+export default function SummaryLoadTime({ event }: { event: TVEvent }) {
   const eventColor = EVENT_TYPE_DEF[event.type as EventTypes].color;
 
   const rowDefs: SummaryTableRowDef[] = [
@@ -16,34 +16,23 @@ export default function SummaryImpression({ event }: { event: TVEvent }) {
       alwaysShow: true,
       color: `${eventColor}.main`,
     },
-    {
-      ...FIELD_DEF.visualEntityType,
-      alwaysShow: true,
-      color: 'secondary.main',
-    },
-    {
-      ...FIELD_DEF.ctaSubType,
-      color: 'secondary.main',
-    },
-    FIELD_DEF.searchTerm,
-    FIELD_DEF.strandName,
-    FIELD_DEF.tilePosition,
-    FIELD_DEF.tileContent,
+    FIELD_DEF.locationScene,
   ];
 
-  const overviewDefs: SummaryTableRowDef[] = [
-    FIELD_DEF.appName,
-    FIELD_DEF.locationScene,
-    FIELD_DEF.platformType,
-  ];
+  const overviewDefs: SummaryTableRowDef[] = [FIELD_DEF.appName];
 
   return (
-    <VStack hFill>
+    <VStack hFill topLeft>
       <HStack hFill topLeft>
         <SummaryTable event={event} rowDefs={rowDefs} />
-        <SummaryTable event={event} rowDefs={overviewDefs} />
+        <SummaryTable
+          event={event}
+          rowDefs={overviewDefs}
+          stackOptions={{ topRight: true, topLeft: false }}
+        />
       </HStack>
-      <SumHistoryLastX event={event} />
+
+      <SumLoadTimeMetricList event={event} />
     </VStack>
   );
 }

@@ -1,8 +1,13 @@
-import { EVENT_TYPE_DEF } from '../constants/EVENT_TYPE.ts';
-import { EventTypes } from '../types/event-types.ts';
-
-export function getEventDef(event: TVEvent) {
-  return EVENT_TYPE_DEF[event.type as EventTypes] ?? EVENT_TYPE_DEF.Other;
+export function includesAny(
+  str: string,
+  substrings: string[],
+  caseSensitive = true,
+) {
+  if (caseSensitive)
+    return substrings.some((substring) => str.includes(substring));
+  return substrings.some((substring) =>
+    str.toLowerCase().includes(substring.toLowerCase()),
+  );
 }
 export function getImpressionMessage(event: Hash) {
   const values = [
@@ -116,13 +121,18 @@ export function cleanedFieldValue(
   field: string | undefined,
   value: string | undefined,
 ) {
-  if (!field || !value) return value;
-  switch (field) {
-    case 'locationScene':
-      return getSimpleSceneName(value);
-    default:
-      return value;
-  }
+  return value;
+
+  // was cleaning Game Hub locationScene values
+  // but this actually makes things more confusing
+
+  // if (!field || !value) return value;
+  // switch (field) {
+  //   case 'locationScene':
+  //     return getSimpleSceneName(value);
+  //   default:
+  //     return value;
+  // }
 }
 export function getValueFromEvent(event: TVEvent, field: string) {
   const clientEvent = event?.clientEvent ?? {};
@@ -168,4 +178,49 @@ export function getPayloads(
   if (payloads.length === 0) return undefined;
 
   return payloads;
+}
+export function getUpToNItemsBeforeId<T>(
+  items: T[],
+  isItemFn: (item: T) => boolean,
+  n: number,
+): T[] {
+  // Find the index of the item with the given id
+  const targetIndex = items.findIndex(isItemFn);
+
+  if (targetIndex !== -1) {
+    // Calculate the start index to ensure up to n items are included
+    const startIndex = Math.max(0, targetIndex - n);
+    // Slice the array from the calculated start index to the target item's index
+    return items.slice(startIndex, targetIndex);
+  }
+
+  // If the item with the given id is not found, return an empty array
+  return [];
+}
+export function getPreviousItems<T>(
+  items: T[],
+  upToItem: T,
+  includeItem = true,
+): T[] {
+  let targetIndex = items.findIndex((item) => item === upToItem);
+  if (targetIndex === -1) return [];
+
+  if (includeItem) targetIndex += 1;
+  return targetIndex !== -1 ? items.slice(0, targetIndex) : [];
+}
+export function isObjectWithRequiredKeys<T extends string>(
+  object: unknown,
+  requiredFields: T[],
+): object is Record<T, unknown> {
+  if (typeof object !== 'object' || object === null) {
+    return false;
+  }
+
+  for (const field of requiredFields) {
+    if (!(field in object)) {
+      return false;
+    }
+  }
+
+  return true;
 }

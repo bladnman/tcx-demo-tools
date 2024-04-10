@@ -3,14 +3,25 @@ type DataHandler<T> = (data: T) => void;
 class TCxMockPublisher<T> {
   private queue: T[];
   private delayMs: number;
-  private onData: DataHandler<T>;
+  private readonly onData: DataHandler<T>;
+  private readonly onStateChange: () => void;
   private timerId: NodeJS.Timeout | null = null;
   private isPaused: boolean = false;
 
-  constructor(data: T[], onData: DataHandler<T>, delayMs: number) {
+  get isRunning(): boolean {
+    return this.timerId !== null;
+  }
+
+  constructor(
+    data: T[],
+    onData: DataHandler<T>,
+    delayMs: number,
+    onStateChange: () => void,
+  ) {
     this.queue = data;
     this.onData = onData;
     this.delayMs = delayMs;
+    this.onStateChange = onStateChange;
   }
 
   private startTimer(): void {
@@ -31,11 +42,13 @@ class TCxMockPublisher<T> {
   start(): void {
     this.startTimer();
     this.isPaused = false;
+    this.onStateChange();
   }
 
   stop(): void {
     this.stopTimer();
     this.isPaused = true;
+    this.onStateChange();
   }
 
   publishNext(): void {

@@ -28,7 +28,9 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       sec: ['#8a599c', '#ad70ca'],
       fg: ['#38363e', '#c0bcc6'],
       bg: ['#eeeef1', '#272729'],
-      paper: ['#f9f9f9', '#0d0d0e'],
+      // paper: ['#f9f9f9', '#0d0d0e'],
+      paper: ['#d2d2d2', '#313135'],
+      appBar: ['#333f54', '#333f54'],
 
       appColor: ['#ccd857', '#ccd857'],
       appRed: ['#f62955', '#f62955'],
@@ -40,6 +42,19 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       appSlate: ['#769386', '#769386'],
       appGray: ['#8b8bE8b', '#8b8b8b'],
       appGrayDark: ['#464646', '#464646'],
+      appGrayVeryDark: ['#323232', '#323232'],
+      appWhite: ['#ffffff', '#ffffff'],
+      appBlack: ['#000000', '#000000'],
+      appBrown: ['#8b6e63', '#8b6e63'],
+      appGold: ['#ffd700', '#ffd700'],
+      appSilver: ['#c0c0c0', '#c0c0c0'],
+      appBronze: ['#cd7f32', '#cd7f32'],
+      appEggplant: ['#614051', '#614051'],
+      appMaroon: ['#800000', '#800000'],
+      appMint: ['#98ff98', '#98ff98'],
+      appNeonGreen: ['#83d537', '#83d537'],
+      appBrightRed: ['#f62955', '#F62955'],
+      appYellow: ['#E3CF44', '#E3CF44'],
 
       appBg10: ['#3e3e3e', '#ebebeb'],
       appBg25: ['#3e3e3e', '#cecece'],
@@ -60,9 +75,16 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       appFg25: ['#cecece', '#3e3e3e'],
       appFg50: ['#8b8b8b', '#8b8b8b'],
       appFg75: ['#3e3e3e', '#cecece'],
+
+      fg10: ['#eaeaea', '#1f1f1f'],
+      fg15: ['#e6e6e6', '#202020'],
       fg25: ['#cecece', '#3e3e3e'],
+      fg35: ['#a0a0a0', '#626262'],
       fg50: ['#8b8b8b', '#8b8b8b'],
+      fg65: ['#626262', '#a0a0a0'],
       fg75: ['#3e3e3e', '#cecece'],
+      fg85: ['#2a2a2a', '#e4e4e4'],
+      fg90: ['#1f1f1f', '#eaeaea'],
 
       // TOKEN COLORS
       tokenYellow: ['#E3CF44', '#E3CF44'],
@@ -73,13 +95,57 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       tokenPink: ['#f629d7', '#f629d7'],
       tokenRed: ['#f62955', '#F62955'],
       tokenSlate: ['#769386', '#769386'],
+      tokenGray: ['#8b8b8b', '#8b8b8b'],
+      tokenGrayDark: ['#464646', '#464646'],
+      tokenGrayVeryDark: ['#323232', '#323232'],
+      tokenWhite: ['#ffffff', '#ffffff'],
+      tokenBlack: ['#000000', '#000000'],
+      tokenBrown: ['#8b6e63', '#8b6e63'],
+      tokenGold: ['#ffd700', '#ffd700'],
+      tokenSilver: ['#c0c0c0', '#c0c0c0'],
+      tokenBronze: ['#cd7f32', '#cd7f32'],
+      tokenEggplant: ['#614051', '#614051'],
+      tokenMaroon: ['#800000', '#800000'],
+      tokenMint: ['#98ff98', '#98ff98'],
+      tokenNeonGreen: ['#83d537', '#83d537'],
+      tokenBrightRed: ['#f62955', '#F62955'],
+      tokenYellowDim: ['#E3CF44', '#E3CF44'],
+      tokenOrangeDim: ['#ffa726', '#ffa726'],
+      tokenGreenDim: ['#68b85b', '#68b85b'],
+      tokenBlueDim: ['#29b6f6', '#29b6f6'],
+      tokenPurpleDim: ['#7129f6', '#7129F6'],
+      tokenPinkDim: ['#f629d7', '#f629d7'],
+      tokenRedDim: ['#f62955', '#F62955'],
+      tokenSlateDim: ['#769386', '#769386'],
+      tokenGrayDim: ['#8b8b8b', '#8b8b8b'],
+      tokenGrayDarkDim: ['#464646', '#464646'],
+      tokenGrayVeryDarkDim: ['#323232', '#323232'],
+      tokenWhiteDim: ['#ffffff', '#ffffff'],
+      tokenBlackDim: ['#000000', '#000000'],
+      tokenBrownDim: ['#8b6e63', '#8b6e63'],
+      tokenGoldDim: ['#ffd700', '#ffd700'],
+      tokenSilverDim: ['#c0c0c0', '#c0c0c0'],
+      tokenBronzeDim: ['#cd7f32', '#cd7f32'],
+      tokenEggplantDim: ['#614051', '#614051'],
+      tokenMaroonDim: ['#800000', '#800000'],
+      tokenMintDim: ['#98ff98', '#98ff98'],
+      tokenNeonGreenDim: ['#83d537', '#83d537'],
+      tokenBrightRedDim: ['#f62955', '#F62955'],
+
       // TOKEN DETAILS COLORS
       tokenDetailsFG: ['#8b8b8b', '#8b8b8b'],
       tokenDetailsBG: ['#383838', '#383838'],
       tokenDetailsFGOrange: ['#ffa726', '#ffa726'],
       tokenDetailsFGGreen: ['#68b85b', '#68b85b'],
-      tokenDetailsFGRed: ['#f62955', '#f62955'],
+      tokenDetailsFGRed: ['#ff436b', '#ff436b'],
       tokenDetailsFGBlue: ['#29b6f6', '#29b6f6'],
+      tokenDetailsFGPurple: ['#7129f6', '#7129F6'],
+      tokenDetailsFGPink: ['#f629d7', '#f629d7'],
+      tokenDetailsFGSlate: ['#769386', '#769386'],
+      tokenDetailsFGGray: ['#8b8b8b', '#8b8b8b'],
+      tokenDetailsFGGrayDark: ['#464646', '#464646'],
+      tokenDetailsFGGrayVeryDark: ['#323232', '#323232'],
+      tokenDetailsFGWhite: ['#ffffff', '#ffffff'],
     }),
     [],
   ); // your colors here
@@ -107,6 +173,12 @@ declare module '@mui/material/Typography' {
     tag: true;
     tokenDetailHighlight: true;
     tokenDetailMessage: true;
+    detailSummaryRowLabel: true;
+    detailSummaryRowValue: true;
+    detailSummaryRowValueEmpty: true;
+    thick: true;
+    thin: true;
+    thickThin: true;
   }
 }
 
@@ -160,13 +232,29 @@ export const createDynamicTheme = (
         fontFamily: 'elza-narrow, Arial, sans-serif',
         fontSize: '0.85em',
       },
-      dividerValue: {
-        fontFamily: 'urbana, Arial, sans-serif',
-        fontSize: '1.4em',
-      },
-      dividerField: {
+      detailSummaryRowLabel: {
         fontFamily: 'elza-narrow, Arial, sans-serif',
         fontSize: '1em',
+        lineHeight: '0.25em',
+        opacity: 0.3,
+      },
+      detailSummaryRowValue: {
+        fontFamily: 'anton, Arial, sans-serif',
+        fontSize: '1.2em',
+      },
+      detailSummaryRowValueEmpty: {
+        fontFamily: 'anton, Arial, sans-serif',
+        fontSize: '1.2em',
+        opacity: 0.2,
+      },
+      thick: {
+        fontFamily: 'urbana, Arial, sans-serif',
+      },
+      thin: {
+        fontFamily: 'elza-narrow, Arial, sans-serif',
+      },
+      thickThin: {
+        fontFamily: 'anton, Arial, sans-serif',
       },
     },
   });

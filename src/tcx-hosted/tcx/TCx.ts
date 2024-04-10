@@ -8,7 +8,10 @@ export default class TCx {
   onStateChange: () => void;
   options: TCxSSOptions;
   onData?: (data: unknown) => void;
-  connectToName?: string;
+  connectionHandlers?: {
+    onConnect?: () => void;
+    onDisconnect?: () => void;
+  };
 
   private readonly ssCnxMgr: TCxConnectionManager;
 
@@ -26,7 +29,10 @@ export default class TCx {
     onStateChange: () => void,
     options: TCxSSOptions,
     onData?: (data: unknown) => void,
-    connectToName?: string,
+    connectionHandlers?: {
+      onConnect?: () => void;
+      onDisconnect?: () => void;
+    },
   ) {
     this.WS = WS;
     this.RTC = RTC;
@@ -34,7 +40,7 @@ export default class TCx {
     this.onStateChange = onStateChange;
     this.options = options;
     this.onData = onData;
-    this.connectToName = connectToName;
+    this.connectionHandlers = connectionHandlers;
 
     // INERT
     // define the WS and RTC classes
@@ -45,12 +51,25 @@ export default class TCx {
       this.WS,
       this.RTC,
       this.options,
-      this.onStateChange,
+      this.handleCnxMgrStateChange.bind(this),
       this.receive.bind(this),
+      {
+        onConnect: this.handleCnxMgrConnection.bind(this),
+        onDisconnect: this.handleCnxMgrDisconnection.bind(this),
+      },
     );
   }
   register(): Promise<void> {
     return this.ssCnxMgr.registerWithSignalServer();
+  }
+  private handleCnxMgrConnection(): void {
+    this.connectionHandlers?.onConnect?.();
+  }
+  private handleCnxMgrDisconnection(): void {
+    this.connectionHandlers?.onDisconnect?.();
+  }
+  private handleCnxMgrStateChange(): void {
+    this.onStateChange();
   }
   private registerIfNotRegistered(): Promise<void> {
     if (!this.ssCnxMgr) {

@@ -1,15 +1,29 @@
 export default function formatMilliseconds(ms: number): string {
+  // MILLISECONDS
   if (ms < 1000) {
-    // If less than 999ms, display in milliseconds with 'ms' suffix
     return `${ms} ms`;
-  } else if (ms >= 1000 && ms < 60000) {
-    // If greater than 999ms but less than a minute, convert to seconds and display with 3 decimal places
-    return `${(ms / 1000).toFixed(3)} s`;
-  } else {
-    // If greater than or equal to a minute, calculate minutes and remaining milliseconds
+  }
+
+  // SECONDS
+  else if (ms >= 1000 && ms < 60000) {
+    return `${(ms / 1000).toFixed(2)} s`;
+  }
+
+  // HOURS
+  else if (ms >= 3600000) {
+    const hours = Math.floor(ms / 3600000);
+    const remainingMs = ms % 3600000;
+    const minutes = Math.floor(remainingMs / 60000);
+    const remainingSeconds = remainingMs % 60000;
+    const seconds = (remainingSeconds / 1000).toFixed(0);
+    return `${hours}:${minutes}:${seconds} h`;
+  }
+
+  // MINUTES
+  else {
     const minutes = Math.floor(ms / 60000);
     const remainingMs = ms % 60000;
-    const seconds = (remainingMs / 1000).toFixed(3); // Convert remaining milliseconds to seconds with 3 decimal places
+    const seconds = (remainingMs / 1000).toFixed(0);
     return `${minutes}:${seconds} m`;
   }
 }

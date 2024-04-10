@@ -7,9 +7,10 @@ import {
   cleanedFieldValue,
   getValueFromEvent,
 } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
+import useEventsForDisplay from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/hooks/useEventsForDisplay.ts';
 
 export default function TelemetryList() {
-  const { displayEvents } = useTelemetryStore();
+  const displayEvents = useEventsForDisplay();
   const { eventForDetails, setEventForDetails, dividerFields } =
     useTelemetryStore();
   let dividerValues = useRef<string[] | undefined[]>([]).current;
@@ -23,7 +24,7 @@ export default function TelemetryList() {
           const dividerValue = dividerValues[i];
           const eventValue = cleanedFieldValue(
             dividerField,
-            getValueFromEvent(event, dividerField) ?? 'Unknown',
+            getValueFromEvent(event, dividerField) ?? `Unknown`,
           );
 
           if (dividerValue !== eventValue) {
@@ -53,7 +54,7 @@ export default function TelemetryList() {
 
       rows.push(
         <TelemetryRow
-          key={`row_${index}`}
+          key={`row_${event.id}_${index}`}
           event={event}
           selected={eventForDetails === event}
           onClick={() => {

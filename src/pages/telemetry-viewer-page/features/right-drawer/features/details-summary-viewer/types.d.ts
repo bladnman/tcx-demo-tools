@@ -1,0 +1,3 @@
+interface SummaryVisualizationProps {
+  event: TVEvent;
+}

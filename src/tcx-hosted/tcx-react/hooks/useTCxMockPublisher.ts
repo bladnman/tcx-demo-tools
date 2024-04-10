@@ -6,8 +6,11 @@ export default function useTCxMockPublisher<T>(
   delayMs: number,
   data?: T[],
 ) {
+  const [, forceUpdate] = useState({});
   const [publisher] = useState(
-    new TCxMockPublisher<T>(data ?? [], onData, delayMs),
+    new TCxMockPublisher<T>(data ?? [], onData, delayMs, () => {
+      forceUpdate({});
+    }),
   );
   return publisher;
 }

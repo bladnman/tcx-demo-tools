@@ -21,17 +21,18 @@ export default function TelemetryDivider(props: TelemetryDividerProps) {
       data-id={'telemetry-divider'}
     >
       <Typography
-        variant={'dividerValue'}
+        variant={'thickThin'}
         sx={{
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           color: 'fg50.main',
+          fontSize: '1.3em',
         }}
       >
         {value}
       </Typography>
-      <Typography variant={'dividerField'} sx={{ color: 'fg50.main' }}>
+      <Typography variant={'thin'} sx={{ color: 'fg50.main' }}>
         {field}
       </Typography>
     </HStack>

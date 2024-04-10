@@ -8,35 +8,38 @@ export const EVENT_TYPES = [
   'Startup',
   'VideoStream',
   'ViewableImpression',
+  'ApplicationDbAppBrowse',
+  'SetBackgroundResult',
+  'AsyncStorageInternalError',
+  'NpdrmGetPreorderFailure',
+  'NpdrmRightsVerification',
+  'NpdrmGetInternalEntitlements',
+  'NpdrmGetRif',
+  'NpdrmDrmServiceFailure',
+  'NpWebApi2WebApiUsageStats',
+  'NpWebApi2SdkApiErrorStats',
+  'NetSocketTraffic',
+  'PlayGoApiStats',
+  'PatchCheckEnd',
+  'ErrorDialog',
+  'ConsoleLogout',
+  'ConsoleLogin',
+  'PeripheralConnection',
+  'ActiveSignin',
+  'PushSdkApiUsageStats',
+  'UserAndPeripheralBinding',
+  'GetRifFailure',
+  'AppFrameworkError',
+  'JSCdNativeModuleError',
+  'NetSocketTraffic',
+  'ControllerProfilingData',
+  'HttpCacheStatistics',
+  'JSCdNativeModuleError',
+  'SaveDataAutoSyncCondition',
+  'NetStackData',
+  'DbHeapSize',
+  'NotificationDb',
+  'TraceSpan',
   'Other',
 ] as const;
 export type EventTypes = (typeof EVENT_TYPES)[number];
-
-/**
- * VALUE_CONFIG allows for a mapping between
- * [fieldName].[fieldValue] -> [fieldValue]: [config]
- */
-const VALUE_CONFIG = {
-  type: {
-    ApplicationError: {
-      value: 'ApplicationError',
-      icon: '❎',
-      abbreviation: 'appErr',
-      color: 'tokenRed',
-    },
-    AvatarImageLoad: {
-      value: 'AvatarImageLoad',
-      icon: '👤',
-      abbreviation: 'avtr',
-      color: 'tokenSlate',
-    },
-  },
-  appName: {
-    'game-hub': {
-      value: 'game-hub',
-      icon: '🎮',
-      abbreviation: 'hub',
-      color: 'tokenBlue',
-    },
-  },
-};

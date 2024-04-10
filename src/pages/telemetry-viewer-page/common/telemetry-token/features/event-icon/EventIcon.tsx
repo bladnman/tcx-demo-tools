@@ -7,7 +7,7 @@ import NearbyErrorIcon from '@mui/icons-material/NearbyError';
 import SignalWifiStatusbarConnectedNoInternet4Icon from '@mui/icons-material/SignalWifiStatusbarConnectedNoInternet4';
 import AssistantDirectionIcon from '@mui/icons-material/AssistantDirection';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
-import { getEventDef } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
+import { getEventDef } from '@pages/telemetry-viewer-page/utils/getEventDef.ts';
 export default function EventIcon({
   event,
   fontSize = '1em',

@@ -55,11 +55,29 @@ export const EVENT_TYPE_DEF: { [K in EventTypes]: EventTypeDef } = {
     abbreviation: 'impr',
     color: 'tokenYellow',
   },
+  ApplicationDbAppBrowse: {
+    type: 'ApplicationDbAppBrowse',
+    icon: '㏈',
+    abbreviation: 'appDb',
+    color: 'tokenGray',
+  },
+  NotificationDb: {
+    type: 'NotificationDb',
+    icon: '㏈',
+    abbreviation: 'notfDb',
+    color: 'tokenSilver',
+  },
+  TraceSpan: {
+    type: 'TraceSpan',
+    icon: '',
+    abbreviation: 'trace',
+    color: 'tokenGrayDim',
+  },
 
   Other: {
     type: 'Other',
     icon: '?',
     abbreviation: 'other',
-    color: 'tokenSlate',
+    color: 'tokenGrayVeryDark',
   },
 };

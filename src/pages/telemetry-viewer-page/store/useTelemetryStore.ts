@@ -15,11 +15,14 @@ export interface StoreAction {
   state: TelemetryStore;
 }
 export interface TelemetryStore {
+  useMockData: boolean;
   displayEvents: TVEvent[];
   clearDisplayEvents: () => void;
   allEvents: TVEvent[];
   addEvents: (events: TVEvent[]) => void;
   maxEventCount: number;
+  maxDisplayEventCount: number;
+  setMaxDisplayEventCount: (value: number) => void;
   allowWrap: boolean;
   setAllowWrap: (allowWrap: boolean) => void;
   filters: TelemetryFilter[];
@@ -57,12 +60,16 @@ export interface TelemetryStore {
 const useTelemetryStore = create<TelemetryStore>()(
   persist(
     (set) => ({
+      useMockData: true,
       displayEvents: [],
       clearDisplayEvents: () => set({ displayEvents: [] }),
       allEvents: [],
       addEvents: (events: TVEvent[]) =>
         set((state) => actionAddEvents({ state, events })),
       maxEventCount: 10000,
+      maxDisplayEventCount: 1000,
+      setMaxDisplayEventCount: (value: number) =>
+        set({ maxDisplayEventCount: value }),
       allowWrap: false,
       setAllowWrap: (allowWrap: boolean) => set({ allowWrap }),
       filters: initializeFilters(),
@@ -94,7 +101,7 @@ const useTelemetryStore = create<TelemetryStore>()(
         set({ tokenColorMode }),
       tokenFontSize: 1,
       setTokenFontSize: (tokenFontSize: number) => set({ tokenFontSize }),
-      tokenWidth: 'min',
+      tokenWidth: 'max',
       setTokenWidth: (tokenWidth: TokenWidth) => set({ tokenWidth }),
       tokenMode: 'details',
       setTokenMode: (tokenMode: TokenMode) => set({ tokenMode }),
@@ -111,7 +118,7 @@ const useTelemetryStore = create<TelemetryStore>()(
       isConnectedViaTCx: false,
       setConnectedViaTCx: (isConnectedViaTCx: boolean) =>
         set({ isConnectedViaTCx }),
-      connectToTCxName: 'TDServer',
+      connectToTCxName: null,
       setConnectToTCxName: (connectToTCxName: string | null) =>
         set({ connectToTCxName }),
     }),

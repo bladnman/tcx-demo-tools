@@ -4,7 +4,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
 import useReceiver from '@pages/telemetry-viewer-page/hooks/useReceiver.ts';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
-export default function TelemetryPublisherReceiverInterface() {
+export default function TelemetryMobileReceiver() {
   const { isConnectedViaTCx, setConnectToTCxName } = useTelemetryStore();
 
   // the receiver is the part that receives events and sends them to the store
@@ -17,9 +17,7 @@ export default function TelemetryPublisherReceiverInterface() {
           variant={'contained'}
           // @ts-expect-error : using my own colors
           color={'appGreen'}
-          onClick={() => {
-            setConnectToTCxName('TDServer');
-          }}
+          onClick={() => setConnectToTCxName('MobileTelemetry')}
         >
           <PlayArrowIcon />
         </Button>

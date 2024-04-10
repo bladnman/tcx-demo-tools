@@ -59,7 +59,11 @@ export default function FilterActionBar() {
             onClick={() => handleToggle(field)}
             sx={{ py: 0 }}
           >
-            <Checkbox checked={selected} color={'appOrange'} />
+            <Checkbox
+              checked={selected}
+              // @ts-expect-error : using my own colors
+              color={'appOrange'}
+            />
             <ListItemText primary={label} />
           </MenuItem>
         ))}

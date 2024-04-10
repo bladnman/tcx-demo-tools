@@ -103,57 +103,48 @@ export default class TCxSignalServerManager {
   //  | (_| (_) | .` | .` | _| (__  | |  | | (_) | .` |
   //   \___\___/|_|\_|_|\_|___\___| |_| |___\___/|_|\_|
   private cnx_onmessage(event: IWSCustomEvent) {
-    if (event.data instanceof Blob) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.debug &&
-          console.log(
-            `🛜 [${this.tcxName}] Message from server:`,
-            reader.result,
-          );
-
-        const data = JSON.parse(reader.result as string);
-        if (data.code === 4000) {
-          this.debug &&
-            console.error(
-              `🛜 [${this.tcxName}] Error from server:`,
-              data.error,
-            );
-          this.eventHandlers.onerror(new Event(data.error));
-          return;
-        }
-
-        this.eventHandlers.onmessage(
-          new MessageEvent('message', {
-            data: reader.result,
-          }),
-        );
-      };
-      reader.onerror = (error) => {
-        this.debug &&
-          console.error('🛜 [${this.tcxName}] FileReader error:', error);
-        this.eventHandlers.onerror(error);
-      };
-      reader.readAsText(event.data);
-    } else {
-      const data = JSON.parse(event.data as string);
+    // Helper function to process data
+    const processData = (data: { code?: number; error?: string }) => {
       if (data.code === 4000) {
         this.debug &&
           console.error(`🛜 [${this.tcxName}] Error from server:`, data.error);
-        this.eventHandlers.onerror(new Event(data.error));
-        return;
+        this.eventHandlers.onerror({ type: 'error', reason: data.error });
       } else {
         this.debug &&
           console.log(`🛜 [${this.tcxName}] Message from server:`, data);
+        this.eventHandlers.onmessage({ type: 'message', data });
+      }
+    };
 
-        this.eventHandlers.onmessage(
-          new MessageEvent('message', {
-            data,
-          }),
-        );
+    if (typeof event.data === 'string') {
+      try {
+        const potentialBufferObject = JSON.parse(event.data);
+        if (
+          potentialBufferObject.type === 'Buffer' &&
+          Array.isArray(potentialBufferObject.data)
+        ) {
+          // Assuming the data array represents a UTF-8 encoded string
+          const stringFromBuffer = String.fromCharCode(
+            ...potentialBufferObject.data,
+          );
+          // If the resulting string is expected to be JSON, parse it again
+          const data = JSON.parse(stringFromBuffer);
+          processData(data);
+        } else {
+          // Handle normal JSON object
+          processData(potentialBufferObject);
+        }
+      } catch (error) {
+        this.debug &&
+          console.error(`🛜 [${this.tcxName}] JSON parsing error:`, error);
+        this.eventHandlers.onerror({
+          type: 'error',
+          reason: 'JSON parsing error',
+        });
       }
     }
   }
+
   private cnx_onopen() {
     this.debug && console.log(`🛜 [${this.tcxName}] WebSocket Connected`);
     this.eventHandlers.onopen();
@@ -161,13 +152,17 @@ export default class TCxSignalServerManager {
   private cnx_onclose(ev: IWSCustomEvent) {
     // 1002 is "no tcxName query parameter" error
     if (ev.code === 1002) {
-      this.connection?.onerror?.(
-        new Event(ev.reason ?? 'No tcxName query parameter'),
-      );
+      this.connection?.onerror?.({
+        type: 'error',
+        reason: ev.reason ?? 'No tcxName query parameter',
+      });
     }
     // 1003 is "tcxName name taken" error
     if (ev.code === 1003) {
-      this.connection?.onerror?.(new Event(ev.reason ?? 'tcxName name taken'));
+      this.connection?.onerror?.({
+        type: 'error',
+        reason: ev.reason ?? 'tcxName name taken',
+      });
     }
     // other reasons
     else {

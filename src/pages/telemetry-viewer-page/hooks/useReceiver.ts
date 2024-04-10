@@ -6,29 +6,48 @@ import { TcxSS_CONFIG } from '@tcx-hosted/tcx-react/hooks/useTCx.ts';
 
 export default function useReceiver() {
   // the store is where events end up
-  const { addEvents, connectToTCxName, setConnectedViaTCx } =
-    useTelemetryStore();
+  const {
+    addEvents,
+    connectToTCxName,
+    setConnectedViaTCx,
+    setConnectToTCxName,
+  } = useTelemetryStore();
   const [tcxName] = useState('TelemetryViewer');
-
-  const onTCxStateChange = useCallback(
-    (state: TCxState) => {
-      setConnectedViaTCx(state.isConnectedToPeer);
-    },
-    [setConnectedViaTCx],
-  );
 
   // we use the receiver to receive events and to clean them up
   // before they are sent to the store
   const receiver = useMemo(() => new TelemetryReceiver(addEvents), [addEvents]);
 
-  // TODO: implement a TCx and hook the onData to the receiver's receiveEvents
-  //       this may be done here or out in the receiverInterface
-  const tcx = useTCx(
-    tcxName,
-    TcxSS_CONFIG,
-    receiver.receiveEvents,
-    onTCxStateChange,
+  const onData = useCallback(
+    (events: unknown) => {
+      receiver.receiveEvents(events);
+    },
+    [receiver],
   );
+  const onStateChange = useCallback(
+    (state: TCxState) => {
+      setConnectedViaTCx(state.isConnectedToPeer);
+    },
+    [setConnectedViaTCx],
+  );
+  const onConnect = useCallback(() => {
+    // noop
+  }, []);
+  const onDisconnect = useCallback(() => {
+    setConnectToTCxName(null);
+  }, [setConnectToTCxName]);
+
+  const tcxHandlers = useMemo(() => {
+    return {
+      onData: onData,
+      onStateChange: onStateChange,
+      onConnect: onConnect,
+      onDisconnect: onDisconnect,
+    };
+  }, [onData, onStateChange, onConnect, onDisconnect]);
+
+  const tcx = useTCx(tcxName, TcxSS_CONFIG, tcxHandlers);
+
   useEffect(() => {
     if (connectToTCxName) {
       tcx.connectTo(connectToTCxName).catch((err) => {
