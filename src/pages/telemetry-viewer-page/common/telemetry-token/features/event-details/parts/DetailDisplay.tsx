@@ -14,7 +14,10 @@ export default function DetailDisplay({
 }: DetailDisplayProps) {
   const { allowWrap } = useTelemetryStore();
 
-  if (!highlight && !message) {
+  const hasHighlight = Boolean(highlight);
+  const hasMessage = Boolean(message);
+
+  if (!hasHighlight && !hasMessage) {
     return null;
   }
 
@@ -27,7 +30,7 @@ export default function DetailDisplay({
         maxWidth: '100%',
       }}
     >
-      {highlight && (
+      {hasHighlight && (
         <Typography
           variant={'tokenDetailHighlight'}
           color={color}
@@ -36,7 +39,7 @@ export default function DetailDisplay({
           {highlight}
         </Typography>
       )}
-      {message && (
+      {hasMessage && (
         <Typography
           variant={'tokenDetailMessage'}
           sx={{

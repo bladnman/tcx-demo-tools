@@ -5,6 +5,8 @@ import TelemetryRightDrawer from '@pages/telemetry-viewer-page/features/right-dr
 import { useEffect, useRef } from 'react';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { Typography } from '@mui/material';
+import AppArchitectureProvider from '@pages/telemetry-viewer-page/features/general-app-parts/AppArchitectureProvider.tsx';
+import AppBarTools from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/AppBarTools.tsx';
 
 export default function TelemetryViewerPage() {
   const appBarRef = useRef<HTMLDivElement>(null);
@@ -23,30 +25,37 @@ export default function TelemetryViewerPage() {
     }
   }, [setAppBarHeight]);
   return (
-    <AppLayoutDoubleDrawer
-      title={<Typography variant={'title'}>Telemetry Viewer</Typography>}
-      mainContent={<TelemetryMainBody />}
-      appBarRef={appBarRef}
-      leftDrawerContent={<TelemetryLeftDrawer />}
-      leftDrawerWidth={400}
-      isLeftDrawerOpen={isFilterDrawerOpen}
-      onLeftDrawerToggle={(isOpen) => {
-        setIsFilterDrawerOpen(isOpen);
-      }}
-      rightDrawerContent={<TelemetryRightDrawer />}
-      rightDrawerTitle={
-        <Typography variant="title" fontSize={'0.8em'}>
-          EVENT DETAILS
-        </Typography>
-      }
-      showRightDrawerIcon={false}
-      rightDrawerWidth={550}
-      isRightDrawerOpen={!!eventForDetails}
-      onRightDrawerToggle={(isOpen) => {
-        if (!isOpen) {
-          setEventForDetails(null);
+    <AppArchitectureProvider>
+      <AppLayoutDoubleDrawer
+        title={
+          <Typography variant={'title'} sx={{ whiteSpace: 'nowrap' }}>
+            Telemetry Viewer
+          </Typography>
         }
-      }}
-    />
+        mainContent={<TelemetryMainBody />}
+        appBarRef={appBarRef}
+        leftDrawerContent={<TelemetryLeftDrawer />}
+        leftDrawerWidth={400}
+        isLeftDrawerOpen={isFilterDrawerOpen}
+        onLeftDrawerToggle={(isOpen) => {
+          setIsFilterDrawerOpen(isOpen);
+        }}
+        rightDrawerContent={<TelemetryRightDrawer />}
+        rightDrawerTitle={
+          <Typography variant="title" fontSize={'0.8em'}>
+            EVENT DETAILS
+          </Typography>
+        }
+        showRightDrawerIcon={false}
+        rightDrawerWidth={550}
+        isRightDrawerOpen={!!eventForDetails}
+        onRightDrawerToggle={(isOpen) => {
+          if (!isOpen) {
+            setEventForDetails(null);
+          }
+        }}
+        appBarContent={<AppBarTools />}
+      />
+    </AppArchitectureProvider>
   );
 }

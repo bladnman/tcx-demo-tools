@@ -31,9 +31,15 @@ class TelemetryFilter {
   clearItems() {
     this.items = [];
   }
+  clearValues() {
+    this.items.forEach((item) => (item.count = 0));
+  }
 
   clearActive() {
     this.items.forEach((item) => (item.active = false));
+  }
+  removeInactiveItems() {
+    this.items = this.items.filter((item) => item.active);
   }
 
   activateAll() {

@@ -1,7 +1,7 @@
 export default function formatMilliseconds(ms: number): string {
   // MILLISECONDS
   if (ms < 1000) {
-    return `${ms} ms`;
+    return `${ms.toFixed(3)} ms`;
   }
 
   // SECONDS
@@ -16,7 +16,7 @@ export default function formatMilliseconds(ms: number): string {
     const minutes = Math.floor(remainingMs / 60000);
     const remainingSeconds = remainingMs % 60000;
     const seconds = (remainingSeconds / 1000).toFixed(0);
-    return `${hours}:${minutes}:${seconds} h`;
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds} h`;
   }
 
   // MINUTES
@@ -24,6 +24,6 @@ export default function formatMilliseconds(ms: number): string {
     const minutes = Math.floor(ms / 60000);
     const remainingMs = ms % 60000;
     const seconds = (remainingMs / 1000).toFixed(0);
-    return `${minutes}:${seconds} m`;
+    return `${minutes}:${seconds.toString().padStart(2, '0')} m`;
   }
 }

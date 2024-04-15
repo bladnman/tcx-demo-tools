@@ -2,8 +2,8 @@ import React, { ReactNode, useMemo } from 'react';
 import {
   createTheme,
   PaletteColor,
-  ThemeProvider,
   Theme,
+  ThemeProvider,
 } from '@mui/material/styles';
 
 declare module '@mui/material/Button' {
@@ -22,10 +22,13 @@ export type ThemePaletteColors = {
 const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
   // very simple tool to help you manage your colors
   // https://metal-sole.com/apps/mui-theme/
+  // LIGHT / DARK THEME COLORS
   const THEME_COLORS = useMemo(
     () => ({
-      pri: ['#707898', '#707898'],
+      pri: ['#667195', '#9ca7d2'],
+      // pri: ['#707898', '#707898'],
       sec: ['#8a599c', '#ad70ca'],
+      cancel: ['#6c7074', '#9093a3'],
       fg: ['#38363e', '#c0bcc6'],
       bg: ['#eeeef1', '#272729'],
       // paper: ['#f9f9f9', '#0d0d0e'],
@@ -53,7 +56,7 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       appMaroon: ['#800000', '#800000'],
       appMint: ['#98ff98', '#98ff98'],
       appNeonGreen: ['#83d537', '#83d537'],
-      appBrightRed: ['#f62955', '#F62955'],
+      appBrightRed: ['#f7426b', '#f7426b'],
       appYellow: ['#E3CF44', '#E3CF44'],
 
       appBg10: ['#3e3e3e', '#ebebeb'],
@@ -146,6 +149,7 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       tokenDetailsFGGrayDark: ['#464646', '#464646'],
       tokenDetailsFGGrayVeryDark: ['#323232', '#323232'],
       tokenDetailsFGWhite: ['#ffffff', '#ffffff'],
+      tokenDetailsFGBright: ['#ffffff', '#ffffff'],
     }),
     [],
   ); // your colors here

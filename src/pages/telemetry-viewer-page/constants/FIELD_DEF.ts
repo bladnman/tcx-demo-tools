@@ -310,6 +310,175 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefaultCollapsed: true,
     },
   },
+  // video
+  videoTitle: {
+    field: 'videoTitle',
+    title: 'Video Title',
+    paths: ['clientEvent.videoTitle'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: false,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  videoType: {
+    field: 'videoType',
+    title: 'Video Type',
+    paths: ['clientEvent.videoType'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: false,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  videoEventType: {
+    field: 'videoEventType',
+    title: 'Video Event Type',
+    paths: ['clientEvent.videoEventType'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  videoId: {
+    field: 'videoId',
+    title: 'Video Id',
+    paths: ['clientEvent.videoId'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: false,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  duration: {
+    field: 'duration',
+    title: 'Duration',
+    paths: ['clientEvent.duration'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: false,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  videoPlayerReadyTime: {
+    field: 'videoPlayerReadyTime',
+    title: 'Video Player Ready Time',
+    paths: ['clientEvent.videoPlayerReadyTime'],
+    divider: {
+      isAvailable: true,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  videoLoadTime: {
+    field: 'videoLoadTime',
+    title: 'Video Load Time',
+    paths: ['clientEvent.videoLoadTime'],
+    divider: {
+      isAvailable: true,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  videoStartTime: {
+    field: 'videoStartTime',
+    title: 'Video Start Time',
+    paths: ['clientEvent.videoStartTime'],
+    divider: {
+      isAvailable: true,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  videoSessionId: {
+    field: 'videoSessionId',
+    title: 'Video Session Id',
+    paths: ['clientEvent.videoSessionId'],
+    divider: {
+      isAvailable: true,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  videoProgressType: {
+    field: 'videoProgressType',
+    title: 'Video Progress Type',
+    paths: ['clientEvent.videoProgressType'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  lastSentQuartile: {
+    field: 'lastSentQuartile',
+    title: 'Last Sent Quartile',
+    paths: ['clientEvent.lastSentQuartile'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  elapsedTime: {
+    field: 'elapsedTime',
+    title: 'Elapsed Time',
+    paths: ['clientEvent.elapsedTime'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: false,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
 };
 export default FIELD_DEF;
 

@@ -33,7 +33,6 @@ export default function TelemetryToken(props: TelemetryTokenProps) {
         borderTopRightRadius: showDetails ? 0 : '1em',
         borderBottomRightRadius: showDetails ? 0 : '1em',
         whiteSpace: 'nowrap',
-        flexShrink: 0,
         maxWidth: '100%',
         overflow: 'hidden',
         width: isMaxWidth ? '100%' : isIconOnly ? '2em' : 'auto',

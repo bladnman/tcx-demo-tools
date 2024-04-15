@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Drawer, IconButton, Toolbar } from '@mui/material';
 import { HStack, VStack } from '../mui-stacks';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -11,6 +11,7 @@ interface AppLayoutDoubleDrawerProps {
   leftDrawerContent?: React.ReactNode;
   rightDrawerTitle?: React.ReactNode;
   rightDrawerContent?: React.ReactNode;
+  appBarContent?: React.ReactNode;
   mainContent: React.ReactNode;
   appBarRef?: React.RefObject<HTMLDivElement>;
   leftDrawerWidth?: number;
@@ -31,6 +32,7 @@ export default function AppLayoutDoubleDrawer({
   leftDrawerTitle,
   rightDrawerContent,
   rightDrawerTitle,
+  appBarContent,
   mainContent,
   appBarRef,
   leftDrawerWidth = 240,
@@ -95,29 +97,44 @@ export default function AppLayoutDoubleDrawer({
         }}
       >
         <Toolbar>
-          {leftDrawerContent && showLeftDrawerIcon && (
-            <IconButton
-              color="inherit"
-              aria-label="open left drawer"
-              edge="start"
-              onClick={handleLeftDrawerToggle}
-              sx={{ mr: 2 }}
-            >
-              <LeftIcon />
-            </IconButton>
-          )}
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            {title}
-          </Typography>
-          {rightDrawerContent && showRightDrawerIcon && (
-            <IconButton
-              color="inherit"
-              aria-label="open right drawer"
-              onClick={handleRightDrawerToggle}
-            >
-              <RightIcon />
-            </IconButton>
-          )}
+          <HStack left hFill spacing={1.5}>
+            <HStack left hFill spacing={0}>
+              {/* LEFT DRAW TITLE */}
+              {leftDrawerContent && showLeftDrawerIcon && (
+                <IconButton
+                  color="inherit"
+                  aria-label="open left drawer"
+                  edge="start"
+                  onClick={handleLeftDrawerToggle}
+                  sx={{ mr: 2, width: '1.5em', flexShrink: 0 }}
+                >
+                  <LeftIcon />
+                </IconButton>
+              )}
+
+              {/* TITLE */}
+
+              {title}
+            </HStack>
+
+            {/* APP BAR */}
+            {appBarContent && (
+              <HStack hFill right>
+                {appBarContent}
+              </HStack>
+            )}
+
+            {/* RIGHT DRAW TITLE */}
+            {rightDrawerContent && showRightDrawerIcon && (
+              <IconButton
+                color="inherit"
+                aria-label="open right drawer"
+                onClick={handleRightDrawerToggle}
+              >
+                <RightIcon />
+              </IconButton>
+            )}
+          </HStack>
         </Toolbar>
       </AppBar>
       {leftDrawerContent && (

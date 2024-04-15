@@ -30,3 +30,4 @@ Thumbs.db
 .history/
 *.code-workspace
 
+/src/pages/telemetry-viewer-page/data/

@@ -1,4 +1,4 @@
-import mapEventsToTVEvents from '@pages/telemetry-viewer-page/classes/telemetry-receiver/utils/mapEventsToTVEvents.ts';
+import eventMapper from '@pages/telemetry-viewer-page/classes/telemetry-receiver/eventMapper.ts';
 
 class TelemetryReceiver {
   public onEvents: (events: TVEvent[]) => void = () => {};
@@ -14,7 +14,7 @@ class TelemetryReceiver {
     }
 
     // MAP TO TV EVENTS
-    this.onEvents(mapEventsToTVEvents(eventsArray));
+    this.onEvents(eventMapper(eventsArray));
   };
 }
 export default TelemetryReceiver;

@@ -1,6 +1,5 @@
 import TelemetryList from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/TelemetryList.tsx';
-import { HStack, VStack } from '@common/mui-stacks.tsx';
-import TelemetryListTools from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/TelemetryListTools.tsx';
+import { VStack } from '@common/mui-stacks.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import useAutoScroll from '@pages/telemetry-viewer-page/hooks/useAutoScroll.ts';
 import { useEffect } from 'react';
@@ -13,7 +12,8 @@ export default function TelemetryMainBody() {
   useEffect(() => {
     scrollToBottom();
   }, [displayEvents, filters, scrollToBottom]);
-  const bodyTopPoint = appBarHeight * 2 + 10;
+  const bodyTopPoint = appBarHeight + 10;
+
   return (
     <VStack
       data-id={'telemetry-main-body'}
@@ -30,22 +30,6 @@ export default function TelemetryMainBody() {
       }}
       spacing={0}
     >
-      <HStack
-        hFill
-        spacing={2}
-        vAlign={'leading'}
-        hAlign={'leading'}
-        sx={{
-          position: 'fixed',
-          top: `${appBarHeight - 1}px`,
-          width: '100%',
-          backgroundColor: 'paper.main',
-          py: 1,
-        }}
-      >
-        <TelemetryListTools />
-      </HStack>
-
       <VStack
         fill
         vAlign={'leading'}
@@ -56,7 +40,7 @@ export default function TelemetryMainBody() {
         }}
         ref={containerRef}
       >
-        <TelemetryList />
+        <TelemetryList events={displayEvents} />
       </VStack>
     </VStack>
   );

@@ -99,8 +99,10 @@ export function getErrorMessage(event: Hash) {
   ];
   return values.filter((v) => v !== undefined).join(' | ');
 }
-export function getSimpleSceneName(fromValue: string | undefined): string {
-  if (fromValue === undefined) return '';
+export function getSimpleSceneName(
+  fromValue: string | undefined | null,
+): string {
+  if (!fromValue) return '';
 
   // strip scene from locations if a GH value
   if (fromValue.indexOf(':') > -1) {
@@ -223,4 +225,12 @@ export function isObjectWithRequiredKeys<T extends string>(
   }
 
   return true;
+}
+export function isValidIP(ip: string | null | undefined): boolean {
+  if (!ip) return false;
+  const ipv4Regex =
+    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){2}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+  const ipv6Regex = /^([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:)$/i;
+
+  return ipv4Regex.test(ip) || ipv6Regex.test(ip);
 }

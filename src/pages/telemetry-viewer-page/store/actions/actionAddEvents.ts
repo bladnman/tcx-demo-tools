@@ -41,7 +41,11 @@ export function actionAddEvents({
   return {
     // spread whatever this action authors
     // (displayEvents, filters, etc.)
-    ...actionAddEventsToFilters({ state, events: newEvents }),
+    ...actionAddEventsToFilters({
+      state,
+      events: newEvents,
+      displayEvents: state.displayEvents,
+    }),
 
     // post the data this action authors
     allEvents: [...state.allEvents, ...newEvents],

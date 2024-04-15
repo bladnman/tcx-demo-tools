@@ -7,8 +7,10 @@ import applyFilters from '@pages/telemetry-viewer-page/utils/filter-utils/applyF
 export function actionAddEventsToFilters({
   state,
   events,
+  displayEvents,
 }: StoreAction & {
   events: TVEvent[];
+  displayEvents: TVEvent[];
 }): Partial<TelemetryStore> {
   // ADD TO EACH FILTER
   state.filters.forEach((filter) => filter.incrementEvents(events));
@@ -18,7 +20,7 @@ export function actionAddEventsToFilters({
 
   // ADD PASSES TO DISPLAY EVENTS
   const newDisplayEvents = filteredNewEvents.length
-    ? [...state.displayEvents, ...filteredNewEvents]
+    ? [...displayEvents, ...filteredNewEvents]
     : null;
 
   return {
@@ -28,6 +30,6 @@ export function actionAddEventsToFilters({
     // splice off if we are over maxEventCount
     displayEvents: newDisplayEvents
       ? newDisplayEvents.splice(0, state.maxEventCount - 1)
-      : state.displayEvents,
+      : displayEvents,
   };
 }

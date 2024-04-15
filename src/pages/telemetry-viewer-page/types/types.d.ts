@@ -29,6 +29,8 @@ interface TVEventSummary {
   eventName: string;
   appName?: string;
   platformType?: string;
+  timestamp: string;
+  timeMs: number;
   hasFailures: boolean;
   hasPayloads: boolean;
   dispatchedEvents: TelemetryDebuggerDispatchedEvent[];
@@ -51,7 +53,6 @@ interface TelemetryDebuggerEvent {
 
 type EventTypeDef = {
   type: string;
-  icon: string;
   abbreviation: string;
   color: string;
 };
@@ -110,3 +111,4 @@ type FieldDef = {
   isKeyField?: boolean;
   color?: string;
 };
+type ConnectionPlatform = 'Mock' | 'Mobile' | 'TD Server';

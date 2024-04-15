@@ -2,7 +2,7 @@ import TelemetryToken from '@pages/telemetry-viewer-page/common/telemetry-token/
 import EventIcon from '@pages/telemetry-viewer-page/common/telemetry-token/features/event-icon/EventIcon.tsx';
 import EventDetails from '@pages/telemetry-viewer-page/common/telemetry-token/features/event-details/EventDetails.tsx';
 import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
-import { getEventDef } from '@pages/telemetry-viewer-page/utils/getEventDef.ts';
+import { getEventDef } from '@pages/telemetry-viewer-page/utils/event-utils/getEventDef.ts';
 
 interface TelemetryEventTokenProps extends TelemetryTokenProps {
   event: TVEvent;

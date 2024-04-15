@@ -19,6 +19,17 @@ export function actionSetFilters({
       undefined
     );
   });
+
+  // if we have no events, we can't do anything
+  // this is essentially our CLEAR_FILTERS action
+  if (state.allEvents.length === 0) {
+    filters.forEach((filter) => filter.clearItems());
+    return {
+      filters: [...filters],
+      displayEvents: [],
+    };
+  }
+
   // send allEvents to update counts
   newFilters.forEach((newFilter) => newFilter.incrementEvents(state.allEvents));
 

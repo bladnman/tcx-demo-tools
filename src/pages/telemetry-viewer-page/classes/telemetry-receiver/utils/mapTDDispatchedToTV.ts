@@ -38,6 +38,8 @@ export default function mapTDDispatchedToTV(event: unknown): TVEvent | null {
     appName: appName ?? undefined, // no nulls
     platformType: inputEvent.platformType,
     namespace: inputEvent.namespace ?? 'native',
+    timestamp: inputEvent.timestamp,
+    timeMs: new Date(inputEvent.timestamp).getTime(),
     hasFailures: !!getFailures(dispatchedEvents),
     hasPayloads: !!getPayloads(dispatchedEvents),
     id: tracingId,

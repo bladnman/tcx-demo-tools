@@ -7,18 +7,25 @@ import {
   cleanedFieldValue,
   getValueFromEvent,
 } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
-import useEventsForDisplay from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/hooks/useEventsForDisplay.ts';
 
-export default function TelemetryList() {
-  const displayEvents = useEventsForDisplay();
+export default function TelemetryList({
+  events,
+  allowDividers = true,
+  allowSelection = true,
+}: {
+  events: TVEvent[];
+  allowDividers?: boolean;
+  allowSelection?: boolean;
+}) {
   const { eventForDetails, setEventForDetails, dividerFields } =
     useTelemetryStore();
   let dividerValues = useRef<string[] | undefined[]>([]).current;
 
   const renderRows = () => {
     const rows: ReactNode[] = [];
-    displayEvents.forEach((event, index) => {
-      if (dividerFields.length > 0) {
+    if (!events || events.length < 1) return rows;
+    events.forEach((event, index) => {
+      if (allowDividers && dividerFields.length > 0) {
         for (let i = 0; i < dividerFields.length; i++) {
           const dividerField = dividerFields[i];
           const dividerValue = dividerValues[i];
@@ -58,7 +65,9 @@ export default function TelemetryList() {
           event={event}
           selected={eventForDetails === event}
           onClick={() => {
-            setEventForDetails(eventForDetails === event ? null : event);
+            if (allowSelection) {
+              setEventForDetails(eventForDetails === event ? null : event);
+            }
           }}
           sx={{ pl: `${Math.max(0, dividerFields.length - 1)}em` }}
         />,
