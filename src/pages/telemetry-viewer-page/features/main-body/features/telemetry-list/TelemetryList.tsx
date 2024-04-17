@@ -5,7 +5,7 @@ import { ReactNode, useRef } from 'react';
 import TelemetryDivider from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/TelemetryDivider.tsx';
 import { getValueFromEvent } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 import { useEventForDetails } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
-import actionSetEventForDetailsById from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetEventForDetailsById.ts';
+import actionToggleEventForDetailsById from '@pages/telemetry-viewer-page/store/event-store/actions/actionToggleEventForDetailsById.ts';
 
 export default function TelemetryList({
   events,
@@ -62,7 +62,7 @@ export default function TelemetryList({
           selected={eventForDetails === event}
           onClick={() => {
             if (allowSelection) {
-              actionSetEventForDetailsById(eventForDetails === event ? null : event.id);
+              actionToggleEventForDetailsById(event.id);
             }
           }}
           sx={{ pl: `${Math.max(0, dividerFields.length - 1)}em` }}
