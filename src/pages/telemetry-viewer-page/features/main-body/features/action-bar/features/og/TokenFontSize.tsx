@@ -1,9 +1,10 @@
 import { Slider, Typography } from '@mui/material';
 import { VStack } from '@common/mui-stacks.tsx';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
+import actionSetTokenFontSize from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetTokenFontSize.ts';
 
 export default function TokenFontSize() {
-  const { tokenFontSize, setTokenFontSize } = useTelemetryStore();
+  const { tokenFontSize } = useSettingsStore();
   return (
     <VStack hAlign={'leading'} spacing={0}>
       <Slider
@@ -13,7 +14,7 @@ export default function TokenFontSize() {
         defaultValue={tokenFontSize}
         size="small"
         onChange={(_, value) => {
-          setTokenFontSize(value as number);
+          actionSetTokenFontSize(value as number);
         }}
         sx={{ width: '75px' }}
       />

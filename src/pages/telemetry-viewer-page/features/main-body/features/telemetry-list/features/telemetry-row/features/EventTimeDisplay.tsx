@@ -1,11 +1,11 @@
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import { HStack } from '@common/mui-stacks.tsx';
 import { Tooltip, Typography } from '@mui/material';
 import formatDateString from '@pages/telemetry-viewer-page/utils/formatDateString.ts';
 import useIsSelectedEvent from '@pages/telemetry-viewer-page/hooks/useIsSelectedEvent.ts';
 
 export default function EventTimeDisplay({ event }: { event: TVEvent }) {
-  const { shouldShowTime } = useTelemetryStore();
+  const { shouldShowTime } = useSettingsStore();
   const isSelected = useIsSelectedEvent({ event });
   if (!shouldShowTime) return null;
   return (
@@ -13,10 +13,7 @@ export default function EventTimeDisplay({ event }: { event: TVEvent }) {
       <Tooltip
         enterDelay={700}
         enterNextDelay={700}
-        title={formatDateString(
-          event.timestamp,
-          'DD MMM, YYYY  |  h:mm:ss.SSS A',
-        )}
+        title={formatDateString(event.timestamp, 'DD MMM, YYYY  |  h:mm:ss.SSS A')}
       >
         <Typography
           sx={{

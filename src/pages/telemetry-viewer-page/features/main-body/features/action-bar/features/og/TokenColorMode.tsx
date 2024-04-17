@@ -1,11 +1,11 @@
 import { Slider, Typography } from '@mui/material';
 import { VStack } from '@common/mui-stacks.tsx';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
+import actionSetTokenColorMode from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetTokenColorMode.ts';
 
 export default function TokenColorMode() {
-  const { tokenColorMode, setTokenColorMode } = useTelemetryStore();
-  const value =
-    tokenColorMode === 'none' ? 0 : tokenColorMode === 'single' ? 1 : 2;
+  const { tokenColorMode } = useSettingsStore();
+  const value = tokenColorMode === 'none' ? 0 : tokenColorMode === 'single' ? 1 : 2;
   return (
     <VStack hAlign={'leading'} spacing={0}>
       <Slider
@@ -16,11 +16,11 @@ export default function TokenColorMode() {
         size="small"
         onChange={(_, value) => {
           if (value === 0) {
-            setTokenColorMode('none');
+            actionSetTokenColorMode('none');
           } else if (value === 1) {
-            setTokenColorMode('single');
+            actionSetTokenColorMode('single');
           } else {
-            setTokenColorMode('dual');
+            actionSetTokenColorMode('dual');
           }
         }}
         sx={{ width: '75px' }}

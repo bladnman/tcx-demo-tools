@@ -49,7 +49,7 @@ export default function SumLoadTimeMetricList({
               key={metric.metric}
               sx={{ zIndex: 2, position: 'absolute' }}
             >
-              <HStack right sx={{ minWidth: '3.5em' }} data-id={'value'}>
+              <HStack right sx={{ minWidth: '4.5em' }} data-id={'value'}>
                 <Typography
                   sx={{
                     fontSize: '0.9em',

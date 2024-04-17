@@ -6,9 +6,9 @@ import { getPreviousItems } from '@pages/telemetry-viewer-page/utils/telemetry-u
 import { useMemo, useState } from 'react';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
+import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 export default function SumNavLastX({
   event,
   x = 4,
@@ -16,7 +16,7 @@ export default function SumNavLastX({
   const eventColor = EVENT_TYPE_DEF[event.type as EventTypes].color;
 
   const [maxToShow, setMaxToShow] = useState(x);
-  const { allEvents } = useTelemetryStore();
+  const allEvents = useAllEvents();
   const previousNavEvents = useMemo(() => {
     return getPreviousItems(allEvents, event).filter(
       (event) => event.type === 'Navigation',

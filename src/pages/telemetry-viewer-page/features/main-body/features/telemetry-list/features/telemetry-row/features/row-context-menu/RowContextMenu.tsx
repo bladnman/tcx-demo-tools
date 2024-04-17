@@ -5,7 +5,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { HStack } from '@common/mui-stacks.tsx';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import actionDeleteAllEventsAfter from '@pages/telemetry-viewer-page/store/event-store/actions/actionDeleteAllEventsAfter.ts';
+import actionDeleteAllEventsBefore from '@pages/telemetry-viewer-page/store/event-store/actions/actionDeleteAllEventsBefore.ts';
 type ContextMenuProps = {
   event: TVEvent;
   popupState: PopupState;
@@ -14,7 +15,6 @@ export default function RowContextMenu({
   event,
   popupState,
 }: ContextMenuProps) {
-  const { deleteAllEventsBefore, deleteAllEventsAfter } = useTelemetryStore();
   return (
     <Menu {...bindMenu(popupState)} sx={{ maxWidth: '45em' }}>
       <ListSubheader>
@@ -27,7 +27,7 @@ export default function RowContextMenu({
         label={'Delete before'}
         icon={<ArrowUpwardIcon />}
         onClick={() => {
-          deleteAllEventsBefore(event);
+          actionDeleteAllEventsBefore(event);
           popupState.close();
         }}
       />
@@ -35,7 +35,7 @@ export default function RowContextMenu({
         label={'Delete after'}
         icon={<ArrowDownwardIcon />}
         onClick={() => {
-          deleteAllEventsAfter(event);
+          actionDeleteAllEventsAfter(event);
           popupState.close();
         }}
       />

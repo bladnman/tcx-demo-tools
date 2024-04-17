@@ -1,9 +1,10 @@
 import { Slider, Typography } from '@mui/material';
 import { VStack } from '@common/mui-stacks.tsx';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
+import actionSetTokenWidth from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetTokenWidth.ts';
 
 export default function TokenWidth() {
-  const { tokenWidth, setTokenWidth } = useTelemetryStore();
+  const { tokenWidth } = useSettingsStore();
   const value = tokenWidth === 'min' ? 0 : 1;
   return (
     <VStack hAlign={'leading'} spacing={0}>
@@ -15,9 +16,9 @@ export default function TokenWidth() {
         size="small"
         onChange={(_, value) => {
           if (value === 0) {
-            setTokenWidth('min');
+            actionSetTokenWidth('min');
           } else {
-            setTokenWidth('max');
+            actionSetTokenWidth('max');
           }
         }}
         sx={{ width: '75px' }}

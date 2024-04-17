@@ -1,72 +1,30 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import StopIcon from '@mui/icons-material/Stop';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import { isValidIP } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
+import ConnectionButton from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/features/ConnectionButton.tsx';
+import actionSetCnxIpAddress from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetCnxIpAddress.ts';
+import actionSetCnxPlatform from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetCnxPlatform.ts';
 
 export default function ConnectionOptions() {
-  const {
-    isConnectedViaTCx,
-    setConnectToTCxName,
-    connectToTCxName,
-    cnxIpAddress,
-    setCnxIpAddress,
-    cnxPlatform,
-    setCnxPlatform,
-  } = useTelemetryStore();
+  const { isConnectedViaTCx, connectToTCxName, cnxIpAddress, cnxPlatform } = useSettingsStore();
 
-  const [localIpAddress, setLocalIpAddress] = useState<string | null>(
-    cnxIpAddress,
-  );
-  const [isFormComplete, setIsFormComplete] = useState(!!localIpAddress);
+  const [isFormComplete, setIsFormComplete] = useState(!!cnxIpAddress);
   const handleIpChange = (event: ChangeEvent<HTMLInputElement>) => {
     const ip = event.target.value;
-    setLocalIpAddress(ip);
-    setIsFormComplete(isValidIP(ip));
+    if (!isValidIP(ip)) {
+      setIsFormComplete(false);
+    }
+    setIsFormComplete(true);
+    actionSetCnxIpAddress(ip);
   };
-  const [localPlatform, setLocalPlatform] =
-    useState<ConnectionPlatform>(cnxPlatform);
   const handlePlatformChange = (event: SelectChangeEvent) => {
-    setLocalPlatform(event.target.value as ConnectionPlatform);
+    actionSetCnxPlatform(event.target.value as ConnectionPlatform);
   };
 
   const isConnected = isConnectedViaTCx || connectToTCxName === 'Mock';
-  const buttonIcon = isConnected ? <StopIcon /> : <PlayArrowIcon />;
-  const buttonColor = isConnected ? 'appRed' : 'appGreen';
   const isButtonEnabled = isConnected || isFormComplete;
-  const handleConnectPressed = () => {
-    // DISCONNECT
-    if (isConnected) {
-      setConnectToTCxName(null);
-    }
-
-    // CONNECT
-    else if (isValidIP(localIpAddress)) {
-      setCnxIpAddress(localIpAddress);
-      setCnxPlatform(localPlatform);
-
-      // const connectToName = `${localPlatform}_${localIpAddress}_TelemetryPublisher`;
-      const connectToName =
-        localPlatform === 'TD Server'
-          ? 'TDServer'
-          : localPlatform === 'Mobile'
-            ? 'MobileTelemetry'
-            : 'Mock';
-
-      setConnectToTCxName(connectToName);
-    }
-  };
 
   return (
     <VStack topLeft>
@@ -76,14 +34,14 @@ export default function ConnectionOptions() {
           label={'IP Address'}
           variant="standard"
           disabled={isConnected}
-          value={localIpAddress ?? ''}
+          value={cnxIpAddress ?? ''}
           onChange={handleIpChange}
         />
         <FormControl disabled={isConnected}>
           <InputLabel htmlFor="platform-input">Platform</InputLabel>
           <Select
             labelId="platform-input"
-            value={localPlatform}
+            value={cnxPlatform}
             variant="standard"
             onChange={handlePlatformChange}
             sx={{ minWidth: '7em' }}
@@ -93,15 +51,7 @@ export default function ConnectionOptions() {
             <MenuItem value={'Mock'}>Mock</MenuItem>
           </Select>
         </FormControl>
-        <Button
-          disabled={!isButtonEnabled}
-          onClick={handleConnectPressed}
-          variant={'contained'}
-          // @ts-expect-error : using my own colors
-          color={buttonColor}
-        >
-          {buttonIcon}
-        </Button>
+        <ConnectionButton disabled={!isButtonEnabled} />
       </HStack>
     </VStack>
   );

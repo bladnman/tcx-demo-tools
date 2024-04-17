@@ -1,5 +1,5 @@
 import { HStack } from '@common/mui-stacks.tsx';
-import { Radio, Typography } from '@mui/material';
+import { Radio, Tooltip, Typography } from '@mui/material';
 
 export default function SelectionMenuItem({
   active,
@@ -24,24 +24,34 @@ export default function SelectionMenuItem({
         overflow: 'hidden',
       }}
       onClick={onClick}
+      data-id={'selection-menu-item'}
     >
-      {/* seemingly incapable of quieting this lint error  */}
-      <Radio sx={{ p: 0 }} size={'small'} checked={active} color={color} />
-      <HStack hFill spaceBetween>
-        <Typography
-          fontSize={fontSize}
-          fontWeight={active ? 'bold' : 'normal'}
-          sx={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            maxWidth: 'calc(100% - 2em)',
-          }}
-        >
-          {title}
-        </Typography>
+      <Radio
+        sx={{ p: 0 }}
+        size={'small'}
+        checked={active}
+        // @ts-expect-error : using my own colors
+        color={color}
+      />
+      {/* - 2.5em is related to the amount the items are indented in the menu */}
+      <HStack hFill spaceBetween data-id={'selection-menu-metadata'} sx={{ width: 'calc(100% - 2.5em)' }}>
+        <Tooltip title={title} placement={'top'} arrow enterDelay={700} enterNextDelay={700}>
+          <Typography
+            fontSize={fontSize}
+            fontWeight={active ? 'bold' : 'normal'}
+            sx={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+            data-id={'selection-menu-item-title'}
+          >
+            {title}
+          </Typography>
+        </Tooltip>
         {count && (
           <HStack
+            data-id={'selection-menu-item-count'}
             sx={{
               borderRadius: '12%',
               minWidth: '1.8em',
@@ -49,7 +59,7 @@ export default function SelectionMenuItem({
             }}
             color={color}
           >
-            <Typography fontSize={fontSize}>{count}</Typography>
+            <Typography fontSize={fontSize}>{count ?? 0}</Typography>
           </HStack>
         )}
       </HStack>

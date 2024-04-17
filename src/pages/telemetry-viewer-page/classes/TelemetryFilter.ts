@@ -19,9 +19,7 @@ class TelemetryFilter {
     return this.items?.map((item) => item.value) ?? [];
   }
   get activeValues(): string[] {
-    return (
-      this.items?.filter((item) => item.active).map((item) => item.value) ?? []
-    );
+    return this.items?.filter((item) => item.active).map((item) => item.value) ?? [];
   }
 
   get anyActive(): boolean {
@@ -160,7 +158,7 @@ class TelemetryFilter {
   }
 
   private valueForEvent(event: TVEvent): string {
-    return getValueFromEvent(event, this.type) ?? 'Unknown';
+    return getValueFromEvent(event, this.type) ?? '(none)';
   }
 
   testForActive(event: TVEvent) {

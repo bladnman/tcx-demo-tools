@@ -1,9 +1,9 @@
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { getAllFiltersFieldDefs } from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import { useMemo } from 'react';
+import { useFilters } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 
 export default function useFilterOptions() {
-  const { filters } = useTelemetryStore();
+  const filters = useFilters();
   const allFilterFieldDefs = useMemo(() => {
     return getAllFiltersFieldDefs();
   }, []);

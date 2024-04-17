@@ -1,13 +1,12 @@
 import { FormControlLabel, Switch } from '@mui/material';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
+import actionSetAllowWrap from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetAllowWrap.ts';
 
 export default function WrapButton() {
-  const { allowWrap, setAllowWrap } = useTelemetryStore();
+  const { allowWrap } = useSettingsStore();
   return (
     <FormControlLabel
-      control={
-        <Switch checked={allowWrap} onChange={() => setAllowWrap(!allowWrap)} />
-      }
+      control={<Switch checked={allowWrap} onChange={() => actionSetAllowWrap(!allowWrap)} />}
       label="Wrap"
     />
   );

@@ -6,13 +6,10 @@ import telemetryDebuggerEvents from '@pages/telemetry-viewer-page/data/mobile_se
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
 import TelemetryReceiver from '@pages/telemetry-viewer-page/classes/telemetry-receiver/TelemetryReceiver.ts';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import actionAddEvents from '@pages/telemetry-viewer-page/store/event-store/actions/actionAddEvents.ts';
 export default function TelemetryMockPublisherReceiverInterface() {
-  // the store is where events end up
-  const { addEvents } = useTelemetryStore();
-
   // the receiver is the part that receives events and sends them to the store
-  const receiver = useMemo(() => new TelemetryReceiver(addEvents), [addEvents]);
+  const receiver = useMemo(() => new TelemetryReceiver(actionAddEvents), []);
   const onData = useCallback(
     (events: unknown) => {
       receiver.receiveEvents(events);

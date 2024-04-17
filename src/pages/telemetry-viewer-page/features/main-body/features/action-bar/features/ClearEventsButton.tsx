@@ -1,17 +1,15 @@
 import { IconButton, Tooltip } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import { actionSetAllEvents } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEvents.ts';
 
 export default function ClearEventsButton() {
-  const { clearAllEvents } = useTelemetryStore();
-
   return (
     <Tooltip title="Clear Events">
       <IconButton
         color="inherit"
         edge="start"
         onClick={() => {
-          clearAllEvents();
+          actionSetAllEvents([]);
         }}
         sx={{ mr: 2, width: '1.5em' }}
       >

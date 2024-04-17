@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { Backdrop } from '@mui/material';
 import DropMessage from '@pages/telemetry-viewer-page/features/dialogs/app-drop-dialog/features/drop-message/DropMessage.tsx';
 import { loadEventsFromFiles } from '@pages/telemetry-viewer-page/features/dialogs/app-drop-dialog/utils/loadEventsFromFiles.ts';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import actionSetImportingEvents from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetImportingEvents.ts';
 
 export default function AppDropDialog() {
   const [isDragging, setIsDragging] = useState(false);
-  const { setImportingEvents } = useTelemetryStore();
 
   useEffect(() => {
     const handleDragOver = (event: DragEvent) => {
@@ -32,7 +31,7 @@ export default function AppDropDialog() {
       if (event.dataTransfer?.files) {
         try {
           const allItems = await loadEventsFromFiles(event.dataTransfer.files);
-          setImportingEvents(allItems);
+          actionSetImportingEvents(allItems);
         } catch (error) {
           console.error('Error reading files', error);
         }

@@ -11,20 +11,21 @@ import {
   useTheme,
 } from '@mui/material';
 import { SyntheticEvent, useRef, useState } from 'react';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import Box from '@mui/material/Box';
 import DisplayOptions from '@pages/telemetry-viewer-page/features/dialogs/settings-dialog/features/display-options/DisplayOptions.tsx';
 import ConnectionOptions from '@pages/telemetry-viewer-page/features/dialogs/settings-dialog/features/connection-options/ConnectionOptions.tsx';
 import AboutOptions from '@pages/telemetry-viewer-page/features/dialogs/settings-dialog/features/about-options/AboutOptions.tsx';
+import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
 
 export default function SettingsDialog() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const { isSettingsDialogOpen, setIsSettingsDialogOpen } = useTelemetryStore();
+  const { isSettingsDialogOpen } = useSettingsStore();
   const [tabNumber, setTabNumber] = useState(0);
 
   const handleClose = useRef(() => {
-    setIsSettingsDialogOpen(false);
+    actionSetIsSettingsDialogOpen(false);
   }).current;
   const handleTabChange = (_event: SyntheticEvent, newValue: number) => {
     setTabNumber(newValue);
@@ -42,15 +43,8 @@ export default function SettingsDialog() {
   }
 
   return (
-    <Dialog
-      onClose={handleClose}
-      open={isSettingsDialogOpen}
-      maxWidth={'md'}
-      fullScreen={fullScreen}
-    >
-      <DialogTitle sx={{ fontVariant: 'small-caps', fontSize: '1.7em' }}>
-        Settings
-      </DialogTitle>
+    <Dialog onClose={handleClose} open={isSettingsDialogOpen} maxWidth={'md'} fullScreen={fullScreen}>
+      <DialogTitle sx={{ fontVariant: 'small-caps', fontSize: '1.7em' }}>Settings</DialogTitle>
       <DialogContent sx={{ flex: 1 }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={tabNumber} onChange={handleTabChange}>

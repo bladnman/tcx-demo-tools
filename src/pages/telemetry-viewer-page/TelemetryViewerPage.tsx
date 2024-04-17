@@ -3,27 +3,27 @@ import TelemetryLeftDrawer from '@pages/telemetry-viewer-page/features/left-draw
 import TelemetryMainBody from '@pages/telemetry-viewer-page/features/main-body/TelemetryMainBody.tsx';
 import TelemetryRightDrawer from '@pages/telemetry-viewer-page/features/right-drawer/TelemetryRightDrawer.tsx';
 import { useEffect, useRef } from 'react';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import { Typography } from '@mui/material';
 import AppArchitectureProvider from '@pages/telemetry-viewer-page/features/general-app-parts/AppArchitectureProvider.tsx';
 import AppBarTools from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/AppBarTools.tsx';
+import StatusBar from '@pages/telemetry-viewer-page/features/status-bar/StatusBar.tsx';
+import actionSetEventForDetailsById from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetEventForDetailsById.ts';
+import { useEventForDetails } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import actionSetIsFilterDrawerOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsFilterDrawerOpen.ts';
+import actionSetAppBarHeight from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetAppBarHeight.ts';
 
 export default function TelemetryViewerPage() {
   const appBarRef = useRef<HTMLDivElement>(null);
-  const {
-    setAppBarHeight,
-    setEventForDetails,
-    eventForDetails,
-    isFilterDrawerOpen,
-    setIsFilterDrawerOpen,
-  } = useTelemetryStore();
+  const eventForDetails = useEventForDetails();
+  const { isFilterDrawerOpen } = useSettingsStore();
 
   useEffect(() => {
     // Measure the AppBar height and update state
     if (appBarRef.current) {
-      setAppBarHeight(appBarRef.current.clientHeight! as number);
+      actionSetAppBarHeight(appBarRef.current.clientHeight! as number);
     }
-  }, [setAppBarHeight]);
+  }, []);
   return (
     <AppArchitectureProvider>
       <AppLayoutDoubleDrawer
@@ -38,7 +38,7 @@ export default function TelemetryViewerPage() {
         leftDrawerWidth={400}
         isLeftDrawerOpen={isFilterDrawerOpen}
         onLeftDrawerToggle={(isOpen) => {
-          setIsFilterDrawerOpen(isOpen);
+          actionSetIsFilterDrawerOpen(isOpen);
         }}
         rightDrawerContent={<TelemetryRightDrawer />}
         rightDrawerTitle={
@@ -51,10 +51,11 @@ export default function TelemetryViewerPage() {
         isRightDrawerOpen={!!eventForDetails}
         onRightDrawerToggle={(isOpen) => {
           if (!isOpen) {
-            setEventForDetails(null);
+            actionSetEventForDetailsById(null);
           }
         }}
         appBarContent={<AppBarTools />}
+        statusBarContent={<StatusBar />}
       />
     </AppArchitectureProvider>
   );

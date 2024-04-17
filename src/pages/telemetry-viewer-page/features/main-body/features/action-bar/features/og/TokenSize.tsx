@@ -1,9 +1,10 @@
 import { Slider, Typography } from '@mui/material';
 import { VStack } from '@common/mui-stacks.tsx';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
+import actionSetTokenMode from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetTokenMode.ts';
 
 export default function TokenSize() {
-  const { tokenMode, setTokenMode } = useTelemetryStore();
+  const { tokenMode } = useSettingsStore();
   const value = tokenMode === 'icon' ? 0 : tokenMode === 'tag' ? 1 : 2;
   return (
     <VStack hAlign={'leading'} spacing={0}>
@@ -15,11 +16,11 @@ export default function TokenSize() {
         size="small"
         onChange={(_, value) => {
           if (value === 0) {
-            setTokenMode('icon');
+            actionSetTokenMode('icon');
           } else if (value === 1) {
-            setTokenMode('tag');
+            actionSetTokenMode('tag');
           } else {
-            setTokenMode('details');
+            actionSetTokenMode('details');
           }
         }}
         sx={{ width: '75px' }}

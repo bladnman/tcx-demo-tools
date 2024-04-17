@@ -1,12 +1,11 @@
 import { VStack } from '@common/mui-stacks.tsx';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import TelemetryRow from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/telemetry-row/TelemetryRow.tsx';
 import { ReactNode, useRef } from 'react';
 import TelemetryDivider from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/features/TelemetryDivider.tsx';
-import {
-  cleanedFieldValue,
-  getValueFromEvent,
-} from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
+import { getValueFromEvent } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
+import { useEventForDetails } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import actionSetEventForDetailsById from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetEventForDetailsById.ts';
 
 export default function TelemetryList({
   events,
@@ -17,8 +16,8 @@ export default function TelemetryList({
   allowDividers?: boolean;
   allowSelection?: boolean;
 }) {
-  const { eventForDetails, setEventForDetails, dividerFields } =
-    useTelemetryStore();
+  const eventForDetails = useEventForDetails();
+  const { dividerFields } = useSettingsStore();
   let dividerValues = useRef<string[] | undefined[]>([]).current;
 
   const renderRows = () => {
@@ -29,10 +28,7 @@ export default function TelemetryList({
         for (let i = 0; i < dividerFields.length; i++) {
           const dividerField = dividerFields[i];
           const dividerValue = dividerValues[i];
-          const eventValue = cleanedFieldValue(
-            dividerField,
-            getValueFromEvent(event, dividerField) ?? `Unknown`,
-          );
+          const eventValue = getValueFromEvent(event, dividerField) ?? `(none)`;
 
           if (dividerValue !== eventValue) {
             // once we have a value not matching
@@ -66,7 +62,7 @@ export default function TelemetryList({
           selected={eventForDetails === event}
           onClick={() => {
             if (allowSelection) {
-              setEventForDetails(eventForDetails === event ? null : event);
+              actionSetEventForDetailsById(eventForDetails === event ? null : event.id);
             }
           }}
           sx={{ pl: `${Math.max(0, dividerFields.length - 1)}em` }}
@@ -81,7 +77,7 @@ export default function TelemetryList({
       vAlign={'leading'}
       hAlign={'leading'}
       spacing={0}
-      sx={{ maxWidth: '90vw' }}
+      // sx={{ maxWidth: '90vw' }}
     >
       {renderRows()}
     </VStack>

@@ -3,14 +3,13 @@ import getObjectValue from '@pages/telemetry-viewer-page/utils/getObjectValue.ts
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import { Typography } from '@mui/material';
 import { useMemo } from 'react';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
 import getEventDescriptions from '@pages/telemetry-viewer-page/utils/event-utils/getEventDescriptions.ts';
+import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 export default function SumVideoSession({ event }: SummaryVisualizationProps) {
   const eventColor = EVENT_TYPE_DEF[event.type as EventTypes].color;
-
-  const { allEvents } = useTelemetryStore();
+  const allEvents = useAllEvents();
   const summaryEvents = useMemo(() => {
     const videoSessionId = getObjectValue(
       event,

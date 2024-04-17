@@ -1,18 +1,19 @@
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { IconButton, Menu, Tooltip } from '@mui/material';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 import { bindMenu, usePopupState } from 'material-ui-popup-state/hooks';
 import ContextMenuItem from '@pages/telemetry-viewer-page/common/context-menu/ContextMenuItem.tsx';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
+import actionSetIsExportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsExportDialogOpen.ts';
 
 export default function ImportExportButton() {
   const popupState = usePopupState({
     variant: 'popover',
     popupId: 'import-export-menu',
   });
-  const { allEvents, setIsImportDialogOpen, setIsExportDialogOpen } =
-    useTelemetryStore();
+  const allEvents = useAllEvents();
 
   const hasEvents = allEvents.length > 0;
 
@@ -34,7 +35,7 @@ export default function ImportExportButton() {
           icon={<ArrowUpwardIcon />}
           onClick={() => {
             popupState.close();
-            setIsImportDialogOpen(true);
+            actionSetIsImportDialogOpen(true);
           }}
         />
         <ContextMenuItem
@@ -43,7 +44,7 @@ export default function ImportExportButton() {
           disabled={!hasEvents}
           onClick={() => {
             popupState.close();
-            setIsExportDialogOpen(true);
+            actionSetIsExportDialogOpen(true);
           }}
         />
       </Menu>

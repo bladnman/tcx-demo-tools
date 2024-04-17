@@ -1,22 +1,20 @@
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import TelemetryReceiver from '@pages/telemetry-viewer-page/classes/telemetry-receiver/TelemetryReceiver.ts';
 import { TCxState, useTCx } from '@tcx-hosted/tcx-react';
 import { TcxSS_CONFIG } from '@tcx-hosted/tcx-react/hooks/useTCx.ts';
+import actionAddEvents from '@pages/telemetry-viewer-page/store/event-store/actions/actionAddEvents.ts';
+import actionSetConnectedViaTCx from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetConnectedViaTCx.ts';
+import actionClearConnectToTCxName from '@pages/telemetry-viewer-page/store/settings-store/actions/actionClearConnectToTCxName.ts';
 
 export default function useReceiver() {
   // the store is where events end up
-  const {
-    addEvents,
-    connectToTCxName,
-    setConnectedViaTCx,
-    setConnectToTCxName,
-  } = useTelemetryStore();
+  const { connectToTCxName } = useSettingsStore();
   const [tcxName] = useState('TelemetryViewer');
 
   // we use the receiver to receive events and to clean them up
   // before they are sent to the store
-  const receiver = useMemo(() => new TelemetryReceiver(addEvents), [addEvents]);
+  const receiver = useMemo(() => new TelemetryReceiver(actionAddEvents), []);
 
   const onData = useCallback(
     (events: unknown) => {
@@ -24,18 +22,15 @@ export default function useReceiver() {
     },
     [receiver],
   );
-  const onStateChange = useCallback(
-    (state: TCxState) => {
-      setConnectedViaTCx(state.isConnectedToPeer);
-    },
-    [setConnectedViaTCx],
-  );
+  const onStateChange = useCallback((state: TCxState) => {
+    actionSetConnectedViaTCx(state.isConnectedToPeer);
+  }, []);
   const onConnect = useCallback(() => {
     // noop
   }, []);
   const onDisconnect = useCallback(() => {
-    setConnectToTCxName(null);
-  }, [setConnectToTCxName]);
+    actionClearConnectToTCxName();
+  }, []);
 
   const tcxHandlers = useMemo(() => {
     return {

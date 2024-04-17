@@ -1,18 +1,14 @@
 import { HStack } from '@common/mui-stacks.tsx';
 import { Typography } from '@mui/material';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 
 interface DetailDisplayProps {
   highlight?: string;
   message?: string;
   color?: string;
 }
-export default function DetailDisplay({
-  highlight,
-  message,
-  color,
-}: DetailDisplayProps) {
-  const { allowWrap } = useTelemetryStore();
+export default function DetailDisplay({ highlight, message, color }: DetailDisplayProps) {
+  const { allowWrap } = useSettingsStore();
 
   const hasHighlight = Boolean(highlight);
   const hasMessage = Boolean(message);
@@ -31,11 +27,7 @@ export default function DetailDisplay({
       }}
     >
       {hasHighlight && (
-        <Typography
-          variant={'tokenDetailHighlight'}
-          color={color}
-          fontSize={'1em'}
-        >
+        <Typography variant={'tokenDetailHighlight'} color={color} fontSize={'1em'}>
           {highlight}
         </Typography>
       )}

@@ -1,7 +1,7 @@
 export default function formatMilliseconds(ms: number): string {
   // MILLISECONDS
   if (ms < 1000) {
-    return `${ms.toFixed(3)} ms`;
+    return `${ms.toFixed(2)} ms`;
   }
 
   // SECONDS

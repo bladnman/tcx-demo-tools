@@ -3,16 +3,15 @@ import { VStack } from '@common/mui-stacks.tsx';
 import { Typography } from '@mui/material';
 import CollapsibleContainer from '@common/CollapsableContainer.tsx';
 import TelemetryFilterItem from '@pages/telemetry-viewer-page/classes/TelemetryFilterItem.ts';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { useCallback } from 'react';
 import SelectionMenuItem from '@pages/telemetry-viewer-page/features/left-drawer/components/SelectionMenuItem.tsx';
+import actionRepublishFilters from '@pages/telemetry-viewer-page/store/event-store/actions/actionRepublishFilters.ts';
 
 export default function FilterMenuGroup({
   filter,
 }: {
   filter: TelemetryFilter;
 }) {
-  const { republishFilters } = useTelemetryStore();
   const indentation = '2em';
   const renderTitle = () => {
     return (
@@ -33,9 +32,9 @@ export default function FilterMenuGroup({
   const handleFilterItemClick = useCallback(
     (filterItem: TelemetryFilterItem) => {
       filterItem.active = !filterItem.active;
-      republishFilters();
+      actionRepublishFilters();
     },
-    [republishFilters],
+    [],
   );
   const renderCollapsed = () => {
     const activeItems = filter.items.filter((item) => item.active);
@@ -63,7 +62,7 @@ export default function FilterMenuGroup({
         sx={{ width: '100%', userSelect: 'none' }}
         onToggleCollapse={(isCollapsed) => {
           filter.collapsed = isCollapsed;
-          republishFilters();
+          actionRepublishFilters();
         }}
       >
         <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>

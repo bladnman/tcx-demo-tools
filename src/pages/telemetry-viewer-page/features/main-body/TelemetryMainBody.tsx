@@ -1,30 +1,30 @@
 import TelemetryList from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/TelemetryList.tsx';
 import { VStack } from '@common/mui-stacks.tsx';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import useAutoScroll from '@pages/telemetry-viewer-page/hooks/useAutoScroll.ts';
 import { useEffect } from 'react';
+import { useDisplayEvents, useFilters } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 
 export default function TelemetryMainBody() {
-  const { appBarHeight, displayEvents, filters } = useTelemetryStore();
+  const displayEvents = useDisplayEvents();
+  const filters = useFilters();
+  const { appBarHeight } = useSettingsStore();
   const { containerRef, scrollToBottom } = useAutoScroll({
     scrollThreshold: 150,
   });
   useEffect(() => {
     scrollToBottom();
   }, [displayEvents, filters, scrollToBottom]);
-  const bodyTopPoint = appBarHeight + 10;
 
   return (
     <VStack
       data-id={'telemetry-main-body'}
-      fill
-      vAlign={'leading'}
-      hAlign={'leading'}
+      topLeft
       sx={{
         position: 'absolute',
         overflow: 'hidden',
-        top: `${bodyTopPoint}px`,
-        height: `calc(100vh - ${bodyTopPoint}px)`,
+        top: `${appBarHeight}px`,
+        bottom: 0,
         left: 0,
         right: 0,
       }}

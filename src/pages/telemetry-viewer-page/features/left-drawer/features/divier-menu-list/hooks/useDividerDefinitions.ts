@@ -1,9 +1,10 @@
 import { getAllDividerFieldDefs } from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import { useCallback, useMemo } from 'react';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
+import actionSetDividerFields from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetDividerFields.ts';
 
 export default function useDividerDefinitions() {
-  const { dividerFields, setDividerFields } = useTelemetryStore();
+  const { dividerFields } = useSettingsStore();
 
   const allDefs = useMemo(() => {
     return getAllDividerFieldDefs();
@@ -12,15 +13,15 @@ export default function useDividerDefinitions() {
     (item: FieldDefinition) => {
       // REMOVE
       if (dividerFields.includes(item.field)) {
-        setDividerFields(dividerFields.filter((field) => field !== item.field));
+        actionSetDividerFields(dividerFields.filter((field) => field !== item.field));
       }
       // ADD
       else {
         dividerFields.push(item.field);
-        setDividerFields(dividerFields);
+        actionSetDividerFields(dividerFields);
       }
     },
-    [dividerFields, setDividerFields],
+    [dividerFields],
   );
   return useMemo(() => {
     const dividerFieldList: FieldDefinition[] = [];
@@ -33,9 +34,7 @@ export default function useDividerDefinitions() {
     });
 
     // add the rest of the fields
-    dividerFieldList.push(
-      ...allDefs.filter((def) => !dividerFields.includes(def.field)),
-    );
+    dividerFieldList.push(...allDefs.filter((def) => !dividerFields.includes(def.field)));
 
     return {
       dividerFieldList,

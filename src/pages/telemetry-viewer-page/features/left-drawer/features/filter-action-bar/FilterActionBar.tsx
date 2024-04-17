@@ -2,14 +2,15 @@ import { Button, Checkbox, ListItemText, Menu, MenuItem } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
 import useFilterOptions from '@pages/telemetry-viewer-page/features/left-drawer/features/filter-action-bar/hooks/useFilterOptions.ts';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
 import { getFieldDef } from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
-import TelemetryFilter from '@pages/telemetry-viewer-page/classes/TelemetryFilter.ts'; // Import the Add icon
+import TelemetryFilter from '@pages/telemetry-viewer-page/classes/TelemetryFilter.ts';
+import { useFilters } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import actionSetFilters from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetFilters.ts';
 
 export default function FilterActionBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const filterOptions = useFilterOptions();
-  const { filters, setFilters } = useTelemetryStore();
+  const filters = useFilters();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -28,12 +29,12 @@ export default function FilterActionBar() {
       if (!filterDef) return;
       const newFilter = new TelemetryFilter(filterDef);
       newFilter.collapsed = false;
-      setFilters([...filters, newFilter]);
+      actionSetFilters([...filters, newFilter]);
     }
 
     // REMOVE
     else {
-      setFilters(filters.filter((f) => f.field !== field));
+      actionSetFilters(filters.filter((f) => f.field !== field));
     }
   };
 

@@ -14,6 +14,8 @@ interface AppLayoutDoubleDrawerProps {
   appBarContent?: React.ReactNode;
   mainContent: React.ReactNode;
   appBarRef?: React.RefObject<HTMLDivElement>;
+  statusBarContent?: React.ReactNode;
+  statusBarHeight?: string;
   leftDrawerWidth?: number;
   rightDrawerWidth?: number;
   LeftIcon?: React.ElementType;
@@ -35,6 +37,8 @@ export default function AppLayoutDoubleDrawer({
   appBarContent,
   mainContent,
   appBarRef,
+  statusBarContent,
+  statusBarHeight = '2.5em',
   leftDrawerWidth = 240,
   rightDrawerWidth = 240,
   LeftIcon = MenuIcon,
@@ -145,6 +149,7 @@ export default function AppLayoutDoubleDrawer({
             '& .MuiDrawer-paper': {
               width: leftDrawerWidth,
               boxSizing: 'border-box',
+              height: `calc(100% - ${statusBarContent ? statusBarHeight : '0'})`,
             },
           }}
           variant="persistent"
@@ -182,6 +187,7 @@ export default function AppLayoutDoubleDrawer({
             '& .MuiDrawer-paper': {
               width: rightDrawerWidth,
               boxSizing: 'border-box',
+              height: `calc(100% - ${statusBarContent ? statusBarHeight : '0'})`,
             },
           }}
           variant="persistent"
@@ -230,12 +236,18 @@ export default function AppLayoutDoubleDrawer({
           width: `calc(100% - ${leftDrawerOpen ? leftDrawerWidth : 0}px - ${rightDrawerOpen ? rightDrawerWidth : 0}px)`,
           marginLeft: `${leftDrawerOpen ? leftDrawerWidth : 0}px`,
           marginRight: `${rightDrawerOpen ? rightDrawerWidth : 0}px`,
+          height: `calc(100% - ${statusBarContent ? statusBarHeight : '0'})`,
           position: 'relative',
         }}
       >
         <Toolbar />
         {mainContent}
       </VStack>
+      {statusBarContent && (
+        <HStack hFill sx={{ height: statusBarHeight }}>
+          {statusBarContent}
+        </HStack>
+      )}
     </VStack>
   );
 }

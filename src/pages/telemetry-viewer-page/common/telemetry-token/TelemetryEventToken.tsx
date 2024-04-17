@@ -1,7 +1,7 @@
 import TelemetryToken from '@pages/telemetry-viewer-page/common/telemetry-token/TelemetryToken.tsx';
 import EventIcon from '@pages/telemetry-viewer-page/common/telemetry-token/features/event-icon/EventIcon.tsx';
 import EventDetails from '@pages/telemetry-viewer-page/common/telemetry-token/features/event-details/EventDetails.tsx';
-import useTelemetryStore from '@pages/telemetry-viewer-page/store/useTelemetryStore.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import { getEventDef } from '@pages/telemetry-viewer-page/utils/event-utils/getEventDef.ts';
 
 interface TelemetryEventTokenProps extends TelemetryTokenProps {
@@ -9,10 +9,10 @@ interface TelemetryEventTokenProps extends TelemetryTokenProps {
 }
 export default function TelemetryEventToken(props: TelemetryEventTokenProps) {
   const { event } = props;
-  const { tokenMode: storeTokenMode } = useTelemetryStore();
-  const { tokenFontSize: storeTokenFontSize } = useTelemetryStore();
-  const { tokenColorMode: storeTokenColorMode } = useTelemetryStore();
-  const { tokenWidth: storeTokenWidth } = useTelemetryStore();
+  const { tokenMode: storeTokenMode } = useSettingsStore();
+  const { tokenFontSize: storeTokenFontSize } = useSettingsStore();
+  const { tokenColorMode: storeTokenColorMode } = useSettingsStore();
+  const { tokenWidth: storeTokenWidth } = useSettingsStore();
 
   const tokenMode = storeTokenMode || props.tokenMode || 'details';
   const tokenFontSize = storeTokenFontSize || props.tokenFontSize || 1;
