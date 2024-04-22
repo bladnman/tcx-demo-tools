@@ -1,18 +1,19 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import getObjectValue from '@pages/telemetry-viewer-page/utils/getObjectValue.ts';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import ForwardIcon from '@mui/icons-material/Forward';
 import { Typography } from '@mui/material';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
+import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
 
 export default function SumNavFromTo({ event }: SummaryVisualizationProps) {
   const eventColor = EVENT_TYPE_DEF['Navigation'].color;
 
+  console.log(`[🐽](SumNavFromTo) FIELD_DEF`, FIELD_DEF);
   return (
     <HStack hFill sx={{ pt: 2 }} top>
       <LocationView
-        appName={getObjectValue(event, FIELD_DEF.referrerApplicationName.paths)}
-        location={getObjectValue(event, FIELD_DEF.referrerScene.paths)}
+        appName={getObjectValueFromFieldDef(event, FIELD_DEF.referrerApplicationName)}
+        location={getObjectValueFromFieldDef(event, FIELD_DEF.referrerScene)}
       />
       <ForwardIcon
         sx={{
@@ -23,7 +24,7 @@ export default function SumNavFromTo({ event }: SummaryVisualizationProps) {
       />
       <LocationView
         appName={event.appName}
-        location={getObjectValue(event, FIELD_DEF.locationScene.paths)}
+        location={getObjectValueFromFieldDef(event, FIELD_DEF.locationScene)}
         color={'secondary.main'}
       />
     </HStack>

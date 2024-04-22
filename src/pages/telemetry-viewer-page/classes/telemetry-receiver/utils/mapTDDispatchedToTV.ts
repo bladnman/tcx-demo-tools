@@ -3,6 +3,7 @@ import {
   getPayloads,
   isObjectWithRequiredKeys,
 } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
+import CONST from '../../../../../CONST.ts';
 
 export interface TDDispatchedEvent {
   failures: Hash;
@@ -11,11 +12,7 @@ export interface TDDispatchedEvent {
   payloads: Hash;
 }
 export function isTDDispatchedEvent(event: unknown): boolean {
-  return isObjectWithRequiredKeys(event, [
-    'failures',
-    'inputEvent',
-    'payloads',
-  ]);
+  return isObjectWithRequiredKeys(event, ['failures', 'inputEvent', 'payloads']);
 }
 export default function mapTDDispatchedToTV(event: unknown): TVEvent | null {
   if (!isTDDispatchedEvent(event)) return null;
@@ -43,6 +40,7 @@ export default function mapTDDispatchedToTV(event: unknown): TVEvent | null {
     hasFailures: !!getFailures(dispatchedEvents),
     hasPayloads: !!getPayloads(dispatchedEvents),
     id: tracingId,
+    tvVersion: CONST.TV_MESSAGE_VERSION,
     clientEvent: undefined,
     dispatchedEvents: [tdDispatchedEvent],
   } as TVEvent;

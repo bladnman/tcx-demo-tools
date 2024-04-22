@@ -1,5 +1,4 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import getObjectValue from '@pages/telemetry-viewer-page/utils/getObjectValue.ts';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import { Button, Typography } from '@mui/material';
 import { getPreviousItems } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
@@ -9,6 +8,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
 import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
 export default function SumNavLastX({
   event,
   x = 4,
@@ -57,10 +57,10 @@ export default function SumNavLastX({
         )}
       </HStack>
       {lastXEvents.map((prevEvent, idx) => {
-        const appName = getObjectValue(prevEvent, FIELD_DEF.appName.paths);
-        const locationScene = getObjectValue(
+        const appName = getObjectValueFromFieldDef(prevEvent, FIELD_DEF.appName);
+        const locationScene = getObjectValueFromFieldDef(
           prevEvent,
-          FIELD_DEF.locationScene.paths,
+          FIELD_DEF.locationScene,
         );
         const isLast = idx === lastXEvents.length - 1;
         return (
@@ -70,14 +70,10 @@ export default function SumNavLastX({
             sx={{ pl: 0, fontWeight: isLast ? 'bold' : 'normal' }}
             key={prevEvent.id}
           >
-            <Typography
-              sx={{ fontWeight: isLast ? 'bold' : 'normal', ...appSx }}
-            >
+            <Typography sx={{ fontWeight: isLast ? 'bold' : 'normal', ...appSx }}>
               {appName}
             </Typography>
-            <Typography
-              sx={{ fontWeight: isLast ? 'bold' : 'normal', ...locationSx }}
-            >
+            <Typography sx={{ fontWeight: isLast ? 'bold' : 'normal', ...locationSx }}>
               {locationScene}
             </Typography>
             {prevEvent === event && (

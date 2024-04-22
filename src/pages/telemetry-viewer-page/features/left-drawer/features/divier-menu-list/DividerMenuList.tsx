@@ -27,6 +27,7 @@ export default function DividerMenuList() {
     );
   };
   const renderCollapsed = () => {
+    if (!selectedDividerFields.length) return null;
     return (
       <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>
         {selectedDividerFields.map((field) => {

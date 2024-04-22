@@ -7,6 +7,7 @@ class TCxMockPublisher<T> {
   private readonly onStateChange: () => void;
   private timerId: NodeJS.Timeout | null = null;
   private isPaused: boolean = false;
+  private readonly batchSize: number = 1;
 
   get isRunning(): boolean {
     return this.timerId !== null;
@@ -16,11 +17,13 @@ class TCxMockPublisher<T> {
     data: T[],
     onData: DataHandler<T>,
     delayMs: number,
+    batchSize: number,
     onStateChange: () => void,
   ) {
-    this.queue = data;
+    this.queue = [...data]; // copy the data, we will mutate it
     this.onData = onData;
     this.delayMs = delayMs;
+    this.batchSize = batchSize;
     this.onStateChange = onStateChange;
   }
 
@@ -55,7 +58,8 @@ class TCxMockPublisher<T> {
     // bail - no data to publish
     if (this.queue.length === 0) return;
 
-    this.onData(this.queue.shift() as T);
+    const nextData = this.queue.splice(0, this.batchSize);
+    this.onData(nextData as T);
   }
 
   addData(data: T | T[]): void {

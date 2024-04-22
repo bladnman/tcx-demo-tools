@@ -1,5 +1,4 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import getObjectValue from '@pages/telemetry-viewer-page/utils/getObjectValue.ts';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import { Typography } from '@mui/material';
 import { useMemo } from 'react';
@@ -7,18 +6,15 @@ import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYP
 import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
 import getEventDescriptions from '@pages/telemetry-viewer-page/utils/event-utils/getEventDescriptions.ts';
 import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
 export default function SumVideoSession({ event }: SummaryVisualizationProps) {
   const eventColor = EVENT_TYPE_DEF[event.type as EventTypes].color;
   const allEvents = useAllEvents();
   const summaryEvents = useMemo(() => {
-    const videoSessionId = getObjectValue(
-      event,
-      FIELD_DEF.videoSessionId.paths,
-    );
+    const videoSessionId = getObjectValueFromFieldDef(event, FIELD_DEF.videoSessionId);
     return allEvents.filter((tempEvent) => {
       return (
-        getObjectValue(tempEvent, FIELD_DEF.videoSessionId.paths) ===
-        videoSessionId
+        getObjectValueFromFieldDef(tempEvent, FIELD_DEF.videoSessionId) === videoSessionId
       );
     });
   }, [allEvents, event]);
@@ -41,7 +37,7 @@ export default function SumVideoSession({ event }: SummaryVisualizationProps) {
         </Typography>
       </HStack>
       {summaryEvents.map((prevEvent) => {
-        const value = getObjectValue(prevEvent, FIELD_DEF.videoEventType.paths);
+        const value = getObjectValueFromFieldDef(prevEvent, FIELD_DEF.videoEventType);
         const eventDesc = getEventDescriptions(prevEvent);
 
         const isThisEvent = prevEvent.id === event.id;
@@ -52,9 +48,7 @@ export default function SumVideoSession({ event }: SummaryVisualizationProps) {
             sx={{ pl: 0, fontWeight: isThisEvent ? 'bold' : 'normal' }}
             key={prevEvent.id}
           >
-            <Typography
-              sx={{ fontWeight: isThisEvent ? 'bold' : 'normal', ...appSx }}
-            >
+            <Typography sx={{ fontWeight: isThisEvent ? 'bold' : 'normal', ...appSx }}>
               {value}
             </Typography>
             <Typography

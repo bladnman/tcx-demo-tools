@@ -1,9 +1,6 @@
-import {
-  getFailures,
-  getPayloads,
-} from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 import useEventStore from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 import actionAddEventsToFilters from '@pages/telemetry-viewer-page/store/event-store/actions/actionAddEventsToFilters.ts';
+import updateTVWithNewTV from '@pages/telemetry-viewer-page/utils/event-utils/updateTVWithNewTV.ts';
 
 export default function actionAddEvents(events: TVEvent[]) {
   const { allEvents } = useEventStore.getState();
@@ -16,14 +13,7 @@ export default function actionAddEvents(events: TVEvent[]) {
     const previousEvent = allEvents.find((e) => e.id === event.id);
     // EXISTING - update the existing event
     if (previousEvent) {
-      previousEvent.dispatchedEvents = previousEvent.dispatchedEvents ?? [];
-
-      // add on any dispatched events
-      previousEvent.dispatchedEvents.push(...(event?.dispatchedEvents ?? []));
-
-      previousEvent.hasFailures = !!getFailures(previousEvent.dispatchedEvents);
-      previousEvent.hasPayloads = !!getPayloads(previousEvent.dispatchedEvents);
-
+      updateTVWithNewTV(previousEvent, event);
       return false;
     }
     // NEW

@@ -7,6 +7,19 @@ export default defineConfig({
   plugins: [react()],
   base: '',
   resolve: {
+    /**
+     * Paths are relative to the baseUrl
+     * Remember to update in tsconfig file also
+     *
+     * @assets/* -> ./src/assets/*
+     * @common/* -> ./src/common/*
+     * @data/* -> ./src/data/*
+     * @hooks/* -> ./src/hooks/*
+     * @pages/* -> ./src/pages/*
+     * @store/* -> ./src/store/*
+     * @theme/* -> ./src/theme/*
+     * @utils/* -> ./src/utils/*
+     */
     alias: {
       '@assets': path.resolve(__dirname, './src/assets'),
       '@common': path.resolve(__dirname, './src/common'),

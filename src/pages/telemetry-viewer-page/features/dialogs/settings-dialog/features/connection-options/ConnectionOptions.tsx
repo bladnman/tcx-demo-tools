@@ -1,14 +1,32 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import { isValidIP } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 import ConnectionButton from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/features/ConnectionButton.tsx';
 import actionSetCnxIpAddress from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetCnxIpAddress.ts';
 import actionSetCnxPlatform from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetCnxPlatform.ts';
+import actionSetMockBatchSize from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetMockBatchSize.ts';
+import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
+import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
 
 export default function ConnectionOptions() {
-  const { isConnectedViaTCx, connectToTCxName, cnxIpAddress, cnxPlatform } = useSettingsStore();
+  const {
+    isConnectedViaTCx,
+    connectToTCxName,
+    cnxIpAddress,
+    cnxPlatform,
+    mockBatchSize,
+  } = useSettingsStore();
 
   const [isFormComplete, setIsFormComplete] = useState(!!cnxIpAddress);
   const handleIpChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -18,6 +36,10 @@ export default function ConnectionOptions() {
     }
     setIsFormComplete(true);
     actionSetCnxIpAddress(ip);
+  };
+  const handleMockBatchSizeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value ?? 1;
+    actionSetMockBatchSize(Number(value));
   };
   const handlePlatformChange = (event: SelectChangeEvent) => {
     actionSetCnxPlatform(event.target.value as ConnectionPlatform);
@@ -51,8 +73,28 @@ export default function ConnectionOptions() {
             <MenuItem value={'Mock'}>Mock</MenuItem>
           </Select>
         </FormControl>
+        {cnxPlatform === 'Mock' && (
+          <TextField
+            label={'Batch Size'}
+            variant="standard"
+            disabled={isConnected}
+            value={mockBatchSize ?? ''}
+            onChange={handleMockBatchSizeChange}
+            sx={{ width: '7em' }}
+          />
+        )}
         <ConnectionButton disabled={!isButtonEnabled} />
       </HStack>
+      <VStack sx={{ pt: 5 }}>
+        <Button
+          onClick={() => {
+            actionSetIsSettingsDialogOpen(false);
+            actionSetIsImportDialogOpen(true);
+          }}
+        >
+          Import from file ...
+        </Button>
+      </VStack>
     </VStack>
   );
 }

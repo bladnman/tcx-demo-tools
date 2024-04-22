@@ -5,8 +5,9 @@ export default function TelemetryToken(props: TelemetryTokenProps) {
   const {
     eventIcon,
     eventColor,
-    eventTag = 'n/a',
+    eventAbbrv = 'n/a',
     eventDetails,
+    eventTag,
     tokenMode = 'details',
     tokenFontSize = 1,
     tokenColorMode = 'dual',
@@ -50,41 +51,39 @@ export default function TelemetryToken(props: TelemetryTokenProps) {
         {eventIcon}
       </HStack>
 
-      {/*  TAG  */}
+      {/*  ABBRV  */}
       {showTag && (
         <HStack
-          data-id={'TelemetryTokenTag'}
+          data-id={'TelemetryTokenAbbrv'}
           sx={{
             minWidth: '3em',
             flexShrink: 0,
           }}
         >
-          <Typography variant={'tag'}>{eventTag}</Typography>
+          <Typography variant={'tag'}>{eventAbbrv}</Typography>
         </HStack>
       )}
 
       {/*  DETAILS  */}
-      {showDetails && !!eventDetails && (
-        <HStack
-          data-id={'TelemetryTokenDetails'}
-          hAlign={'leading'}
-          sx={{
-            px: '0.75em',
-            maxWidth: '100%',
-            color: isDualColor
-              ? 'tokenDetailsFG.main'
-              : `${eventColor}.contrastText`,
-            backgroundColor: isDualColor
-              ? 'tokenDetailsBG.main'
-              : 'transparent',
-            overflow: 'hidden',
-            width: isMaxWidth ? '100%' : 'auto',
-            marginRight: isMaxWidth ? '7px' : '0',
-          }}
-        >
+      <HStack
+        data-id={'TelemetryToken_body'}
+        hAlign={'leading'}
+        sx={{
+          px: '0.75em',
+          maxWidth: '100%',
+          color: isDualColor ? 'tokenDetailsFG.main' : `${eventColor}.contrastText`,
+          backgroundColor: isDualColor ? 'tokenDetailsBG.main' : 'transparent',
+          overflow: 'hidden',
+          width: isMaxWidth ? '100%' : 'auto',
+          marginRight: isMaxWidth ? '7px' : '0',
+        }}
+      >
+        <HStack hFill data-id={'TelemetryToken_details'}>
           {eventDetails}
         </HStack>
-      )}
+
+        {eventTag}
+      </HStack>
     </HStack>
   );
 }

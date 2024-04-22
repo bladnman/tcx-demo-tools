@@ -6,9 +6,9 @@ import getDescNavigation from '@pages/telemetry-viewer-page/utils/event-utils/de
 import getDescError from '@pages/telemetry-viewer-page/utils/event-utils/desc-utils/getDescError.ts';
 import getDescStartup from '@pages/telemetry-viewer-page/utils/event-utils/desc-utils/getDescStartup.ts';
 import getDescLoadTime from '@pages/telemetry-viewer-page/utils/event-utils/desc-utils/getDescLoadTime.ts';
-import getObjectValue from '@pages/telemetry-viewer-page/utils/getObjectValue.ts';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
+import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
 
 export default function getEventDescriptions(event: TVEvent) {
   const eventDef = getEventDef(event);
@@ -32,7 +32,7 @@ export default function getEventDescriptions(event: TVEvent) {
     case EVENT_TYPE_DEF.VideoStream:
       return getDescVideoStream(event);
     default:
-      message = getObjectValue(event, FIELD_DEF.type.paths);
+      message = getObjectValueFromFieldDef(event, FIELD_DEF.type);
       color = 'tokenDetailsFGBright.main';
       break;
   }

@@ -61,7 +61,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   vshErrorHexCode: {
     field: 'vshErrorHexCode',
     title: 'VSH Error Hex Code',
-    paths: ['clientEvent.vshErrorHexCode'],
+    paths: ['vshErrorHexCode'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -71,7 +71,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   severity: {
     field: 'severity',
     title: 'Severity',
-    paths: ['clientEvent.severity'],
+    paths: ['severity'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -81,7 +81,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   errorMessage: {
     field: 'errorMessage',
     title: 'Error Message',
-    paths: ['clientEvent.errorMessage'],
+    paths: ['errorMessage'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -91,7 +91,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   locationScene: {
     field: 'locationScene',
     title: 'Location Scene',
-    paths: ['clientEvent.locationScene'],
+    paths: ['locationScene'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -105,7 +105,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   hostAppName: {
     field: 'hostAppName',
     title: 'Host App Name',
-    paths: ['clientEvent.hostAppName'],
+    paths: ['hostAppName'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -119,7 +119,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   visualEntityType: {
     field: 'visualEntityType',
     title: 'Visual Entity Type',
-    paths: ['clientEvent.visualEntityType'],
+    paths: ['visualEntityType'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -129,7 +129,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   interactAction: {
     field: 'interactAction',
     title: 'Interact Action',
-    paths: ['clientEvent.interactAction'],
+    paths: ['interactAction'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -139,7 +139,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   interactCta: {
     field: 'interactCta',
     title: 'Interact CTA',
-    paths: ['clientEvent.interactCta'],
+    paths: ['interactCta'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -149,7 +149,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   ctaSubType: {
     field: 'ctaSubType',
     title: 'CTA Sub Type',
-    paths: ['clientEvent.ctaSubType'],
+    paths: ['ctaSubType'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -159,7 +159,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   searchTerm: {
     field: 'searchTerm',
     title: 'Search Term',
-    paths: ['clientEvent.searchTerm'],
+    paths: ['searchTerm'],
     filter: {
       isAvailable: false,
       isDefault: false,
@@ -169,7 +169,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   strandName: {
     field: 'strandName',
     title: 'Strand Name',
-    paths: ['clientEvent.strandName'],
+    paths: ['strandName'],
     filter: {
       isAvailable: false,
       isDefault: false,
@@ -179,7 +179,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   tilePosition: {
     field: 'tilePosition',
     title: 'Tile Position',
-    paths: ['clientEvent.tilePosition'],
+    paths: ['tilePosition'],
     filter: {
       isAvailable: false,
       isDefault: false,
@@ -189,7 +189,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   tileContent: {
     field: 'tileContent',
     title: 'Tile Content',
-    paths: ['clientEvent.tileContent'],
+    paths: ['tileContent'],
     filter: {
       isAvailable: false,
       isDefault: false,
@@ -199,7 +199,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   tileFormat: {
     field: 'tileFormat',
     title: 'Tile Format',
-    paths: ['clientEvent.tileFormat'],
+    paths: ['PUB_EVENT.tileFormat'],
     filter: {
       isAvailable: false,
       isDefault: false,
@@ -209,7 +209,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   entryReferrerApplicationName: {
     field: 'entryReferrerApplicationName',
     title: 'Entry Ref. App Name',
-    paths: ['clientEvent.entryReferrerApplicationName'],
+    paths: ['entryReferrerApplicationName'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -223,7 +223,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   referrerApplicationName: {
     field: 'referrerApplicationName',
     title: 'Referrer Application Name',
-    paths: ['clientEvent.referrerApplicationName'],
+    paths: ['referrerApplicationName'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -237,7 +237,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   referrerScene: {
     field: 'referrerScene',
     title: 'Referrer Scene',
-    paths: ['clientEvent.referrerScene'],
+    paths: ['referrerScene'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -251,7 +251,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   errorType: {
     field: 'errorType',
     title: 'Error Type',
-    paths: ['clientEvent.errorType'],
+    paths: ['errorType'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -261,7 +261,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   errorSubType: {
     field: 'errorSubType',
     title: 'Error Sub Type',
-    paths: ['clientEvent.errorSubType'],
+    paths: ['errorSubType'],
     filter: {
       isAvailable: true,
       isDefault: false,
@@ -271,7 +271,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   consoleSessionId: {
     field: 'consoleSessionId',
     title: 'Console Session ID',
-    paths: ['dispatchedEvents[-1].inputEvent.consoleSessionId'],
+    paths: ['consoleSessionId'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -285,7 +285,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   openPsId: {
     field: 'openPsId',
     title: 'Open PS ID',
-    paths: ['dispatchedEvents[-1].inputEvent.openPsId'],
+    paths: ['openPsId'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -299,7 +299,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   mobileFeatureArea: {
     field: 'mobileFeatureArea',
     title: 'Mobile Feature Area',
-    paths: ['clientEvent.mobileFeatureArea'],
+    paths: ['mobileFeatureArea'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -314,7 +314,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoTitle: {
     field: 'videoTitle',
     title: 'Video Title',
-    paths: ['clientEvent.videoTitle'],
+    paths: ['videoTitle'],
     divider: {
       isAvailable: false,
       isDefault: false,
@@ -328,7 +328,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoType: {
     field: 'videoType',
     title: 'Video Type',
-    paths: ['clientEvent.videoType'],
+    paths: ['videoType'],
     divider: {
       isAvailable: false,
       isDefault: false,
@@ -342,7 +342,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoEventType: {
     field: 'videoEventType',
     title: 'Video Event Type',
-    paths: ['clientEvent.videoEventType'],
+    paths: ['videoEventType'],
     divider: {
       isAvailable: false,
       isDefault: false,
@@ -356,7 +356,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoId: {
     field: 'videoId',
     title: 'Video Id',
-    paths: ['clientEvent.videoId'],
+    paths: ['videoId'],
     divider: {
       isAvailable: false,
       isDefault: false,
@@ -370,7 +370,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   duration: {
     field: 'duration',
     title: 'Duration',
-    paths: ['clientEvent.duration'],
+    paths: ['duration'],
     divider: {
       isAvailable: false,
       isDefault: false,
@@ -384,7 +384,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoPlayerReadyTime: {
     field: 'videoPlayerReadyTime',
     title: 'Video Player Ready Time',
-    paths: ['clientEvent.videoPlayerReadyTime'],
+    paths: ['videoPlayerReadyTime'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -398,7 +398,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoLoadTime: {
     field: 'videoLoadTime',
     title: 'Video Load Time',
-    paths: ['clientEvent.videoLoadTime'],
+    paths: ['videoLoadTime'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -412,7 +412,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoStartTime: {
     field: 'videoStartTime',
     title: 'Video Start Time',
-    paths: ['clientEvent.videoStartTime'],
+    paths: ['videoStartTime'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -426,7 +426,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoSessionId: {
     field: 'videoSessionId',
     title: 'Video Session Id',
-    paths: ['clientEvent.videoSessionId'],
+    paths: ['videoSessionId'],
     divider: {
       isAvailable: true,
       isDefault: false,
@@ -440,7 +440,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   videoProgressType: {
     field: 'videoProgressType',
     title: 'Video Progress Type',
-    paths: ['clientEvent.videoProgressType'],
+    paths: ['videoProgressType'],
     divider: {
       isAvailable: false,
       isDefault: false,
@@ -454,7 +454,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   lastSentQuartile: {
     field: 'lastSentQuartile',
     title: 'Last Sent Quartile',
-    paths: ['clientEvent.lastSentQuartile'],
+    paths: ['lastSentQuartile'],
     divider: {
       isAvailable: false,
       isDefault: false,
@@ -468,7 +468,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
   elapsedTime: {
     field: 'elapsedTime',
     title: 'Elapsed Time',
-    paths: ['clientEvent.elapsedTime'],
+    paths: ['elapsedTime'],
     divider: {
       isAvailable: false,
       isDefault: false,
@@ -485,7 +485,7 @@ export default FIELD_DEF;
 const FIELD_DEF_ARRAY = Object.values(FIELD_DEF);
 export { FIELD_DEF_ARRAY };
 
-// Utility type to extract 'field' property values into a union type
+// Utility type to extract 'path' property values into a union type
 export type FieldNames = (typeof FIELD_DEF)[number]['field'];
 export function getFieldNames(): FieldNames[] {
   return FIELD_DEF_ARRAY.map((f) => f.field);

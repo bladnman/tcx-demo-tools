@@ -33,6 +33,7 @@ interface TVEventSummary {
   timeMs: number;
   hasFailures: boolean;
   hasPayloads: boolean;
+  tvVersion: string;
   dispatchedEvents: TelemetryDebuggerDispatchedEvent[];
 }
 type TVEvent = TelemetryDebuggerEvent & TVEventSummary;
@@ -79,6 +80,7 @@ interface FieldDefinition {
   field: string;
   title: string;
   paths: string[];
+  _patchedPaths?: string[]; // internal use only - dynamically patched paths
   divider?: {
     isAvailable: boolean;
     isDefault: boolean;
@@ -96,8 +98,9 @@ type TokenColorMode = 'dual' | 'single' | 'none';
 interface TelemetryTokenProps {
   eventIcon?: ReactNode;
   eventColor?: string;
-  eventTag?: string;
+  eventAbbrv?: string;
   eventDetails?: ReactNode;
+  eventTag?: ReactNode;
 
   tokenMode?: TokenMode;
   tokenWidth?: TokenWidth;

@@ -20,7 +20,7 @@ export default function EventDetails({
   const finalMessage = includeMessage ? message : undefined;
 
   // bail - no highlight or message
-  if (!highlight && !finalMessage) return null;
+  if (highlight === undefined && finalMessage === undefined) return null;
 
   return (
     <DetailDisplay

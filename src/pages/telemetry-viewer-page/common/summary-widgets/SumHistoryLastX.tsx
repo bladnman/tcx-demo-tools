@@ -1,5 +1,4 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import getObjectValue from '@pages/telemetry-viewer-page/utils/getObjectValue.ts';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import { Button, Typography } from '@mui/material';
 import { getPreviousItems } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
@@ -9,6 +8,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
 import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
 export default function SumHistoryLastX({
   event,
   x = 6,
@@ -56,12 +56,12 @@ export default function SumHistoryLastX({
           fontSize: '0.75em',
         };
 
-        const appName = getObjectValue(prevEvent, FIELD_DEF.appName.paths);
-        const description = getObjectValue(
+        const appName = getObjectValueFromFieldDef(prevEvent, FIELD_DEF.appName);
+        const description = getObjectValueFromFieldDef(
           prevEvent,
           prevEvent.type === 'Navigation'
-            ? FIELD_DEF.locationScene.paths
-            : FIELD_DEF.interactAction.paths,
+            ? FIELD_DEF.locationScene
+            : FIELD_DEF.interactAction,
         );
 
         const isLast = idx === lastXEvents.length - 1;
@@ -80,9 +80,7 @@ export default function SumHistoryLastX({
             >
               {appName}
             </Typography>
-            <Typography
-              sx={{ fontWeight: isLast ? 'bold' : 'normal', ...locationSx }}
-            >
+            <Typography sx={{ fontWeight: isLast ? 'bold' : 'normal', ...locationSx }}>
               {description}
             </Typography>
             {prevEvent === event && (

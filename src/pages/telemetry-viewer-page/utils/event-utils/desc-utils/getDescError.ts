@@ -1,15 +1,18 @@
-import getObjectValue from '@pages/telemetry-viewer-page/utils/getObjectValue.ts';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
+import { formatTvValueList } from '@pages/telemetry-viewer-page/utils/event-utils/formatTvValue.ts';
+import getTvValue from '@pages/telemetry-viewer-page/utils/event-utils/getTvValue.ts';
 
 export default function getDescError(event: TVEvent) {
-  const highlight = getObjectValue(event, FIELD_DEF.severity.paths) as string;
-  const vshErrorHexCode = getObjectValue(
-    event,
-    FIELD_DEF.vshErrorHexCode.paths,
-  );
-  const errorMessage = getObjectValue(event, FIELD_DEF.errorMessage.paths);
-  const severity = getObjectValue(event, FIELD_DEF.severity.paths);
-  const message = `${vshErrorHexCode} | ${errorMessage}`;
+  const highlight = getTvValue(event, FIELD_DEF.severity.paths) as string;
+  const severity = getTvValue(event, FIELD_DEF.severity.paths);
+  const message = formatTvValueList(event, [
+    {
+      path: FIELD_DEF.vshErrorHexCode.paths,
+    },
+    {
+      path: FIELD_DEF.errorMessage.paths,
+    },
+  ]);
 
   const color =
     severity === 'critical'

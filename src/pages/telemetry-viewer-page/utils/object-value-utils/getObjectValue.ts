@@ -4,7 +4,7 @@ export default function getObjectValue<T>(
   object: T,
   paths: string[],
 ): string | number | null | undefined {
-  for (const originalPath of paths) {
+  for (const originalPath of getPatchedPaths(paths)) {
     // Identify paths with the '[-1]' notation and process them
     const processedPath = originalPath
       .split('.')
@@ -32,4 +32,23 @@ export default function getObjectValue<T>(
     }
   }
   return null;
+}
+function getPatchedPaths(paths: string[]): string[] {
+  const patchedPaths: string[] = [];
+  const pubEventPatches = ['clientEvent', 'dispatchedEvents[-1].inputEvent'];
+
+  for (const path of paths) {
+    // SPREAD OUT PUB_EVENT PATHS
+    if (path.includes('PUB_EVENT')) {
+      for (const pubEventPatch of pubEventPatches) {
+        patchedPaths.push(path.replace('PUB_EVENT', pubEventPatch));
+      }
+    }
+
+    // JUST KEEP THE ORIGINAL PATH
+    else {
+      patchedPaths.push(path);
+    }
+  }
+  return patchedPaths;
 }

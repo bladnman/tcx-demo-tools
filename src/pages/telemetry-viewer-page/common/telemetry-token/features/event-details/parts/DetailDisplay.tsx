@@ -10,8 +10,10 @@ interface DetailDisplayProps {
 export default function DetailDisplay({ highlight, message, color }: DetailDisplayProps) {
   const { allowWrap } = useSettingsStore();
 
-  const hasHighlight = Boolean(highlight);
-  const hasMessage = Boolean(message);
+  const hasValue = (value: string | undefined) => value !== undefined && value !== null;
+
+  const hasHighlight = hasValue(highlight);
+  const hasMessage = hasValue(message);
 
   if (!hasHighlight && !hasMessage) {
     return null;

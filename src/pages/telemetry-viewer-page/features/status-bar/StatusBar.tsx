@@ -20,7 +20,7 @@ export default function StatusBar({ height = '2.5em' }: { height?: string }) {
           px: 2,
         }}
       >
-        <HStack spacing={2} right data-id={'status-left'} sx={sectionSx}>
+        <HStack spacing={2} left data-id={'status-left'} sx={sectionSx}>
           <StatusMessage />
         </HStack>
         <HStack spacing={2} right data-id={'status-right'} sx={sectionSx}>

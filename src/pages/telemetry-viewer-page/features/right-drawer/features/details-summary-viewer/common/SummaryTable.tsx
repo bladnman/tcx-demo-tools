@@ -1,7 +1,7 @@
 import SummaryRow from '@pages/telemetry-viewer-page/features/right-drawer/features/details-summary-viewer/common/SummaryRow.tsx';
 import { StackProps, VStack } from '@common/mui-stacks.tsx';
-import getObjectValue from '@pages/telemetry-viewer-page/utils/getObjectValue.ts';
 import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
+import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
 
 export type SummaryTableRowDef = Partial<FieldDefinition> & {
   // from FIELD_DEF
@@ -24,7 +24,7 @@ export default function SummaryTable({
   return (
     <VStack hFill topLeft {...stackOptions}>
       {rowDefs.map((rowDef) => {
-        const value = getObjectValue(event, rowDef.paths);
+        const value = getObjectValueFromFieldDef(event, rowDef as FieldDefinition);
         const labelSx: TypographyStyleOptions = {};
         const valueSx: TypographyStyleOptions = {
           color: rowDef.color,

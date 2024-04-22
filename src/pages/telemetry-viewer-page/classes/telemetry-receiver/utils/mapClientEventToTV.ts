@@ -1,5 +1,6 @@
 import { isObjectWithRequiredKeys } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 import { v4 as uuidV4 } from 'uuid';
+import CONST from '../../../../../CONST.ts';
 
 export interface RawClientEvent {
   appName: string;
@@ -10,12 +11,7 @@ export interface RawClientEvent {
   platformType?: string;
 }
 export function isClientEvent(event: unknown): boolean {
-  return isObjectWithRequiredKeys(event, [
-    'appName',
-    'namespace',
-    'timestamp',
-    'type',
-  ]);
+  return isObjectWithRequiredKeys(event, ['appName', 'namespace', 'timestamp', 'type']);
 }
 export default function mapClientEventToTV(event: unknown): TVEvent | null {
   if (!isClientEvent(event)) return null;
@@ -38,6 +34,7 @@ export default function mapClientEventToTV(event: unknown): TVEvent | null {
     hasFailures: false,
     hasPayloads: false,
     id: rawEvent.tracingId,
+    tvVersion: CONST.TV_MESSAGE_VERSION,
     clientEvent: rawEvent,
     dispatchedEvents: [],
   } as TVEvent;

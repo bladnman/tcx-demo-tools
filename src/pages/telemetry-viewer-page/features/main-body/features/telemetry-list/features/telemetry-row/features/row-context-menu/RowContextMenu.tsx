@@ -8,13 +8,11 @@ import { HStack } from '@common/mui-stacks.tsx';
 import actionDeleteAllEventsAfter from '@pages/telemetry-viewer-page/store/event-store/actions/actionDeleteAllEventsAfter.ts';
 import actionDeleteAllEventsBefore from '@pages/telemetry-viewer-page/store/event-store/actions/actionDeleteAllEventsBefore.ts';
 type ContextMenuProps = {
-  event: TVEvent;
+  event?: TVEvent | null;
   popupState: PopupState;
 };
-export default function RowContextMenu({
-  event,
-  popupState,
-}: ContextMenuProps) {
+export default function RowContextMenu({ event, popupState }: ContextMenuProps) {
+  if (!event) return null;
   return (
     <Menu {...bindMenu(popupState)} sx={{ maxWidth: '45em' }}>
       <ListSubheader>

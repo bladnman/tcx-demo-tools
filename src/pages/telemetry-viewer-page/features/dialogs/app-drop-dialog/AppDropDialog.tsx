@@ -3,6 +3,7 @@ import { Backdrop } from '@mui/material';
 import DropMessage from '@pages/telemetry-viewer-page/features/dialogs/app-drop-dialog/features/drop-message/DropMessage.tsx';
 import { loadEventsFromFiles } from '@pages/telemetry-viewer-page/features/dialogs/app-drop-dialog/utils/loadEventsFromFiles.ts';
 import actionSetImportingEvents from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetImportingEvents.ts';
+import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
 
 export default function AppDropDialog() {
   const [isDragging, setIsDragging] = useState(false);
@@ -26,6 +27,7 @@ export default function AppDropDialog() {
     const handleDrop = async (event: DragEvent) => {
       event.preventDefault();
       setIsDragging(false);
+      actionSetIsSettingsDialogOpen(false);
 
       // Check if any files were dropped
       if (event.dataTransfer?.files) {

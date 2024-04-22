@@ -25,6 +25,7 @@ export interface SettingsStore {
   dividerFields: string[];
   importingEvents: TVEvent[] | null;
   isImportDialogOpen: boolean;
+  isImportingData: boolean;
   isExportDialogOpen: boolean;
   isFilterDrawerOpen: boolean;
   isSettingsDialogOpen: boolean;
@@ -34,6 +35,7 @@ export interface SettingsStore {
   connectToTCxName: string | null;
   shouldShowTime: boolean;
   shouldShowFlags: boolean;
+  mockBatchSize: number;
 }
 
 const useSettingsStore = create<SettingsStore>()(
@@ -51,6 +53,7 @@ const useSettingsStore = create<SettingsStore>()(
       dividerFields: initializeDividerFields(),
       importingEvents: null,
       isImportDialogOpen: false,
+      isImportingData: false,
       isExportDialogOpen: false,
       isFilterDrawerOpen: true,
       isSettingsDialogOpen: true,
@@ -60,9 +63,10 @@ const useSettingsStore = create<SettingsStore>()(
       connectToTCxName: null,
       shouldShowTime: true,
       shouldShowFlags: true,
+      mockBatchSize: 10,
     }),
     {
-      name: 'telemetry-store',
+      name: 'settings-store',
       // filter what fields to persist
       partialize: (state) => {
         return {
@@ -80,7 +84,9 @@ function initializeDividerFields() {
   return getSavedStore().__divider_fields || [];
 }
 function getSavedStore(): SavedSettingsStore {
-  const savedStore = JSON.parse(localStorage.getItem('settings-store') || '{}') as { state: SavedSettingsStore };
+  const savedStore = JSON.parse(localStorage.getItem('settings-store') || '{}') as {
+    state: SavedSettingsStore;
+  };
   return savedStore.state || {};
 }
 
