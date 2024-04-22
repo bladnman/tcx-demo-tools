@@ -1,10 +1,5 @@
 import React, { ReactNode, useMemo } from 'react';
-import {
-  createTheme,
-  PaletteColor,
-  Theme,
-  ThemeProvider,
-} from '@mui/material/styles';
+import { createTheme, PaletteColor, Theme, ThemeProvider } from '@mui/material/styles';
 
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
@@ -26,45 +21,43 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
   const THEME_COLORS = useMemo(
     () => ({
       pri: ['#667195', '#9ca7d2'],
-      // pri: ['#707898', '#707898'],
       sec: ['#8a599c', '#ad70ca'],
       cancel: ['#6c7074', '#9093a3'],
-      fg: ['#38363e', '#c0bcc6'],
-      bg: ['#eeeef1', '#272729'],
-      // paper: ['#f9f9f9', '#0d0d0e'],
       paper: ['#d2d2d2', '#313135'],
       appBar: ['#333f54', '#333f54'],
 
-      appColor: ['#ccd857', '#ccd857'],
-      appRed: ['#f62955', '#f62955'],
-      appOrange: ['#ffa726', '#ffa726'],
-      appGreen: ['#68b85b', '#68b85b'],
-      appBlue: ['#29b6f6', '#29b6f6'],
-      appPurple: ['#7129f6', '#7129F6'],
-      appPink: ['#f629d7', '#f629d7'],
-      appSlate: ['#769386', '#769386'],
-      appGray: ['#8b8bE8b', '#8b8b8b'],
-      appGrayDark: ['#464646', '#464646'],
-      appGrayVeryDark: ['#323232', '#323232'],
-      appWhite: ['#ffffff', '#ffffff'],
-      appBlack: ['#000000', '#000000'],
-      appBrown: ['#8b6e63', '#8b6e63'],
-      appGold: ['#ffd700', '#ffd700'],
-      appSilver: ['#c0c0c0', '#c0c0c0'],
-      appBronze: ['#cd7f32', '#cd7f32'],
+      /**
+       * App Colors
+       * These should not venture into any gray-scale colors
+       * Grays should be used for text and background colors
+       */
       appEggplant: ['#614051', '#614051'],
-      appMaroon: ['#800000', '#800000'],
-      appMint: ['#98ff98', '#98ff98'],
-      appNeonGreen: ['#83d537', '#83d537'],
-      appBrightRed: ['#f7426b', '#f7426b'],
+      appRedWashed: ['#614051', '#614051'],
+      appMaroon: ['#7c1818', '#7c1818'],
+      appRed: ['#f62955', '#F62955'],
+      appOrange: ['#ffa726', '#ffa726'],
+      appGold: ['#ffd700', '#ffd700'],
       appYellow: ['#E3CF44', '#E3CF44'],
+      appNeonGreen: ['#83d537', '#83d537'],
+      appGreen: ['#68b85b', '#68b85b'],
+      appGreenWashed: ['#536b4f', '#536b4f'],
+      appMint: ['#98ff98', '#98ff98'],
+      appSlate: ['#769386', '#769386'],
+      appCyan: ['#00FFFF', '#00FFFF'],
+      appBlue: ['#29b6f6', '#29b6f6'],
+      appSkyBlue: ['#87CEEB', '#87CEEB'],
+      appDeepBlue: ['#2a5598', '#2a5598'],
+      appBlueWashed: ['#3f4c65', '#3f4c65'],
+      appPurple: ['#7129f6', '#7129F6'],
+      appIndigo: ['#7f2ac5', '#7f2ac5'],
+      appIndigoWashed: ['#684d7c', '#684d7c'],
+      appPink: ['#f629d7', '#f629d7'],
+      appViolet: ['#EE82EE', '#EE82EE'],
+      appBronze: ['#cd7f32', '#cd7f32'],
+      appBrown: ['#8b6e63', '#8b6e63'],
 
-      appBg10: ['#3e3e3e', '#ebebeb'],
-      appBg25: ['#3e3e3e', '#cecece'],
-      appBg50: ['#8b8b8b', '#8b8b8b'],
-      appBg75: ['#cecece', '#3e3e3e'],
-      appBg90: ['#cecece', '#292929'],
-
+      // BG COLORS
+      bg: ['#eeeef1', '#272729'],
       bg10: ['#2d2d30', '#ebebeb'],
       bg15: ['#323235', '#e0e0e0'],
       bg20: ['#38383b', '#e0e0e0'],
@@ -75,10 +68,8 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       bg85: ['#e0e0e0', '#323235'],
       bg90: ['#ebebeb', '#2d2d30'],
 
-      appFg25: ['#cecece', '#3e3e3e'],
-      appFg50: ['#8b8b8b', '#8b8b8b'],
-      appFg75: ['#3e3e3e', '#cecece'],
-
+      // FG COLORS
+      fg: ['#38363e', '#c0bcc6'],
       fg10: ['#eaeaea', '#1f1f1f'],
       fg15: ['#e6e6e6', '#202020'],
       fg25: ['#cecece', '#3e3e3e'],
@@ -89,67 +80,9 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       fg85: ['#2a2a2a', '#e4e4e4'],
       fg90: ['#1f1f1f', '#eaeaea'],
 
-      // TOKEN COLORS
-      tokenYellow: ['#E3CF44', '#E3CF44'],
-      tokenOrange: ['#ffa726', '#ffa726'],
-      tokenGreen: ['#68b85b', '#68b85b'],
-      tokenBlue: ['#29b6f6', '#29b6f6'],
-      tokenPurple: ['#7129f6', '#7129F6'],
-      tokenPink: ['#f629d7', '#f629d7'],
-      tokenRed: ['#f62955', '#F62955'],
-      tokenSlate: ['#769386', '#769386'],
-      tokenGray: ['#8b8b8b', '#8b8b8b'],
-      tokenGrayDark: ['#464646', '#464646'],
-      tokenGrayVeryDark: ['#323232', '#323232'],
-      tokenWhite: ['#ffffff', '#ffffff'],
-      tokenBlack: ['#000000', '#000000'],
-      tokenBrown: ['#8b6e63', '#8b6e63'],
-      tokenGold: ['#ffd700', '#ffd700'],
-      tokenSilver: ['#c0c0c0', '#c0c0c0'],
-      tokenBronze: ['#cd7f32', '#cd7f32'],
-      tokenEggplant: ['#614051', '#614051'],
-      tokenMaroon: ['#800000', '#800000'],
-      tokenMint: ['#98ff98', '#98ff98'],
-      tokenNeonGreen: ['#83d537', '#83d537'],
-      tokenBrightRed: ['#f62955', '#F62955'],
-      tokenYellowDim: ['#E3CF44', '#E3CF44'],
-      tokenOrangeDim: ['#ffa726', '#ffa726'],
-      tokenGreenDim: ['#68b85b', '#68b85b'],
-      tokenBlueDim: ['#29b6f6', '#29b6f6'],
-      tokenPurpleDim: ['#7129f6', '#7129F6'],
-      tokenPinkDim: ['#f629d7', '#f629d7'],
-      tokenRedDim: ['#f62955', '#F62955'],
-      tokenSlateDim: ['#769386', '#769386'],
-      tokenGrayDim: ['#8b8b8b', '#8b8b8b'],
-      tokenGrayDarkDim: ['#464646', '#464646'],
-      tokenGrayVeryDarkDim: ['#323232', '#323232'],
-      tokenWhiteDim: ['#ffffff', '#ffffff'],
-      tokenBlackDim: ['#000000', '#000000'],
-      tokenBrownDim: ['#8b6e63', '#8b6e63'],
-      tokenGoldDim: ['#ffd700', '#ffd700'],
-      tokenSilverDim: ['#c0c0c0', '#c0c0c0'],
-      tokenBronzeDim: ['#cd7f32', '#cd7f32'],
-      tokenEggplantDim: ['#614051', '#614051'],
-      tokenMaroonDim: ['#800000', '#800000'],
-      tokenMintDim: ['#98ff98', '#98ff98'],
-      tokenNeonGreenDim: ['#83d537', '#83d537'],
-      tokenBrightRedDim: ['#f62955', '#F62955'],
-
       // TOKEN DETAILS COLORS
       tokenDetailsFG: ['#8b8b8b', '#8b8b8b'],
       tokenDetailsBG: ['#383838', '#383838'],
-      tokenDetailsFGOrange: ['#ffa726', '#ffa726'],
-      tokenDetailsFGGreen: ['#68b85b', '#68b85b'],
-      tokenDetailsFGRed: ['#ff436b', '#ff436b'],
-      tokenDetailsFGBlue: ['#29b6f6', '#29b6f6'],
-      tokenDetailsFGPurple: ['#7129f6', '#7129F6'],
-      tokenDetailsFGPink: ['#f629d7', '#f629d7'],
-      tokenDetailsFGSlate: ['#769386', '#769386'],
-      tokenDetailsFGGray: ['#8b8b8b', '#8b8b8b'],
-      tokenDetailsFGGrayDark: ['#464646', '#464646'],
-      tokenDetailsFGGrayVeryDark: ['#323232', '#323232'],
-      tokenDetailsFGWhite: ['#ffffff', '#ffffff'],
-      tokenDetailsFGBright: ['#ffffff', '#ffffff'],
     }),
     [],
   ); // your colors here
@@ -161,9 +94,7 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 export default AppThemeProvider;
-export const LightTheme: React.FC<{ children?: ReactNode }> = ({
-  children,
-}) => {
+export const LightTheme: React.FC<{ children?: ReactNode }> = ({ children }) => {
   return <AppThemeProvider colorMode="light">{children}</AppThemeProvider>;
 };
 // DarkTheme helper component
@@ -286,10 +217,7 @@ function mapColors(mode: 'light' | 'dark', colors: ThemePaletteColors) {
   return colorMap;
 }
 
-function augmentThemeWithPaletteColors(
-  theme: Theme,
-  config: { [key: string]: string },
-) {
+function augmentThemeWithPaletteColors(theme: Theme, config: { [key: string]: string }) {
   const colors: { [key: string]: PaletteColor } = {};
   for (const key in config) {
     colors[key] = theme.palette.augmentColor({

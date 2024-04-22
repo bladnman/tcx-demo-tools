@@ -1,3 +1,5 @@
+import eventMapper from '@pages/telemetry-viewer-page/classes/telemetry-receiver/eventMapper.ts';
+
 export async function loadEventsFromFiles(files: FileList): Promise<TVEvent[]> {
   // Create an array of Promises, one for each file
   const promises = Array.from(files).map(
@@ -10,7 +12,7 @@ export async function loadEventsFromFiles(files: FileList): Promise<TVEvent[]> {
             const contents = e.target?.result; // This will contain the file contents
 
             // Parse the JSON and get the items array
-            const items = JSON.parse(contents as string);
+            const items = eventMapper(JSON.parse(contents as string));
 
             // Resolve the Promise with the items array
             resolve(items);

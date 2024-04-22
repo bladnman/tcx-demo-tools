@@ -8,6 +8,6 @@ export default function getDescInteraction(event: TVEvent) {
   return {
     highlight,
     message,
-    color: `tokenDetailsFGBright.main`,
+    color: `fg.main`,
   };
 }

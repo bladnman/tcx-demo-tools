@@ -31,9 +31,11 @@ interface TVEventSummary {
   platformType?: string;
   timestamp: string;
   timeMs: number;
+  updateTimeMs?: number;
   hasFailures: boolean;
   hasPayloads: boolean;
   tvVersion: string;
+  tags: string[];
   dispatchedEvents: TelemetryDebuggerDispatchedEvent[];
 }
 type TVEvent = TelemetryDebuggerEvent & TVEventSummary;

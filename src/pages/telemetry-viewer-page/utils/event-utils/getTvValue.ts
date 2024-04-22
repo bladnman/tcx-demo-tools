@@ -3,7 +3,7 @@ import _ from 'lodash';
 export default function getTvValue(
   event: TVEvent,
   fieldOrPath: string | string[] | null | undefined,
-): string | number | null | undefined {
+): string | string[] | number | null | undefined {
   if (!event) return undefined;
   if (!fieldOrPath) return undefined;
 

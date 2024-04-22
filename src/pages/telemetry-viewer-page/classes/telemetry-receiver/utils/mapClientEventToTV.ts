@@ -37,5 +37,6 @@ export default function mapClientEventToTV(event: unknown): TVEvent | null {
     tvVersion: CONST.TV_MESSAGE_VERSION,
     clientEvent: rawEvent,
     dispatchedEvents: [],
+    tags: [],
   } as TVEvent;
 }

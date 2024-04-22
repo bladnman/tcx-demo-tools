@@ -22,6 +22,6 @@ export default function getDescViewableImpression(event: TVEvent) {
   return {
     highlight,
     message,
-    color: `tokenDetailsFGBright.main`,
+    color: `fg.main`,
   };
 }

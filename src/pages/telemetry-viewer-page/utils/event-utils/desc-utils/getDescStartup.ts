@@ -6,6 +6,6 @@ export default function getDescStartup(event: TVEvent) {
   return {
     highlight,
     message: undefined,
-    color: `tokenDetailsFGBright.main`,
+    color: `fg.main`,
   };
 }

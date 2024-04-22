@@ -479,6 +479,20 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefaultCollapsed: true,
     },
   },
+  tags: {
+    field: 'tags',
+    title: 'Tags',
+    paths: ['tags'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: true,
+      isDefault: true,
+      isDefaultCollapsed: true,
+    },
+  },
 };
 export default FIELD_DEF;
 

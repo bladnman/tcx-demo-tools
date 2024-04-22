@@ -16,10 +16,10 @@ export default function getDescError(event: TVEvent) {
 
   const color =
     severity === 'critical'
-      ? `tokenDetailsFGRed.main`
+      ? `appRed.main`
       : severity === 'major'
-        ? 'tokenDetailsFGRed.main'
-        : `tokenDetailsFGBright.main`;
+        ? 'appRed.main'
+        : `fg.main`;
 
   return {
     highlight,

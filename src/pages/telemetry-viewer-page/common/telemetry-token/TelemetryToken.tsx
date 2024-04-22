@@ -71,7 +71,7 @@ export default function TelemetryToken(props: TelemetryTokenProps) {
         sx={{
           px: '0.75em',
           maxWidth: '100%',
-          color: isDualColor ? 'tokenDetailsFG.main' : `${eventColor}.contrastText`,
+          color: isDualColor ? 'fg.main' : `${eventColor}.contrastText`,
           backgroundColor: isDualColor ? 'tokenDetailsBG.main' : 'transparent',
           overflow: 'hidden',
           width: isMaxWidth ? '100%' : 'auto',

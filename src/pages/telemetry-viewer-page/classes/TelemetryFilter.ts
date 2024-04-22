@@ -1,5 +1,6 @@
 import TelemetryFilterItem from '@pages/telemetry-viewer-page/classes/TelemetryFilterItem.ts';
-import { getValueFromEvent } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
+import getTvValue from '@pages/telemetry-viewer-page/utils/event-utils/getTvValue.ts';
+import isNU from '@pages/telemetry-viewer-page/utils/isNU.ts';
 
 class TelemetryFilter {
   type: FilterType;
@@ -66,42 +67,16 @@ class TelemetryFilter {
       item.active = true;
     });
   }
-  deactivateValues(values: string | string[] | undefined) {
-    if (!values) return;
-    if (!Array.isArray(values)) {
-      values = [values];
-    }
-    values.forEach((value) => {
-      const item = this.getItem(value);
-      if (item) {
-        item.active = false;
-      }
-    });
-  }
 
   incrementEvents(events: TVEvent | TVEvent[] | undefined) {
     if (!events) return;
     if (!Array.isArray(events)) {
       events = [events];
     }
-    const values = events
-      .map((event: TVEvent) => {
-        return this.valueForEvent(event);
-      })
-      .filter((v) => v !== undefined);
+    const values = events.flatMap((event: TVEvent) => {
+      return this.valuesForEvent(event);
+    });
     this.incrementValues(values as string[]);
-  }
-  decrementEvents(events: TVEvent | TVEvent[] | undefined) {
-    if (!events) return;
-    if (!Array.isArray(events)) {
-      events = [events];
-    }
-    const values = events
-      .map((event: TVEvent) => {
-        return this.valueForEvent(event);
-      })
-      .filter((v) => v !== undefined);
-    this.decrementValues(values as string[]);
   }
 
   incrementValues(values: string | string[] | undefined) {
@@ -157,21 +132,22 @@ class TelemetryFilter {
     });
   }
 
-  private valueForEvent(event: TVEvent): string {
-    return getValueFromEvent(event, this.type) ?? '(none)';
+  private valuesForEvent(event: TVEvent): string[] {
+    const value = getTvValue(event, this.field);
+
+    // if an array, let's force to string[]
+    if (Array.isArray(value)) {
+      return value.map((v) => String(v));
+    }
+    return [String(value ?? '(none)')];
   }
 
   testForActive(event: TVEvent) {
     if (this.items.length === 0) return true; // no items -- pass
     if (!this.anyActive) return true; // property does not exist in event -- pass
 
-    return this.activeValues.includes(this.valueForEvent(event));
-  }
-  testExists(event: TVEvent) {
-    if (this.items.length === 0) return true; // no items -- pass
-    if (!this.anyActive) return true; // property does not exist in event -- pass
-
-    return this.values.includes(this.valueForEvent(event));
+    const eventValues = this.valuesForEvent(event);
+    return eventValues.some((v) => this.activeValues.includes(v));
   }
 }
 

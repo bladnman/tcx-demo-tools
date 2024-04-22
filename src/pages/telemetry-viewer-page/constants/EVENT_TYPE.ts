@@ -4,67 +4,67 @@ export const EVENT_TYPE_DEF: { [K in EventTypes]: EventTypeDef } = {
   ApplicationError: {
     type: 'ApplicationError',
     abbreviation: 'appErr',
-    color: 'tokenRed',
+    color: 'appRed',
   },
   AvatarImageLoad: {
     type: 'AvatarImageLoad',
     abbreviation: 'avtr',
-    color: 'tokenSlate',
+    color: 'appSlate',
   },
   Interaction: {
     type: 'Interaction',
     abbreviation: 'inter',
-    color: 'tokenOrange',
+    color: 'appOrange',
   },
   LoadTime: {
     type: 'LoadTime',
     abbreviation: 'time',
-    color: 'tokenGreen',
+    color: 'appGreen',
   },
   Navigation: {
     type: 'Navigation',
     abbreviation: 'nav',
-    color: 'tokenBlue',
+    color: 'appBlue',
   },
   NetworkError: {
     type: 'NetworkError',
     abbreviation: 'netErr',
-    color: 'tokenPink',
+    color: 'appPink',
   },
   Startup: {
     type: 'Startup',
     abbreviation: 'start',
-    color: 'tokenPurple',
+    color: 'appPurple',
   },
   VideoStream: {
     type: 'VideoStream',
     abbreviation: 'video',
-    color: 'tokenSlate',
+    color: 'appSlate',
   },
   ViewableImpression: {
     type: 'ViewableImpression',
     abbreviation: 'impr',
-    color: 'tokenYellow',
+    color: 'appYellow',
   },
   ApplicationDbAppBrowse: {
     type: 'ApplicationDbAppBrowse',
     abbreviation: 'appDb',
-    color: 'tokenGray',
+    color: 'appBrown',
   },
   NotificationDb: {
     type: 'NotificationDb',
     abbreviation: 'notfDb',
-    color: 'tokenSilver',
+    color: 'appBrown',
   },
   TraceSpan: {
     type: 'TraceSpan',
     abbreviation: 'trace',
-    color: 'tokenGrayDim',
+    color: 'appBrown',
   },
 
   Other: {
     type: 'Other',
     abbreviation: 'other',
-    color: 'tokenGrayVeryDark',
+    color: 'appBrown',
   },
 };

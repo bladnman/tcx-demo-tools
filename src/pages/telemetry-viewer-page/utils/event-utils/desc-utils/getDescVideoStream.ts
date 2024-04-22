@@ -2,6 +2,7 @@ import { getEventDef } from '@pages/telemetry-viewer-page/utils/event-utils/getE
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import formatMilliseconds from '@utils/formatMilliseconds.ts';
 import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
+import getTvValue from '@pages/telemetry-viewer-page/utils/event-utils/getTvValue.ts';
 
 export default function getDescVideoStream(event: TVEvent) {
   const eventDef = getEventDef(event);
@@ -25,9 +26,34 @@ export default function getDescVideoStream(event: TVEvent) {
   let elapsedTime = getObjectValueFromFieldDef(event, FIELD_DEF.elapsedTime) ?? 0;
   elapsedTime = formatMilliseconds((elapsedTime as number) * 1000);
 
+  const videoEventType = getTvValue(event, FIELD_DEF.videoEventType.paths);
+  let color = `${eventDef.color}.main`;
+  switch (videoEventType) {
+    case 'Start':
+      color = 'appOrange.main';
+      break;
+      // case 'Complete':
+      //   color = 'appGreen.main';
+      break;
+    case 'Error':
+      color = 'appRed.main';
+      break;
+    case 'Play':
+    case 'Seek':
+    case 'Resume':
+      color = 'fg.main';
+      break;
+    case 'Pause':
+    case 'Progress':
+      color = 'fg50.main';
+      break;
+    default:
+      break;
+  }
+
   return {
     highlight,
     message: `[${elapsedTime}] ${videoTitle}`,
-    color: `${eventDef.color}.main`,
+    color,
   };
 }

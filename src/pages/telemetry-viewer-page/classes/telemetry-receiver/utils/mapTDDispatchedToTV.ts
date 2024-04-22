@@ -29,7 +29,7 @@ export default function mapTDDispatchedToTV(event: unknown): TVEvent | null {
   // so that we can map it to the TVEvent
   const dispatchedEvents = [tdDispatchedEvent];
   const type = inputEvent.type ?? 'unknown';
-  return {
+  const tvEvent = {
     type,
     eventName: type,
     appName: appName ?? undefined, // no nulls
@@ -42,6 +42,9 @@ export default function mapTDDispatchedToTV(event: unknown): TVEvent | null {
     id: tracingId,
     tvVersion: CONST.TV_MESSAGE_VERSION,
     clientEvent: undefined,
-    dispatchedEvents: [tdDispatchedEvent],
+    dispatchedEvents: dispatchedEvents,
+    tags: [],
   } as TVEvent;
+
+  return tvEvent;
 }

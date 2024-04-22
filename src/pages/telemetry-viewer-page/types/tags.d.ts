@@ -13,8 +13,6 @@ interface TagConfig {
   uuid: string;
   isActive: boolean;
   isDefault: boolean;
-  bgColor: string;
-  textColor: string;
   themeColor?: string;
   category?: string;
 }

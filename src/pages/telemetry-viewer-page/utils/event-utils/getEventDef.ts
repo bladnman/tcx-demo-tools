@@ -13,21 +13,21 @@ export function getEventDef(event: TVEvent): EventTypeDef {
 
   // COLORS
   if (includesAny(type, ['Error', 'Failure', 'Dropped', 'Crash'], false)) {
-    syntheticDef.color = 'tokenMaroon';
+    syntheticDef.color = 'appMaroon';
   } else if (includesAny(type, ['BGS'], false)) {
-    syntheticDef.color = 'tokenPurple';
+    syntheticDef.color = 'appPurple';
   } else if (includesAny(type, ['Stat'], false)) {
-    syntheticDef.color = 'tokenBrown';
+    syntheticDef.color = 'appBrown';
   } else if (includesAny(type, ['NpWebApi'], false)) {
-    syntheticDef.color = 'tokenEggplant';
+    syntheticDef.color = 'appEggplant';
   } else if (includesAny(type, ['background'], false)) {
-    syntheticDef.color = 'tokenSlate';
+    syntheticDef.color = 'appSlate';
   } else if (includesAny(type, ['drm'], false)) {
-    syntheticDef.color = 'tokenBronze';
+    syntheticDef.color = 'appBronze';
   } else if (includesAny(type, ['Ime'], true)) {
-    syntheticDef.color = 'tokenGrayDim';
+    syntheticDef.color = 'appBrown';
   } else if (includesAny(type, ['Power'], false)) {
-    syntheticDef.color = 'tokenNeonGreen';
+    syntheticDef.color = 'appNeonGreen';
   }
 
   // ABBREVIATIONS

@@ -12,11 +12,7 @@ export default function EventDetails({
 }) {
   const includeColor = colorMode === 'dual';
   const includeMessage = displayMode === 'details';
-  const {
-    highlight,
-    message,
-    color = 'tokenDetailsFGBright.main',
-  } = getEventDescriptions(event);
+  const { highlight, message, color = 'fg.main' } = getEventDescriptions(event);
   const finalMessage = includeMessage ? message : undefined;
 
   // bail - no highlight or message

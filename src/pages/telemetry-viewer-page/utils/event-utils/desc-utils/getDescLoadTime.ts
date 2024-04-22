@@ -9,7 +9,7 @@ export default function getDescLoadTime(event: TVEvent) {
   const highlight = loadTimeData?.highlight;
   let color = `${eventDef.color}.main`;
   if (message?.includes('timeToInteractive')) {
-    color = 'tokenDetailsFGOrange.main';
+    color = 'appOrange.main';
   }
 
   return {

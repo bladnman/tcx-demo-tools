@@ -33,7 +33,7 @@ export default function getEventDescriptions(event: TVEvent) {
       return getDescVideoStream(event);
     default:
       message = getObjectValueFromFieldDef(event, FIELD_DEF.type);
-      color = 'tokenDetailsFGBright.main';
+      color = 'fg.main';
       break;
   }
 

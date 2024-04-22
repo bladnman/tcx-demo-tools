@@ -13,7 +13,7 @@ export default function SelectionMenuItem({
   onClick: () => void;
 }) {
   const fontSize = '0.9em';
-  const color = active ? 'appOrange' : 'appBg75';
+  const color = active ? 'appOrange' : 'bg75';
   return (
     <HStack
       hFill
@@ -34,8 +34,19 @@ export default function SelectionMenuItem({
         color={color}
       />
       {/* - 2.5em is related to the amount the items are indented in the menu */}
-      <HStack hFill spaceBetween data-id={'selection-menu-metadata'} sx={{ width: 'calc(100% - 2.5em)' }}>
-        <Tooltip title={title} placement={'top'} arrow enterDelay={700} enterNextDelay={700}>
+      <HStack
+        hFill
+        spaceBetween
+        data-id={'selection-menu-metadata'}
+        sx={{ width: 'calc(100% - 2.5em)' }}
+      >
+        <Tooltip
+          title={title}
+          placement={'top'}
+          arrow
+          enterDelay={700}
+          enterNextDelay={700}
+        >
           <Typography
             fontSize={fontSize}
             fontWeight={active ? 'bold' : 'normal'}

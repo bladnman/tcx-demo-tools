@@ -17,31 +17,21 @@ export const TAG_KEY_LINKS = {
   POWER: 'POWER',
   SESSION: 'SESSION',
 };
-// TODO: these are here temporarily while conversion happens
-const COLORS = {
-  warn: '#ff357f',
-  watch: '#f46051',
-  play: '#5499f4',
-  idle: '#c3beb9',
-  big_entry: '#e8e3f0',
-  pri_low: '#b2b2b2',
-  pri_med: '#cadbd9',
-  pri_high: '#ffad5b',
-  base: '#606060',
-  text_reversed: '#ECEBE5',
-  text: '#313131',
-};
 export const TAG_CONFIG: TagConfig[] = [
   {
     key: 'FRIENDS',
     icon: '🧪',
     uuid: '90',
-    bgColor: COLORS.big_entry,
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'CONTAINS',
@@ -54,12 +44,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'SELECTED PRODUCT',
     icon: '🛍️',
     uuid: '92',
-    bgColor: COLORS.big_entry,
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'CONTAINS',
@@ -74,11 +68,32 @@ export const TAG_CONFIG: TagConfig[] = [
     ],
   },
   {
-    key: 'WATCH',
+    key: 'VIDEO ERROR',
+    icon: '⚠️',
+    uuid: '93',
+    themeColor: 'appRed',
+    isActive: true,
+    isDefault: true,
+    rules: [
+      [
+        {
+          path: 'videoEventType',
+          mode: 'EQUALS',
+          value: 'error',
+        },
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: 'VideoStream',
+        },
+      ],
+    ],
+  },
+  {
+    key: 'VIDEO START',
     icon: '▶️',
     uuid: '93',
-    bgColor: COLORS.warn,
-    textColor: COLORS.text_reversed,
+    themeColor: 'appGreen',
     isActive: true,
     isDefault: true,
     rules: [
@@ -100,8 +115,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: TAG_KEY_LINKS.SESSION,
     icon: '🚦',
     uuid: '101',
-    bgColor: COLORS.base,
-    textColor: COLORS.text_reversed,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
@@ -118,13 +132,17 @@ export const TAG_CONFIG: TagConfig[] = [
     key: TAG_KEY_LINKS.PLAY,
     icon: '🎮',
     uuid: '102',
-    bgColor: COLORS.play,
-    textColor: COLORS.text_reversed,
+    themeColor: 'appDeepBlue',
     isActive: true,
     isDefault: true,
     category: 'duration',
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -133,12 +151,22 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
+        {
           path: 'interactAction',
           mode: 'EQUALS',
           value: 'select play game',
         },
       ],
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -152,12 +180,22 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
+        {
           path: 'interactAction',
           mode: 'EQUALS',
           value: 'select join legacy session',
         },
       ],
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -166,12 +204,22 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
+        {
           path: 'interactAction',
           mode: 'EQUALS',
           value: 'select resume',
         },
       ],
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -184,13 +232,17 @@ export const TAG_CONFIG: TagConfig[] = [
     key: TAG_KEY_LINKS.WATCH,
     icon: '📺',
     uuid: '103',
-    bgColor: COLORS.watch,
-    textColor: COLORS.text_reversed,
+    themeColor: 'appRed',
     isActive: true,
     isDefault: true,
     category: 'duration',
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -204,12 +256,22 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
+        {
           path: 'interactAction',
           mode: 'EQUALS',
           value: 'watch screen share',
         },
       ],
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -239,8 +301,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: TAG_KEY_LINKS.IDLE,
     icon: '⏰',
     uuid: '104',
-    bgColor: COLORS.idle,
-    textColor: COLORS.text_reversed,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     category: 'duration',
@@ -261,14 +322,18 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
+        {
           path: 'interactAction',
           mode: 'EQUALS',
           value: 'select power options item',
         },
       ],
     ],
-    bgColor: COLORS.base,
-    textColor: COLORS.text_reversed,
+    themeColor: 'appViolet',
     isActive: true,
     isDefault: true,
   },
@@ -276,12 +341,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: TAG_KEY_LINKS.CLOSE,
     icon: '❌',
     uuid: '106',
-    bgColor: COLORS.pri_high,
-    textColor: COLORS.text,
+    themeColor: 'appMaroon',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -294,8 +363,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: TAG_KEY_LINKS.CC,
     icon: '🎛️',
     uuid: '107',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     category: 'system',
@@ -313,12 +381,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'STORE',
     icon: '🛒',
     uuid: '108',
-    bgColor: COLORS.pri_med,
-    textColor: COLORS.text,
+    themeColor: 'appPurple',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -336,12 +408,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'LIBRARY',
     icon: '📚',
     uuid: '109',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appPurple',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -359,13 +435,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'SEARCH SELECT',
     icon: '🔎',
     uuid: '110',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
-    themeColor: 'tokenPurple',
+    themeColor: 'appBronze',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -383,12 +462,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'SEARCH',
     icon: '🔎',
     uuid: '111',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appBronze',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -413,12 +496,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'GH PRE',
     icon: '👾',
     uuid: '112',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appBlue',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -427,12 +514,22 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
+        {
           path: 'interactAction',
           mode: 'EQUALS',
           value: 'Go to Game Hub pre-purchase',
         },
       ],
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -445,12 +542,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'GH ENTER',
     icon: '👾',
     uuid: '113',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appBlue',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -459,6 +560,11 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
+        {
           path: 'interactCta',
           mode: 'EQUALS',
           value: 'go to game hub',
@@ -466,6 +572,11 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         // from search results
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -488,12 +599,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'ADD TO CART',
     icon: '🛒',
     uuid: '114',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -506,12 +621,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'PURCHASE',
     icon: '💳',
     uuid: '115',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appPink',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -524,12 +643,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'DOWNLOAD',
     icon: '⤵️',
     uuid: '116',
-    bgColor: COLORS.pri_low,
-    textColor: COLORS.text_reversed,
+    themeColor: 'appPurple',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -537,6 +660,11 @@ export const TAG_CONFIG: TagConfig[] = [
         },
       ],
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -549,12 +677,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'PS PLUS',
     icon: '➕',
     uuid: '117',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -572,12 +704,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'SWITCH USER',
     icon: '👤',
     uuid: '118',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -590,12 +726,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'LOGOUT',
     icon: '🚪',
     uuid: '119',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -608,8 +748,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'UPDATE',
     icon: '💿',
     uuid: '120',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
@@ -631,8 +770,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'SIGN-IN',
     icon: '🔑',
     uuid: '121',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
@@ -650,6 +788,11 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
+        {
           path: 'interactAction',
           mode: 'EQUALS',
           value: 'signin',
@@ -661,8 +804,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'USER',
     icon: '🙂',
     uuid: '122',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
@@ -684,8 +826,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'HOME',
     icon: '🏠',
     uuid: '123',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     category: 'system',
@@ -708,12 +849,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'PROFILE',
     icon: '👤',
     uuid: '124',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -726,12 +871,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'SETTINGS',
     icon: '⚙️',
     uuid: '125',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -744,12 +893,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'PARTY',
     icon: '💬',
     uuid: '126',
-    bgColor: COLORS.pri_med,
-    textColor: COLORS.text,
+    themeColor: 'appCyan',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -762,12 +915,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'TEXT',
     icon: '💬',
     uuid: '127',
-    bgColor: COLORS.pri_med,
-    textColor: COLORS.text_reversed,
+    themeColor: 'appCyan',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -780,12 +937,16 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'VOICE',
     icon: '📞',
     uuid: '128',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appSlate',
     isActive: true,
     isDefault: true,
     rules: [
       [
+        {
+          path: 'type',
+          mode: 'EQUALS',
+          value: EVENT_TYPE_DEF.Interaction.type,
+        },
         {
           path: 'interactAction',
           mode: 'EQUALS',
@@ -798,8 +959,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'SOFT WARN',
     icon: '⚠️',
     uuid: '129',
-    bgColor: 'transparent',
-    textColor: COLORS.text,
+    themeColor: 'appOrange',
     isActive: true,
     isDefault: true,
     rules: [
@@ -816,8 +976,7 @@ export const TAG_CONFIG: TagConfig[] = [
     key: 'SOFT LIMIT',
     icon: '☢️',
     uuid: '130',
-    bgColor: COLORS.warn,
-    textColor: COLORS.text,
+    themeColor: 'appRed',
     isActive: true,
     isDefault: true,
     rules: [
