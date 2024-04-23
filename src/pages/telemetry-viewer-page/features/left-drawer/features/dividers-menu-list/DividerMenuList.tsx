@@ -1,7 +1,7 @@
 import CollapsibleContainer from '@common/CollapsableContainer.tsx';
 import SelectionMenuItem from '@pages/telemetry-viewer-page/features/left-drawer/components/SelectionMenuItem.tsx';
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import useDividerDefinitions from '@pages/telemetry-viewer-page/features/left-drawer/features/divier-menu-list/hooks/useDividerDefinitions.ts';
+import useDividerDefinitions from '@pages/telemetry-viewer-page/features/left-drawer/features/dividers-menu-list/hooks/useDividerDefinitions.ts';
 import { Typography } from '@mui/material';
 
 export default function DividerMenuList() {
@@ -42,6 +42,13 @@ export default function DividerMenuList() {
       </VStack>
     );
   };
+  const renderExpanded = () => {
+    return (
+      <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>
+        {dividerFieldList.map((def) => renderItem(def))}
+      </VStack>
+    );
+  };
   return (
     <CollapsibleContainer
       title={renderTitle()}
@@ -49,9 +56,7 @@ export default function DividerMenuList() {
       sx={{ width: '100%' }}
       collapsedChildren={renderCollapsed()}
     >
-      <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>
-        {dividerFieldList.map((def) => renderItem(def))}
-      </VStack>
+      {renderExpanded()}
     </CollapsibleContainer>
   );
 }

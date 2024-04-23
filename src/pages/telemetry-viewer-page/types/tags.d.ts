@@ -15,4 +15,5 @@ interface TagConfig {
   isDefault: boolean;
   themeColor?: string;
   category?: string;
+  updatedDateMs?: number; // used to determine if the tag has been updated
 }

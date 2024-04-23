@@ -7,11 +7,7 @@ import { useCallback } from 'react';
 import SelectionMenuItem from '@pages/telemetry-viewer-page/features/left-drawer/components/SelectionMenuItem.tsx';
 import actionRepublishFilters from '@pages/telemetry-viewer-page/store/event-store/actions/actionRepublishFilters.ts';
 
-export default function FilterMenuGroup({
-  filter,
-}: {
-  filter: TelemetryFilter;
-}) {
+export default function FilterMenuGroup({ filter }: { filter: TelemetryFilter }) {
   const indentation = '2em';
   const renderTitle = () => {
     return (
@@ -29,13 +25,10 @@ export default function FilterMenuGroup({
     );
   };
 
-  const handleFilterItemClick = useCallback(
-    (filterItem: TelemetryFilterItem) => {
-      filterItem.active = !filterItem.active;
-      actionRepublishFilters();
-    },
-    [],
-  );
+  const handleFilterItemClick = useCallback((filterItem: TelemetryFilterItem) => {
+    filterItem.active = !filterItem.active;
+    actionRepublishFilters();
+  }, []);
   const renderCollapsed = () => {
     const activeItems = filter.items.filter((item) => item.active);
     if (activeItems.length === 0) return null;
@@ -66,6 +59,9 @@ export default function FilterMenuGroup({
         }}
       >
         <VStack topLeft hFill sx={{ pl: indentation, paddingBottom: '1em' }}>
+          {filter.items.length === 0 && (
+            <Typography variant={'caption'}>No items</Typography>
+          )}
           {filter.items.map((filterItem) => (
             <SelectionMenuItem
               key={`${filter.type}-${filterItem.value}`}

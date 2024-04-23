@@ -16,6 +16,9 @@ function EventTagDisplay({ tagConfig }: { event: TVEvent; tagConfig: TagConfig }
   const textColor = tagConfig.themeColor
     ? `${tagConfig.themeColor}.contrastText`
     : 'fg.main';
+
+  if (!tagConfig.isActive) return null;
+
   return (
     <HStack
       key={tagConfig.key}

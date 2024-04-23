@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import initializeTagConfigs from '@pages/telemetry-viewer-page/store/settings-store/utils/initializeTagConfigs.ts';
 
 export interface StoreAction {
   state: SettingsStore;
@@ -36,6 +37,7 @@ export interface SettingsStore {
   shouldShowTime: boolean;
   shouldShowFlags: boolean;
   mockBatchSize: number;
+  tagConfigs: TagConfig[];
 }
 
 const useSettingsStore = create<SettingsStore>()(
@@ -64,6 +66,7 @@ const useSettingsStore = create<SettingsStore>()(
       shouldShowTime: true,
       shouldShowFlags: true,
       mockBatchSize: 10,
+      tagConfigs: initializeTagConfigs(getSavedStore()),
     }),
     {
       name: 'settings-store',
@@ -71,13 +74,15 @@ const useSettingsStore = create<SettingsStore>()(
       partialize: (state) => {
         return {
           __divider_fields: state.dividerFields ?? [],
+          __tag_configs: state.tagConfigs.filter((config) => config.updatedDateMs) ?? [],
         };
       },
     },
   ),
 );
-interface SavedSettingsStore {
+export interface SavedSettingsStore {
   __divider_fields: string[];
+  __tag_configs: TagConfig[];
 }
 export default useSettingsStore;
 function initializeDividerFields() {

@@ -1,6 +1,5 @@
 import TelemetryFilterItem from '@pages/telemetry-viewer-page/classes/TelemetryFilterItem.ts';
 import getTvValue from '@pages/telemetry-viewer-page/utils/event-utils/getTvValue.ts';
-import isNU from '@pages/telemetry-viewer-page/utils/isNU.ts';
 
 class TelemetryFilter {
   type: FilterType;
