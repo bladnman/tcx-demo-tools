@@ -9,6 +9,8 @@ import getDescLoadTime from '@pages/telemetry-viewer-page/utils/event-utils/desc
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
+import getTvValue from '@pages/telemetry-viewer-page/utils/event-utils/getTvValue.ts';
+import formatSeconds from '@utils/formatSeconds.ts';
 
 export default function getEventDescriptions(event: TVEvent) {
   const eventDef = getEventDef(event);
@@ -30,7 +32,19 @@ export default function getEventDescriptions(event: TVEvent) {
     case EVENT_TYPE_DEF.LoadTime:
       return getDescLoadTime(event);
     case EVENT_TYPE_DEF.VideoStream:
-      return getDescVideoStream(event);
+      const defaultMessage = getDescVideoStream(event);
+      const videoEventType = getTvValue(event, 'videoEventType');
+      if (videoEventType) {
+        switch ((videoEventType as string).toLowerCase()) {
+          case 'seek':
+            const videoTimeDelta = getTvValue(event, 'videoTimeDelta') ?? 0;
+            const videoSeekDirection = getTvValue(event, 'videoSeekDirection');
+            const sign = videoSeekDirection === 'Forward' ? '+' : '-';
+            defaultMessage.message = `(${sign}${formatSeconds(~~videoTimeDelta)}) ${defaultMessage.message}`;
+            break;
+        }
+      }
+      return defaultMessage;
     default:
       message = getObjectValueFromFieldDef(event, FIELD_DEF.type);
       color = 'fg.main';

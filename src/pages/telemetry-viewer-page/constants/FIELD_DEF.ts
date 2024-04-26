@@ -310,6 +310,20 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefaultCollapsed: true,
     },
   },
+  spanId: {
+    field: 'spanId',
+    title: 'Span Id',
+    paths: ['spanId'],
+    divider: {
+      isAvailable: false,
+      isDefault: false,
+    },
+    filter: {
+      isAvailable: false,
+      isDefault: false,
+      isDefaultCollapsed: false,
+    },
+  },
   // video
   videoTitle: {
     field: 'videoTitle',

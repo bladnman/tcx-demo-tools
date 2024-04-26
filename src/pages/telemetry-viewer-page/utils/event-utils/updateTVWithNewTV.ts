@@ -15,6 +15,6 @@ export default function updateTVWithNewTV(
   // certain things from the new event should be copied over
   previousEvent.hasFailures = !!getFailures(previousEvent.dispatchedEvents);
   previousEvent.hasPayloads = !!getPayloads(previousEvent.dispatchedEvents);
-  previousEvent.tags = newEvent?.tags ?? [];
+  previousEvent.tvTags = newEvent?.tvTags ?? [];
   previousEvent.updateTimeMs = new Date().getTime();
 }

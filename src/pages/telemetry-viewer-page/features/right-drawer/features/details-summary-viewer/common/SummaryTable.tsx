@@ -6,11 +6,12 @@ import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/objec
 export type SummaryTableRowDef = Partial<FieldDefinition> & {
   // from FIELD_DEF
   field: string;
-  paths: string[];
+  paths?: string[];
   // for summary table
   alwaysShow?: boolean;
   isKeyField?: boolean;
   color?: string;
+  value?: string; // optional value to override any mapping
 };
 export default function SummaryTable({
   event,
@@ -24,10 +25,11 @@ export default function SummaryTable({
   return (
     <VStack hFill topLeft {...stackOptions}>
       {rowDefs.map((rowDef) => {
-        const value = getObjectValueFromFieldDef(event, rowDef as FieldDefinition);
+        const value =
+          rowDef.value ?? getObjectValueFromFieldDef(event, rowDef as FieldDefinition);
         const labelSx: TypographyStyleOptions = {};
         const valueSx: TypographyStyleOptions = {
-          color: rowDef.color,
+          color: rowDef.color ?? 'text.primary',
         };
         if (!value && !rowDef.alwaysShow) {
           return null;

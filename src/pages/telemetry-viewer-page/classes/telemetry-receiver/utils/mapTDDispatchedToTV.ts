@@ -43,7 +43,7 @@ export default function mapTDDispatchedToTV(event: unknown): TVEvent | null {
     tvVersion: CONST.TV_MESSAGE_VERSION,
     clientEvent: undefined,
     dispatchedEvents: dispatchedEvents,
-    tags: [],
+    tvTags: [],
   } as TVEvent;
 
   return tvEvent;

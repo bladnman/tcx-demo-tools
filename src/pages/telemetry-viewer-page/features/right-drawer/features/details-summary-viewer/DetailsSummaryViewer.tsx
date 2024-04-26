@@ -4,6 +4,7 @@ import { VStack } from '@common/mui-stacks.tsx';
 import SummaryNavigation from '@pages/telemetry-viewer-page/features/right-drawer/features/details-summary-viewer/features/navigation/SummaryNavigation.tsx';
 import SummaryLoadTime from '@pages/telemetry-viewer-page/features/right-drawer/features/details-summary-viewer/features/load-time/SummaryLoadTime.tsx';
 import SummaryVideoStream from '@pages/telemetry-viewer-page/features/right-drawer/features/details-summary-viewer/features/video-stream/SummaryVideoStream.tsx';
+import SummaryTraceSpan from '@pages/telemetry-viewer-page/features/right-drawer/features/details-summary-viewer/features/trace-span/SummaryTraceSpan.tsx';
 
 type SummaryComponentProps = {
   event: TVEvent;
@@ -24,6 +25,10 @@ export default function DetailsSummaryViewer({ event }: { event: TVEvent }) {
       break;
     case 'VideoStream':
       SummaryComponent = SummaryVideoStream as SummaryComponentType;
+      break;
+      break;
+    case 'TraceSpan':
+      SummaryComponent = SummaryTraceSpan as SummaryComponentType;
       break;
   }
 
