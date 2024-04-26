@@ -5,24 +5,15 @@ import actionUpdateTagConfig from '@pages/telemetry-viewer-page/store/settings-s
 export default function useTagConfigs() {
   const { tagConfigs } = useSettingsStore((state) => state);
 
-  const toggleTag = useCallback(
-    (tagConfig: TagConfig) => {
-      tagConfig.isActive = !tagConfig.isActive;
-      actionUpdateTagConfig(tagConfig);
-    },
-    [tagConfigs],
-  );
-  const addTag = useCallback(
-    (tagConfig: TagConfig) => {
-      actionUpdateTagConfig(tagConfig);
-    },
-    [tagConfigs],
-  );
+  const toggleTag = useCallback((tagConfig: TagConfig) => {
+    tagConfig.isActive = !tagConfig.isActive;
+    actionUpdateTagConfig(tagConfig);
+  }, []);
   return useMemo(() => {
     return {
       tagConfigs,
       selectedTagConfigs: tagConfigs.filter((tag) => tag.isActive),
       toggleTag,
     };
-  }, [tagConfigs, toggleTag, addTag]);
+  }, [tagConfigs, toggleTag]);
 }

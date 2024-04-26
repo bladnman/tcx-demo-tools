@@ -1,6 +1,6 @@
 type TagMatchMode = 'EQUALS' | 'NOT_EQUALS' | 'CONTAINS' | 'NOT_CONTAINS';
 type TagMatchClause = {
-  path: keyof Entry;
+  path: string;
   value: string;
   mode: TagMatchMode;
   uuid?: string;
@@ -14,6 +14,12 @@ interface TagConfig {
   isActive: boolean;
   isDefault: boolean;
   themeColor?: string;
-  category?: string;
   updatedDateMs?: number; // used to determine if the tag has been updated
+
+  // @deprecated - not used, from old system
+  category?: string;
+  // @deprecated - use TagConfig.themeColor, from old system
+  bgColor?: string;
+  // @deprecated - use TagConfig.themeColor, from old system
+  textColor?: string;
 }

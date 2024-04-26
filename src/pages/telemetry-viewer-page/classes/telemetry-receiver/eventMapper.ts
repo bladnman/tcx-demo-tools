@@ -11,12 +11,12 @@ import mapUpgradeTVEventToTV, {
   isOldTVEvent,
 } from '@pages/telemetry-viewer-page/classes/telemetry-receiver/utils/mapUpgradeTVEventToTV.ts';
 import getEventTags from '@pages/telemetry-viewer-page/utils/tag-utils/getEventTags.ts';
-import { TAG_CONFIG } from '@pages/telemetry-viewer-page/constants/TAG_CONFIG.ts';
 import {
   getFailures,
   getPayloads,
 } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
-import CONST from '../../../../CONST.ts';
+import CONST from '../../../../const/CONST.ts';
+import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 
 export default function eventMapper(events: unknown[]): TVEvent[] {
   return events.map(mapEvent).filter((e) => e !== null) as TVEvent[];
@@ -63,11 +63,12 @@ function mapEvent(event: unknown): TVEvent | null {
   /// all events need to have certain properties
   /// this is the place those are added
   ///
+  const tagConfigs = useSettingsStore.getState().tagConfigs;
   tvEvent.tvVersion = CONST.TV_MESSAGE_VERSION;
   tvEvent.timeMs = new Date(lastEvent.timestamp).getTime();
   tvEvent.hasFailures = !!getFailures(tvEvent.dispatchedEvents);
   tvEvent.hasPayloads = !!getPayloads(tvEvent.dispatchedEvents);
-  tvEvent.tags = getEventTags(tvEvent, TAG_CONFIG).map((tagConfig) => tagConfig.key);
+  tvEvent.tags = getEventTags(tvEvent, tagConfigs).map((tagConfig) => tagConfig.key);
 
   return tvEvent;
 }

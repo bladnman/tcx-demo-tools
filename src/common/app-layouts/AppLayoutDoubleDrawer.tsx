@@ -97,7 +97,7 @@ export default function AppLayoutDoubleDrawer({
           width: `calc(100% - ${leftDrawerOpen ? leftDrawerWidth : 0}px - ${rightDrawerOpen ? rightDrawerWidth : 0}px)`,
           ml: `${leftDrawerOpen ? leftDrawerWidth : 0}px`,
           mr: `${rightDrawerOpen ? rightDrawerWidth : 0}px`, // Adjust marginRight when the right drawer is open
-          backgroundColor: 'appBar.main',
+          backgroundColor: 'mainAppBar.main',
         }}
       >
         <Toolbar>

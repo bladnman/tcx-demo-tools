@@ -9,12 +9,7 @@ export default function EventRawViewer({ event }: { event: TVEvent }) {
   const theme = useTheme();
   const mode = theme.palette.mode; // Accessing the mode (light/dark)
   return (
-    <VStack
-      fill
-      hAlign={'leading'}
-      vAlign={'leading'}
-      sx={{ px: 2, overflow: 'auto' }}
-    >
+    <VStack fill topLeft sx={{ px: 2 }}>
       <JsonView
         value={event as object}
         collapsed={2}

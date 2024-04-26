@@ -18,6 +18,9 @@ export default function StatusBar({ height = '2.5em' }: { height?: string }) {
         sx={{
           height: height,
           px: 2,
+          borderTopStyle: 'solid',
+          borderTopWidth: '1px',
+          borderTopColor: 'divider',
         }}
       >
         <HStack spacing={2} left data-id={'status-left'} sx={sectionSx}>

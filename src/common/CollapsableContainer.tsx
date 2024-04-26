@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  IconButton,
-  BoxProps,
-  TypographyProps,
-} from '@mui/material';
+import { Typography, IconButton, BoxProps, TypographyProps } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import opacity from '@pages/telemetry-viewer-page/utils/opacity.ts';
 import useHover from '@pages/telemetry-viewer-page/hooks/useHover.ts';
+import { HStack, VStack } from '@common/mui-stacks.tsx';
 type CollapsibleContainerProps = {
   title: React.ReactNode;
   sx?: BoxProps['sx'];
@@ -66,21 +61,29 @@ const CollapsibleContainer: React.FC<CollapsibleContainerProps> = ({
       <KeyboardArrowDownIcon />
     );
   };
+  const renderTitle = () => {
+    if (typeof title === 'string') {
+      return (
+        <Typography component="span" sx={{ cursor: cursor, ...titleSx }}>
+          {title}
+        </Typography>
+      );
+    }
+    return title;
+  };
   const cursor = disabled ? 'default' : 'pointer';
   return (
-    <Box sx={sx}>
-      <Box
-        display="flex"
-        alignItems="center"
+    <VStack hFill sx={sx}>
+      <HStack
+        hFill
+        left
         onClick={handleToggleCollapse}
         {...hoverHandlers}
         sx={{
           cursor: cursor,
           opacity: disabled ? 0.5 : 1,
           borderColor:
-            !disabled && showHover && hovered
-              ? opacity(0.15, hoverColor)
-              : 'transparent',
+            !disabled && showHover && hovered ? opacity(0.15, hoverColor) : 'transparent',
           borderStyle: 'dashed',
           borderWidth: showHover ? '1px' : 0,
         }}
@@ -89,12 +92,14 @@ const CollapsibleContainer: React.FC<CollapsibleContainerProps> = ({
           {renderCollapseIcon()}
         </IconButton>
 
-        <Typography component="span" sx={{ cursor: cursor, ...titleSx }}>
-          {title}
-        </Typography>
-      </Box>
-      {renderChildren()}
-    </Box>
+        <HStack hFill left>
+          {renderTitle()}
+        </HStack>
+      </HStack>
+      <HStack hFill left>
+        {renderChildren()}
+      </HStack>
+    </VStack>
   );
 };
 

@@ -24,17 +24,26 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       sec: ['#8a599c', '#ad70ca'],
       cancel: ['#6c7074', '#9093a3'],
       paper: ['#d2d2d2', '#313135'],
-      appBar: ['#333f54', '#333f54'],
+      mainAppBar: ['#333f54', '#333f54'],
 
       /**
        * App Colors
        * These should not venture into any gray-scale colors
        * Grays should be used for text and background colors
+       *
+       * **SAVE THE 'app' PREFIX FOR APP SPECIFIC COLORS**
+       *
+       * Our tag colors are defined by the colors that start
+       * with 'app' prefix. Refrain from using 'app' prefix
+       * for other colors.
+       *
+       * These colors are used for the tag colors as well as
+       * other things like event tokens and other UI elements.
        */
       appEggplant: ['#614051', '#614051'],
       appRedWashed: ['#614051', '#614051'],
       appMaroon: ['#7c1818', '#7c1818'],
-      appRed: ['#f62955', '#F62955'],
+      appRed: ['#f62955', '#fb4068'],
       appOrange: ['#ffa726', '#ffa726'],
       appGold: ['#ffd700', '#ffd700'],
       appYellow: ['#E3CF44', '#E3CF44'],
@@ -133,6 +142,9 @@ export const createDynamicTheme = (
 
       primary: {
         main: themeColors.pri,
+      },
+      error: {
+        main: themeColors.appRed,
       },
       secondary: {
         main: themeColors.sec,

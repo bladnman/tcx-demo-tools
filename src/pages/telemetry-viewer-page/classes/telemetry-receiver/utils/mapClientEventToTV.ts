@@ -1,6 +1,6 @@
 import { isObjectWithRequiredKeys } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 import { v4 as uuidV4 } from 'uuid';
-import CONST from '../../../../../CONST.ts';
+import CONST from '../../../../../const/CONST.ts';
 
 export interface RawClientEvent {
   appName: string;

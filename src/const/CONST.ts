@@ -6,5 +6,8 @@ const CONST = {
     path: '/signaling',
     debug: 2,
   },
+  NEW_TAG_KEY: '__new_tag_key__',
+  SCROLL_DROP_BOX_SHADOW: '0px 4px 4px rgba(0, 0, 0, 0.25)',
 };
+
 export default CONST;

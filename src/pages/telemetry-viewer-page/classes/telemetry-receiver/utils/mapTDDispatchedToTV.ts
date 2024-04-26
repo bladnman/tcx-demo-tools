@@ -3,7 +3,7 @@ import {
   getPayloads,
   isObjectWithRequiredKeys,
 } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
-import CONST from '../../../../../CONST.ts';
+import CONST from '../../../../../const/CONST.ts';
 
 export interface TDDispatchedEvent {
   failures: Hash;

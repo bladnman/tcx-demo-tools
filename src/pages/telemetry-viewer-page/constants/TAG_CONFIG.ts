@@ -285,7 +285,7 @@ export const TAG_CONFIG: TagConfig[] = [
           value: 'monte-carlo',
         },
         {
-          path: 'eventType',
+          path: 'type',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -480,7 +480,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'eventType',
+          path: 'type',
           mode: 'EQUALS',
           value: 'interaction',
         },
@@ -776,7 +776,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'eventType',
+          path: 'type',
           mode: 'EQUALS',
           value: 'startup',
         },
@@ -833,7 +833,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'eventType',
+          path: 'type',
           mode: 'EQUALS',
           value: 'navigation',
         },

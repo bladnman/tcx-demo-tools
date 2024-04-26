@@ -18,6 +18,7 @@ import actionSetCnxPlatform from '@pages/telemetry-viewer-page/store/settings-st
 import actionSetMockBatchSize from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetMockBatchSize.ts';
 import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
 import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
+import TagStyleDropbox from '@pages/telemetry-viewer-page/features/dialogs/tag-editor-dialog/parts/TagStyleDropbox.tsx';
 
 export default function ConnectionOptions() {
   const {
@@ -94,6 +95,8 @@ export default function ConnectionOptions() {
         >
           Import from file ...
         </Button>
+
+        <TagStyleDropbox tagIcon={'🔫'} tagKey={'our favorite item'} />
       </VStack>
     </VStack>
   );

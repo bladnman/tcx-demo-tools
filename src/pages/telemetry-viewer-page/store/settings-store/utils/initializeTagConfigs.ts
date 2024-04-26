@@ -9,7 +9,7 @@ export default function initializeTagConfigs(
   const configs = [...TAG_CONFIG];
 
   // and then add or update any saved tag configs
-  savedConfigs.forEach((savedConfig) => {
+  savedConfigs.reverse().forEach((savedConfig) => {
     const index = configs.findIndex((config) => config.key === savedConfig.key);
     // UPDATE
     if (index !== -1) {
@@ -17,7 +17,7 @@ export default function initializeTagConfigs(
     }
     // ADD
     else {
-      configs.push(savedConfig);
+      configs.unshift(savedConfig);
     }
   });
 

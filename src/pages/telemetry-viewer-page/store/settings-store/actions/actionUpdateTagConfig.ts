@@ -22,8 +22,9 @@ export default function actionUpdateTagConfig(tagConfig: TagConfig) {
     tagConfigs[index] = tagConfig;
   }
   // ADD -- we are kind enough to also add the tag if it doesn't exist
+  // adding to the front of the array
   else {
-    tagConfigs.push(tagConfig);
+    tagConfigs.unshift(tagConfig);
   }
   useSettingsStore.setState({ tagConfigs: [...tagConfigs] });
 }

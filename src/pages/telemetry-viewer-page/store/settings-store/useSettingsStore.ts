@@ -30,6 +30,7 @@ export interface SettingsStore {
   isExportDialogOpen: boolean;
   isFilterDrawerOpen: boolean;
   isSettingsDialogOpen: boolean;
+  isTagEditorDialogOpen: boolean;
   cnxIpAddress: string | null;
   cnxPlatform: ConnectionPlatform;
   isConnectedViaTCx: boolean;
@@ -38,6 +39,8 @@ export interface SettingsStore {
   shouldShowFlags: boolean;
   mockBatchSize: number;
   tagConfigs: TagConfig[];
+  tagKeyForEdit: string | null;
+  filterMode: 'AND' | 'OR';
 }
 
 const useSettingsStore = create<SettingsStore>()(
@@ -58,7 +61,8 @@ const useSettingsStore = create<SettingsStore>()(
       isImportingData: false,
       isExportDialogOpen: false,
       isFilterDrawerOpen: true,
-      isSettingsDialogOpen: true,
+      isSettingsDialogOpen: false,
+      isTagEditorDialogOpen: true,
       cnxIpAddress: '1.1.1.1',
       cnxPlatform: 'Mock',
       isConnectedViaTCx: false,
@@ -67,6 +71,8 @@ const useSettingsStore = create<SettingsStore>()(
       shouldShowFlags: true,
       mockBatchSize: 10,
       tagConfigs: initializeTagConfigs(getSavedStore()),
+      tagKeyForEdit: null, // CONST.NEW_TAG_KEY is a special key for creating a new tag
+      filterMode: 'AND',
     }),
     {
       name: 'settings-store',

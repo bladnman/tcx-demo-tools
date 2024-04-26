@@ -26,6 +26,7 @@
     "paths": {
       "@assets/*": ["./src/assets/*"],
       "@common/*": ["./src/common/*"],
+      "@const/*": ["./src/const/*"],
       "@data/*": ["./src/data/*"],
       "@pages/*": ["./src/pages/*"],
       "@hooks/*": ["./src/hooks/*"],

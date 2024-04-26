@@ -2,7 +2,7 @@ import {
   isTVEventCurrentVersion,
   isTVEventShape,
 } from '@pages/telemetry-viewer-page/classes/telemetry-receiver/utils/mapTVEventToTV.ts';
-import CONST from '../../../../../CONST.ts';
+import CONST from '../../../../../const/CONST.ts';
 
 export function isOldTVEvent(event: unknown): boolean {
   if (!isTVEventShape(event)) return false;
