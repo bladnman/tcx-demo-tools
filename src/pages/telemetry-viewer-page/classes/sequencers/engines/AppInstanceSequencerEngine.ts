@@ -7,7 +7,11 @@ import {
 import { fLeft, fLeftBack } from '@utils/MU.ts';
 
 class AppInstanceSequencerEngine extends SequencerEngineBase {
-  sequenceKey = 'appInstance';
+  static sequenceKey = 'appInstance';
+  get sequenceKey(): string {
+    return AppInstanceSequencerEngine.sequenceKey;
+  }
+
   logicEventTypes = [...MajorClientEventTypes, 'Startup'];
   getSequenceName(event: TVEvent): string {
     return this.sourceName(event);
@@ -62,13 +66,13 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
       (sequence) => sequence.key === eventSequenceKey,
     );
 
-    const isNew = matchingSequences.length < 1;
-    if (isNew) {
-      console.log(
-        `[🐽](AppInstanceSequencerEngine) OPENING 
-                ✅ ${event.appName} (${event.type})`,
-      );
-    }
+    // const isNew = matchingSequences.length < 1;
+    // if (isNew) {
+    //   console.log(
+    //     `[🐽](AppInstanceSequencerEngine) OPENING
+    //             ✅ ${event.appName} (${event.type})`,
+    //   );
+    // }
 
     return matchingSequences.length < 1;
   }
@@ -84,10 +88,20 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
      */
     if (!event.appName || !sequence.key) return;
 
+    const sequenceKey = AppInstanceSequencerEngine.sequenceKey;
+
     if (event.appName === sequence.type) {
       event.sequenceData = (event.sequenceData ?? {}) as EventSequenceData;
-      event.sequenceData[this.sequenceKey] = event.sequenceData[this.sequenceKey] ?? [];
-      event.sequenceData[this.sequenceKey].push(sequence.key);
+      event.sequenceData[sequenceKey] = event.sequenceData[sequenceKey] ?? [];
+      event.sequenceData[sequenceKey].push(sequence.key);
+    }
+
+    // startup events in GH have a location of "init"
+    // and these often are the first event in a sequence
+    // let's patch those names to be more descriptive as
+    // later events arrive
+    if (sequence.name.includes(': init')) {
+      sequence.name = this.getSequenceName(event);
     }
   }
 
@@ -142,9 +156,22 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
    * there are better names to use.
    */
   protected sourceName(event: TVEvent): string {
-    const appName = getTvValue(event, 'appName', '(none)') as string;
+    let appName = getTvValue(event, 'appName', '(none)') as string;
+    const platformType = getTvValue(event, 'platformType') as string | undefined;
+    if (platformType === 'mobile') {
+      const mobileFeatureArea = getTvValue(
+        event,
+        'mobileFeatureArea',
+        '(none)',
+      ) as string;
+      appName = `${appName}: ${mobileFeatureArea}`;
+    }
 
-    if (['game-hub', 'monte-carlo', 'rnps-compilation-disc-hub'].includes(appName)) {
+    if (
+      ['game-hub', 'monte-carlo', 'rnps-home', 'rnps-compilation-disc-hub'].includes(
+        appName,
+      )
+    ) {
       return this.getAppLocationName(event);
     }
 

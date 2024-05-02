@@ -17,7 +17,6 @@ export interface StoreAction {
 export interface SettingsStore {
   maxDisplayEventCount: number;
   allowWrap: boolean;
-  eventForDetails: TVEvent | null;
   appBarHeight: number;
   tokenColorMode: TokenColorMode;
   tokenFontSize: number;
@@ -55,7 +54,6 @@ const useSettingsStore = create<SettingsStore>()(
     (_set) => ({
       maxDisplayEventCount: 1000,
       allowWrap: false,
-      eventForDetails: null,
       appBarHeight: 0,
       tokenColorMode: 'dual',
       tokenFontSize: 1,
@@ -82,7 +80,7 @@ const useSettingsStore = create<SettingsStore>()(
       filterMode: 'AND',
 
       // mock settings
-      mockBatchSize: 10,
+      mockBatchSize: 30,
       mockBatchDelayMs: 100,
       mockAutoPause: true,
       mockIsPaused: true,

@@ -13,15 +13,16 @@ import { HStack, VStack } from '@common/mui-stacks.tsx';
 import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import { useState } from 'react';
 import DownloadIcon from '@mui/icons-material/Download';
-import { useAllEvents, useDisplayEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import useEventStore, {
+  useDisplayEvents,
+} from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 import actionSetIsExportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsExportDialogOpen.ts';
 
 export default function ExportDialog() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const displayEvents = useDisplayEvents();
-  const allEvents = useAllEvents();
-  const { isExportDialogOpen } = useSettingsStore();
+  const isExportDialogOpen = useSettingsStore((state) => state.isExportDialogOpen);
 
   const handleClose = () => {
     actionSetIsExportDialogOpen(false);
@@ -30,6 +31,7 @@ export default function ExportDialog() {
   const [fileName, setFileName] = useState('events');
 
   const handleDownloadAll = () => {
+    const allEvents = useEventStore.getState().allEvents;
     downloadEvents(allEvents);
     handleClose();
   };
@@ -55,7 +57,12 @@ export default function ExportDialog() {
   };
 
   return (
-    <Dialog onClose={handleClose} open={isExportDialogOpen} maxWidth={'md'} fullScreen={fullScreen}>
+    <Dialog
+      onClose={handleClose}
+      open={isExportDialogOpen}
+      maxWidth={'md'}
+      fullScreen={fullScreen}
+    >
       <DialogTitle>Download</DialogTitle>
       <DialogContent>
         <VStack left>
@@ -80,8 +87,8 @@ export default function ExportDialog() {
             <Typography>.json</Typography>
           </HStack>
           <Typography sx={{ pt: 5 }}>
-            You can choose to download all events (default) or only the filtered events. This allows you to filter to
-            the events you want to save before downloading.
+            You can choose to download all events (default) or only the filtered events.
+            This allows you to filter to the events you want to save before downloading.
           </Typography>
         </VStack>
       </DialogContent>

@@ -20,8 +20,7 @@ import actionSetImportingEvents from '@pages/telemetry-viewer-page/store/setting
 import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
 import eventMapper from '@pages/telemetry-viewer-page/classes/telemetry-receiver/eventMapper.ts';
 import updateTVWithNewTV from '@pages/telemetry-viewer-page/utils/event-utils/updateTVWithNewTV.ts';
-import {
-  useAllEvents,
+import useEventStore, {
   useSequences,
 } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 import actionSetIsImportingData from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportingData.ts';
@@ -32,9 +31,11 @@ import actionMergeEvents from '@pages/telemetry-viewer-page/store/event-store/ac
 export default function ImportDialog() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const { isImportDialogOpen, importingEvents, isImportingData, importingSequences } =
-    useSettingsStore();
-  const allEvents = useAllEvents();
+  const isImportDialogOpen = useSettingsStore((state) => state.isImportDialogOpen);
+  const importingEvents = useSettingsStore((state) => state.importingEvents);
+  const isImportingData = useSettingsStore((state) => state.isImportingData);
+  const importingSequences = useSettingsStore((state) => state.importingSequences);
+
   const sequences = useSequences();
 
   const hasImportingEvents = !!importingEvents && importingEvents.length > 0;
@@ -84,6 +85,7 @@ export default function ImportDialog() {
   );
 
   useEffect(() => {
+    const allEvents = useEventStore.getState().allEvents;
     // AUTO IMPORT
     if (!!importingEvents && allEvents?.length < 1) {
       doImport(importingEvents, false);

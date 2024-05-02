@@ -21,7 +21,7 @@ import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/se
 export default function SettingsDialog() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const { isSettingsDialogOpen } = useSettingsStore();
+  const isSettingsDialogOpen = useSettingsStore((state) => state.isSettingsDialogOpen);
   const [tabNumber, setTabNumber] = useState(0);
 
   const handleClose = useRef(() => {
@@ -43,8 +43,15 @@ export default function SettingsDialog() {
   }
 
   return (
-    <Dialog onClose={handleClose} open={isSettingsDialogOpen} maxWidth={'md'} fullScreen={fullScreen}>
-      <DialogTitle sx={{ fontVariant: 'small-caps', fontSize: '1.7em' }}>Settings</DialogTitle>
+    <Dialog
+      onClose={handleClose}
+      open={isSettingsDialogOpen}
+      maxWidth={'md'}
+      fullScreen={fullScreen}
+    >
+      <DialogTitle sx={{ fontVariant: 'small-caps', fontSize: '1.7em' }}>
+        Settings
+      </DialogTitle>
       <DialogContent sx={{ flex: 1 }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={tabNumber} onChange={handleTabChange}>

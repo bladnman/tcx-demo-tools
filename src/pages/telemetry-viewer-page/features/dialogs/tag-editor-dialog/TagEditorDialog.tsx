@@ -8,7 +8,7 @@ import TagMainEditor from '@pages/telemetry-viewer-page/features/dialogs/tag-edi
 export default function TagEditorDialog() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const { isTagEditorDialogOpen } = useSettingsStore();
+  const isTagEditorDialogOpen = useSettingsStore((state) => state.isTagEditorDialogOpen);
   const tagConfig = useTagConfigForEdit();
   if (!tagConfig) return null;
 

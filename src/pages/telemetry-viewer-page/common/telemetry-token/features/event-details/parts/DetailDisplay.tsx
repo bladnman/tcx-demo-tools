@@ -8,8 +8,8 @@ interface DetailDisplayProps {
   color?: string;
 }
 export default function DetailDisplay({ highlight, message, color }: DetailDisplayProps) {
-  const { allowWrap } = useSettingsStore();
-
+  // const { allowWrap } = useSettingsStore();
+  const allowWrap = false;
   const hasValue = (value: string | undefined) => value !== undefined && value !== null;
 
   const hasHighlight = hasValue(highlight);

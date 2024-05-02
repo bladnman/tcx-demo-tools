@@ -6,7 +6,6 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 import { actionSetAllEventsAndRecalculateFilters } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
 import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
 import actionSetIsExportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsExportDialogOpen.ts';
@@ -17,9 +16,10 @@ export default function OverflowButton() {
     variant: 'popover',
     popupId: 'import-export-menu',
   });
-  const allEvents = useAllEvents();
+  // const allEvents = useAllEvents();
+  // const hasEvents = allEvents.length > 0;
 
-  const hasEvents = allEvents.length > 0;
+  const hasEvents = true;
 
   return (
     <>

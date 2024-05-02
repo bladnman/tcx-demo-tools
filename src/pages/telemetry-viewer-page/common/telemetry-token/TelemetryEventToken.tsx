@@ -10,10 +10,10 @@ interface TelemetryEventTokenProps extends TelemetryTokenProps {
 }
 export default function TelemetryEventToken(props: TelemetryEventTokenProps) {
   const { event } = props;
-  const { tokenMode: storeTokenMode } = useSettingsStore();
-  const { tokenFontSize: storeTokenFontSize } = useSettingsStore();
-  const { tokenColorMode: storeTokenColorMode } = useSettingsStore();
-  const { tokenWidth: storeTokenWidth } = useSettingsStore();
+  const storeTokenMode = useSettingsStore((state) => state.tokenMode);
+  const storeTokenFontSize = useSettingsStore((state) => state.tokenFontSize);
+  const storeTokenColorMode = useSettingsStore((state) => state.tokenColorMode);
+  const storeTokenWidth = useSettingsStore((state) => state.tokenWidth);
 
   const tokenMode = storeTokenMode || props.tokenMode || 'details';
   const tokenFontSize = storeTokenFontSize || props.tokenFontSize || 1;

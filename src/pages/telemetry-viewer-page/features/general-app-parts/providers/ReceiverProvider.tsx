@@ -6,8 +6,9 @@ import useTCxMockPublisher from '@tcx-hosted/tcx-react/hooks/useTCxMockPublisher
 import actionAddUnMappedEvents from '@pages/telemetry-viewer-page/store/event-store/actions/actionAddUnMappedEvents.ts';
 // import telemetryDebuggerEvents from '@pages/telemetry-viewer-page/data/mobile_complete.json';
 // import telemetryDebuggerEvents from '@pages/telemetry-viewer-page/data/event_updates_tiny.json';
-import telemetryDebuggerEvents from '@pages/telemetry-viewer-page/data/mock_out_of_order__300.json';
+// import telemetryDebuggerEvents from '@pages/telemetry-viewer-page/data/mock_out_of_order__300.json';
 // import telemetryDebuggerEvents from '@pages/telemetry-viewer-page/data/row_duplication_tiny.json';
+import telemetryDebuggerEvents from '@pages/telemetry-viewer-page/data/console_complete_client.json';
 
 export default function ReceiverProvider() {
   const { cnxPlatform } = useSettingsStore();

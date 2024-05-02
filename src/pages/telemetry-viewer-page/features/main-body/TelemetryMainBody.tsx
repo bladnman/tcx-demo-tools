@@ -7,6 +7,7 @@ import {
   useDisplayEvents,
   useFilters,
 } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import AppInstanceList from '@pages/telemetry-viewer-page/features/main-body/features/app-instance-list/AppInstanceList.tsx';
 
 export default function TelemetryMainBody() {
   const displayEvents = useDisplayEvents();
@@ -44,6 +45,7 @@ export default function TelemetryMainBody() {
         ref={containerRef}
       >
         <TelemetryList events={displayEvents} />
+        <AppInstanceList />
       </VStack>
     </VStack>
   );

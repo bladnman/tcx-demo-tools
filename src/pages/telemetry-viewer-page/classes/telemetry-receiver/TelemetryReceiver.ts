@@ -14,6 +14,7 @@ class TelemetryReceiver {
 
   public receiveEvents = (events: unknown) => {
     this.ingestedEvents.push(events);
+    // this.ingestedEvents = this.ingestedEvents.flat();
     this.onEvents(events);
   };
 }

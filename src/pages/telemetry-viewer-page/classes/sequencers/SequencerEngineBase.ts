@@ -4,6 +4,7 @@ abstract class SequencerEngineBase {
   // temporary storage for sequences
   protected sequenceList: Sequence[] = [];
   protected isDirty: boolean = false;
+  protected lastEventTimeMs: number = -1;
 
   protected abstract getSequenceName(event: TVEvent): string;
   protected abstract getSequenceKey(event: TVEvent): string;
@@ -54,7 +55,7 @@ abstract class SequencerEngineBase {
   protected updateCompletedSequence(event: TVEvent, sequence: Sequence): void {
     // noop
   }
-  protected startNewSequence(event: TVEvent): void {
+  protected startNewSequence(event: TVEvent): Sequence {
     const newSequence: Sequence = {
       name: this.getSequenceName(event),
       key: this.getSequenceKey(event),
@@ -65,6 +66,10 @@ abstract class SequencerEngineBase {
     this.updateNewSequence(event, newSequence);
     this.sequenceList.push(newSequence);
     this.isDirty = true;
+
+    this.updateEventOrSequence(event, newSequence);
+
+    return newSequence;
   }
   protected isSequenceOpen(sequence: Sequence): boolean {
     return !sequence.endEventId;
@@ -146,7 +151,11 @@ abstract class SequencerEngineBase {
   /**
    * Each engine has a unique key to identify its sequences in the event object.
    */
-  public abstract sequenceKey: string;
+
+  // **MUST HAVE** - abstract get sequenceKey(): string;
+  // static sequenceKey: string;
+  abstract get sequenceKey(): string;
+
   /**
    * MAIN PROCESSING METHOD
    */
@@ -170,6 +179,8 @@ abstract class SequencerEngineBase {
       else {
         this.processLogicEvent(event, openSequences);
       }
+
+      this.lastEventTimeMs = event.timeMs;
     });
 
     // NO CHANGES - return the original list
