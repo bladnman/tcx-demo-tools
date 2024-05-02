@@ -2,6 +2,8 @@
   "name": "twiz",
   "author": "Matt Maher <matt.maher@sony.com>",
   "license": "UNLICENSED",
+  "description": "The new next-generation telemetry viewer.",
+  "repository": "https://github.sie.sony.com/mmaher/twiz",
   "private": true,
   "version": "0.0.1",
   "type": "module",

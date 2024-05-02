@@ -1,21 +1,33 @@
 import { VStack } from '@common/mui-stacks.tsx';
-import { FormControlLabel, Switch } from '@mui/material';
+import { FormControlLabel, Switch, Typography } from '@mui/material';
 import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import actionSetShouldShowTime from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetShouldShowTime.ts';
 
 export default function DisplayOptions() {
-  const { allowWrap } = useSettingsStore();
-  const { shouldShowTime } = useSettingsStore();
+  const shouldShowTime = useSettingsStore((state) => state.shouldShowTime);
 
   return (
     <VStack hFill topLeft>
+      <Typography>Imagine the possibilities...</Typography>
       <FormControlLabel
-        control={<Switch checked={allowWrap} onChange={() => actionSetAllowWrap(!allowWrap)} />}
-        label="Wrap"
+        disabled={false}
+        control={
+          <Switch
+            checked={shouldShowTime}
+            onChange={() => actionSetShouldShowTime(!shouldShowTime)}
+          />
+        }
+        label="Show Time"
       />
       <FormControlLabel
-        control={<Switch checked={shouldShowTime} onChange={() => actionSetShouldShowTime(!shouldShowTime)} />}
-        label="Show Time"
+        disabled={true}
+        control={
+          <Switch
+            checked={false}
+            onChange={() => console.log('Sorry Stevie... not yet.')}
+          />
+        }
+        label="Stevi Mode (coming soon?)"
       />
     </VStack>
   );

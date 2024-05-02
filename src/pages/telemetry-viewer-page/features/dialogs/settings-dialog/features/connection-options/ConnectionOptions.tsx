@@ -20,18 +20,15 @@ import actionSetCnxPlatform from '@pages/telemetry-viewer-page/store/settings-st
 import actionSetMockBatchSize from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetMockBatchSize.ts';
 import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
 import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
-import TagStyleDropbox from '@pages/telemetry-viewer-page/features/dialogs/tag-editor-dialog/parts/TagStyleDropbox.tsx';
 import actionSetMockAutoPause from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetMockAutoPause.ts';
 
 export default function ConnectionOptions() {
-  const {
-    isConnectedViaTCx,
-    connectToTCxName,
-    cnxIpAddress,
-    cnxPlatform,
-    mockBatchSize,
-    mockAutoPause,
-  } = useSettingsStore();
+  const isConnectedViaTCx = useSettingsStore((state) => state.isConnectedViaTCx);
+  const connectToTCxName = useSettingsStore((state) => state.connectToTCxName);
+  const cnxIpAddress = useSettingsStore((state) => state.cnxIpAddress);
+  const cnxPlatform = useSettingsStore((state) => state.cnxPlatform);
+  const mockBatchSize = useSettingsStore((state) => state.mockBatchSize);
+  const mockAutoPause = useSettingsStore((state) => state.mockAutoPause);
 
   const [isFormComplete, setIsFormComplete] = useState(!!cnxIpAddress);
   const handleIpChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,8 +51,9 @@ export default function ConnectionOptions() {
   const isButtonEnabled = isConnected || isFormComplete;
 
   return (
-    <VStack topLeft>
-      <Typography>ConnectionOptions</Typography>
+    <VStack topLeft spacing={1}>
+      <Typography variant={'h5'}>Source</Typography>
+      <Typography>You can receive data in multiple ways.</Typography>
       <HStack>
         <TextField
           label={'IP Address'}
@@ -100,8 +98,15 @@ export default function ConnectionOptions() {
         )}
         <ConnectionButton disabled={!isButtonEnabled} />
       </HStack>
-      <VStack sx={{ pt: 5 }}>
+
+      <VStack hFill left sx={{ pt: 5 }}>
+        <Typography variant={'h5'}>Import</Typography>
+        <Typography>
+          You can import data using files by dropping them on this window, or by clicking
+          the button below.
+        </Typography>
         <Button
+          variant={'outlined'}
           onClick={() => {
             actionSetIsSettingsDialogOpen(false);
             actionSetIsImportDialogOpen(true);
@@ -109,8 +114,6 @@ export default function ConnectionOptions() {
         >
           Import from file ...
         </Button>
-
-        <TagStyleDropbox tagIcon={'🔫'} tagKey={'our favorite item'} />
       </VStack>
     </VStack>
   );
