@@ -3,12 +3,10 @@ import { getLoadTimeDetails } from '@pages/telemetry-viewer-page/utils/getLoadTi
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 import { Typography } from '@mui/material';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
-import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
+import { EventTypes } from '@pages/telemetry-viewer-page/constants/event-types.ts';
 import formatMilliseconds from '@utils/formatMilliseconds.ts';
 
-export default function SumLoadTimeMetricList({
-  event,
-}: SummaryVisualizationProps) {
+export default function SumLoadTimeMetricList({ event }: SummaryVisualizationProps) {
   const eventColor = EVENT_TYPE_DEF[event.type as EventTypes].color;
   const { metrics } = useMemo(() => {
     const data = getLoadTimeDetails(event);

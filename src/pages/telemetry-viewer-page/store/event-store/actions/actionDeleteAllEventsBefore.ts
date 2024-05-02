@@ -1,5 +1,5 @@
 import useEventStore from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
-import { actionSetAllEvents } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEvents.ts';
+import { actionSetAllEventsAndRecalculateFilters } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
 
 export default function actionDeleteAllEventsBefore(event: TVEvent) {
   const { allEvents } = useEventStore.getState();
@@ -11,5 +11,5 @@ export default function actionDeleteAllEventsBefore(event: TVEvent) {
   if (newEvents.length === allEvents.length) return;
 
   // SET ALL EVENTS
-  actionSetAllEvents(newEvents);
+  actionSetAllEventsAndRecalculateFilters(newEvents);
 }

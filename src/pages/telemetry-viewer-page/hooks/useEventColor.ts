@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
-import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
+import { EventTypes } from '@pages/telemetry-viewer-page/constants/event-types.ts';
 
 /**
  * Returns the color of the event type

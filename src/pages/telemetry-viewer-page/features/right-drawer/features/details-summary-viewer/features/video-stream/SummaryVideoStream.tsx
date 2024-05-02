@@ -4,7 +4,7 @@ import SummaryTable, {
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 import FIELD_DEF from '@pages/telemetry-viewer-page/constants/FIELD_DEF.ts';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
-import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
+import { EventTypes } from '@pages/telemetry-viewer-page/constants/event-types.ts';
 import SumVideoSession from '@pages/telemetry-viewer-page/features/right-drawer/features/details-summary-viewer/features/video-stream/features/SumVideoSession.tsx';
 
 export default function SummaryVideoStream({ event }: { event: TVEvent }) {

@@ -10,6 +10,7 @@ export interface EventStore {
   eventTypeFilter: string[];
   eventForDetails: TVEvent | null;
   maxEventCount: number;
+  sequences: Sequences;
 }
 
 /**
@@ -37,6 +38,7 @@ const useEventStore = create<EventStore>()(
       eventTypeFilter: [],
       eventForDetails: null,
       maxEventCount: 10000,
+      sequences: {},
     }),
     {
       name: 'event-store',
@@ -64,6 +66,8 @@ export const useDisplayEvents = () => useEventStore((state) => state.displayEven
 export const useFilters = () => useEventStore((state) => state.filters);
 export const useEventTypeFilter = () => useEventStore((state) => state.eventTypeFilter);
 export const useEventForDetails = () => useEventStore((state) => state.eventForDetails);
+export const useMaxEventCount = () => useEventStore((state) => state.maxEventCount);
+export const useSequences = () => useEventStore((state) => state.sequences);
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore - forcing the store to global reference

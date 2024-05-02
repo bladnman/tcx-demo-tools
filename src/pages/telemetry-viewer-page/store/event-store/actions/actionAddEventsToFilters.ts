@@ -21,7 +21,6 @@ export default function actionAddEventsToFilters(events: TVEvent[]) {
     if (newDisplayEvents.length > maxEventCount) {
       newDisplayEvents.splice(0, maxEventCount - 1);
     }
-
     //
     // SAVE DISPLAY EVENTS
     useEventStore.setState({

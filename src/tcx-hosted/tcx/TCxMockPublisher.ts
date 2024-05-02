@@ -1,29 +1,44 @@
-type DataHandler<T> = (data: T) => void;
-
-class TCxMockPublisher<T> {
-  private queue: T[];
-  private delayMs: number;
-  private readonly onData: DataHandler<T>;
-  private readonly onStateChange: () => void;
+type DataHandler = (data: unknown) => void;
+type TCxMockPublisherProps = {
+  data: unknown[];
+  onData: DataHandler;
+  delayMs: number;
+  batchSize: number;
+  autoPause: boolean;
+  onStateChange: (publisher: TCxMockPublisher) => void;
+};
+class TCxMockPublisher {
+  private queue: unknown[];
+  public delayMs: number;
+  private readonly onData: DataHandler;
+  private readonly onStateChange: (publisher: TCxMockPublisher) => void;
   private timerId: NodeJS.Timeout | null = null;
-  private isPaused: boolean = false;
-  private readonly batchSize: number = 1;
+  public autoPause: boolean = false;
+  public batchSize: number = 1;
 
   get isRunning(): boolean {
     return this.timerId !== null;
   }
 
-  constructor(
-    data: T[],
-    onData: DataHandler<T>,
-    delayMs: number,
-    batchSize: number,
-    onStateChange: () => void,
-  ) {
+  private static instances: Map<string, TCxMockPublisher> = new Map();
+  static getInstance(props: TCxMockPublisherProps): TCxMockPublisher {
+    const className = this.name;
+    let instance = TCxMockPublisher.instances.get(className);
+
+    if (!instance) {
+      instance = new this(props);
+      TCxMockPublisher.instances.set(className, instance);
+    }
+    return instance;
+  }
+
+  constructor(props: TCxMockPublisherProps) {
+    const { data, onData, delayMs, batchSize, autoPause, onStateChange } = props;
     this.queue = [...data]; // copy the data, we will mutate it
     this.onData = onData;
     this.delayMs = delayMs;
     this.batchSize = batchSize;
+    this.autoPause = autoPause;
     this.onStateChange = onStateChange;
   }
 
@@ -44,14 +59,12 @@ class TCxMockPublisher<T> {
 
   start(): void {
     this.startTimer();
-    this.isPaused = false;
-    this.onStateChange();
+    this.onStateChange(this);
   }
 
   stop(): void {
     this.stopTimer();
-    this.isPaused = true;
-    this.onStateChange();
+    this.onStateChange(this);
   }
 
   publishNext(): void {
@@ -59,30 +72,12 @@ class TCxMockPublisher<T> {
     if (this.queue.length === 0) return;
 
     const nextData = this.queue.splice(0, this.batchSize);
-    this.onData(nextData as T);
-  }
+    this.onData(nextData as unknown);
 
-  addData(data: T | T[]): void {
-    if (!Array.isArray(data)) {
-      data = [data];
+    // if we are auto-pausing, stop publishing
+    if (this.autoPause) {
+      this.stop();
     }
-    this.queue.push(...data);
-  }
-
-  clearData(): void {
-    this.queue = [];
-  }
-
-  setDelayMs(delayMs: number): void {
-    this.delayMs = delayMs;
-    if (!this.isPaused) {
-      this.start();
-    }
-  }
-
-  destroy(): void {
-    this.stopTimer();
-    this.queue = [];
   }
 }
 

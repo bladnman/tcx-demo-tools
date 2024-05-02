@@ -11,9 +11,9 @@ export default function eventSynthesizer(events: TVEvent[]) {
   events.forEach((event) => synthesizeEvent(event, tagConfigs));
 }
 function synthesizeEvent(event: TVEvent, tagConfigs: TagConfig[]) {
-  const lastEvent = event.dispatchedEvents.at(-1)?.inputEvent;
+  const lastEvent = event.dispatchedEvents.at(-1)?.inputEvent ?? event.clientEvent;
   if (!lastEvent) {
-    console.warn(`[🐽](eventMapper) NO LAST EVENT`, event);
+    console.warn(`[🐽](eventMapper) NO EVENT DATA`, event);
     return;
   }
   event.tvVersion = CONST.TV_MESSAGE_VERSION;

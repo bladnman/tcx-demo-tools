@@ -1,36 +1,44 @@
 import useEventStore from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import getNewUpdateExistingEvents from '@pages/telemetry-viewer-page/utils/event-utils/getNewUpdateExistingEvents.ts';
+import { actionSetAllEventsAndRecalculateFilters } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
 import actionAddEventsToFilters from '@pages/telemetry-viewer-page/store/event-store/actions/actionAddEventsToFilters.ts';
-import updateTVWithNewTV from '@pages/telemetry-viewer-page/utils/event-utils/updateTVWithNewTV.ts';
 
 export default function actionAddEvents(events: TVEvent[]) {
+  if (!events) return;
+  if (!events.length) return;
+
   const { allEvents } = useEventStore.getState();
 
   // Events can be "updates" to previous
   // events, so we need to merge them and update the original
   // but, we also don't want to add duplicates to the allEvents
   // nor do we want to add duplicates to the filters
-  const newEvents = events.filter((event) => {
-    const previousEvent = allEvents.find((e) => e.id === event.id);
-    // EXISTING - update the existing event
-    if (previousEvent) {
-      updateTVWithNewTV(previousEvent, event);
-      return false;
-    }
-    // NEW
-    else {
-      return true;
-    }
-  });
+  const { causedUpdates, newEvents } = getNewUpdateExistingEvents(events, allEvents);
 
-  // NO NEW EVENTS
-  if (!newEvents.length) return;
+  // bail - NO NEW EVENTS and NO UPDATES
+  if (!newEvents.length && !causedUpdates) return;
 
-  //
-  // SAVE ALL EVENTS
-  useEventStore.setState({ allEvents: [...allEvents, ...newEvents] });
+  // WHEN THERE WERE UPDATES
+  // an expensive path
+  // we need to save the events and also recalculate the filters
+  // since some filtered value could have changed
+  if (causedUpdates) {
+    actionSetAllEventsAndRecalculateFilters(allEvents.concat(newEvents));
+  }
 
-  //
-  // UPDATE FILTERS
-  // _will also update the display events_
-  actionAddEventsToFilters(newEvents);
+  // NEW EVENTS / NO UPDATES
+  // this is the better path since we don't need to recalculate the filters
+  // we simply need to add the new events to the allEvents and
+  // add the new events to the filters as well.
+  else {
+    // new array since we will sort it
+    const newAllEvents = [...allEvents, ...newEvents];
+    newAllEvents.sort((a, b) => a.timeMs - b.timeMs);
+
+    // SET ALL EVENTS
+    useEventStore.setState({ allEvents: newAllEvents });
+
+    // Add new events to filters
+    actionAddEventsToFilters(newEvents);
+  }
 }

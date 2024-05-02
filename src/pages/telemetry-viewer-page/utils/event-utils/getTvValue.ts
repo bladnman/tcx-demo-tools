@@ -3,9 +3,10 @@ import _ from 'lodash';
 export default function getTvValue(
   event: TVEvent,
   fieldOrPath: string | string[] | null | undefined,
+  defaultValue?: string | string[] | number | null | undefined,
 ): string | string[] | number | null | undefined {
-  if (!event) return undefined;
-  if (!fieldOrPath) return undefined;
+  if (!event) return defaultValue;
+  if (!fieldOrPath) return defaultValue;
 
   const paths = Array.isArray(fieldOrPath) ? fieldOrPath : [fieldOrPath];
 
@@ -28,5 +29,5 @@ export default function getTvValue(
       if (value !== undefined) return value;
     }
   }
-  return undefined;
+  return defaultValue;
 }

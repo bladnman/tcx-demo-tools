@@ -25,6 +25,7 @@ export interface SettingsStore {
   tokenMode: TokenMode;
   dividerFields: string[];
   importingEvents: TVEvent[] | null;
+  importingSequences: Sequences | null;
   isImportDialogOpen: boolean;
   isImportingData: boolean;
   isExportDialogOpen: boolean;
@@ -37,10 +38,15 @@ export interface SettingsStore {
   connectToTCxName: string | null;
   shouldShowTime: boolean;
   shouldShowFlags: boolean;
-  mockBatchSize: number;
   tagConfigs: TagConfig[];
   tagKeyForEdit: string | null;
   filterMode: 'AND' | 'OR';
+
+  // mock settings
+  mockBatchSize: number;
+  mockBatchDelayMs: number;
+  mockAutoPause: boolean;
+  mockIsPaused: boolean;
 }
 
 const useSettingsStore = create<SettingsStore>()(
@@ -57,6 +63,7 @@ const useSettingsStore = create<SettingsStore>()(
       tokenMode: 'details',
       dividerFields: initializeDividerFields(),
       importingEvents: null,
+      importingSequences: null,
       isImportDialogOpen: false,
       isImportingData: false,
       isExportDialogOpen: false,
@@ -64,15 +71,21 @@ const useSettingsStore = create<SettingsStore>()(
       isSettingsDialogOpen: false,
       isTagEditorDialogOpen: true,
       cnxIpAddress: '1.1.1.1',
+      // cnxPlatform: 'TD Server',
       cnxPlatform: 'Mock',
       isConnectedViaTCx: false,
       connectToTCxName: null,
       shouldShowTime: true,
       shouldShowFlags: true,
-      mockBatchSize: 10,
       tagConfigs: initializeTagConfigs(getSavedStore()),
       tagKeyForEdit: null, // CONST.NEW_TAG_KEY is a special key for creating a new tag
       filterMode: 'AND',
+
+      // mock settings
+      mockBatchSize: 10,
+      mockBatchDelayMs: 100,
+      mockAutoPause: true,
+      mockIsPaused: true,
     }),
     {
       name: 'settings-store',

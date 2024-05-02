@@ -15,25 +15,34 @@ import { HStack, VStack } from '@common/mui-stacks.tsx';
 import TelemetryList from '@pages/telemetry-viewer-page/features/main-body/features/telemetry-list/TelemetryList.tsx';
 import CallMergeIcon from '@mui/icons-material/CallMerge';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
-import actionAddEvents from '@pages/telemetry-viewer-page/store/event-store/actions/actionAddEvents.ts';
-import { actionSetAllEvents } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEvents.ts';
+import { actionSetAllEventsAndRecalculateFilters } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
 import actionSetImportingEvents from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetImportingEvents.ts';
 import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
 import eventMapper from '@pages/telemetry-viewer-page/classes/telemetry-receiver/eventMapper.ts';
 import updateTVWithNewTV from '@pages/telemetry-viewer-page/utils/event-utils/updateTVWithNewTV.ts';
-import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import {
+  useAllEvents,
+  useSequences,
+} from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 import actionSetIsImportingData from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportingData.ts';
+import actionClearSequences from '@pages/telemetry-viewer-page/store/event-store/actions/actionClearSequences.ts';
+import actionSetImportingSequences from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetImportingSequences.ts';
+import { actionSetSequences } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetSequences.ts';
+import actionMergeEvents from '@pages/telemetry-viewer-page/store/event-store/actions/actionMergeEvents.ts';
 export default function ImportDialog() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const { isImportDialogOpen, importingEvents, isImportingData } = useSettingsStore();
+  const { isImportDialogOpen, importingEvents, isImportingData, importingSequences } =
+    useSettingsStore();
   const allEvents = useAllEvents();
+  const sequences = useSequences();
 
   const hasImportingEvents = !!importingEvents && importingEvents.length > 0;
 
   const handleClose = useRef(() => {
     actionSetIsImportDialogOpen(false);
     actionSetImportingEvents(null);
+    actionSetImportingSequences(null);
     actionSetIsImportingData(false);
   }).current;
   const handleMerge = () => {
@@ -46,24 +55,32 @@ export default function ImportDialog() {
     (events: TVEvent[] | null, isMerge = false) => {
       if (!events) return;
 
+      // CLEAR SEQUENCES
+      actionClearSequences();
+
       // allow this to toggle the importing state
       actionSetIsImportingData(true);
 
       // we want to delay the close a bit while things draw
       setTimeout(() => {
-        // this is the "replace" action
+        // MERGE
         if (isMerge) {
-          actionAddEvents(events);
-        } else {
-          actionSetAllEvents(importingEvents ?? []);
+          actionMergeEvents(events);
         }
+
+        // REPLACE
+        else {
+          actionSetAllEventsAndRecalculateFilters(events ?? []);
+          actionSetSequences(importingSequences ?? {});
+        }
+
         // we want to delay the close a bit while things draw
         setTimeout(() => {
           handleClose();
         }, 500);
       }, 200);
     },
-    [handleClose, importingEvents],
+    [handleClose, importingEvents, importingSequences],
   );
 
   useEffect(() => {
@@ -81,7 +98,10 @@ export default function ImportDialog() {
         const contents = e.target?.result;
 
         // map everything coming in
-        const importedEvents = eventMapper(JSON.parse(contents as string));
+        const { events: importedEvents, sequences: importedSequences } = eventMapper(
+          JSON.parse(contents as string),
+          sequences,
+        );
 
         // NOT A PROPER FILE
         if (
@@ -110,6 +130,7 @@ export default function ImportDialog() {
 
         newEvents.sort((a, b) => a.timeMs - b.timeMs);
         actionSetImportingEvents(newEvents);
+        actionSetImportingSequences(importedSequences);
       };
       reader.readAsText(file);
     }

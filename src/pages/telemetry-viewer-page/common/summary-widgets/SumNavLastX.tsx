@@ -6,7 +6,7 @@ import { useMemo, useState } from 'react';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
-import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
+import { EventTypes } from '@pages/telemetry-viewer-page/constants/event-types.ts';
 import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 import getObjectValueFromFieldDef from '@pages/telemetry-viewer-page/utils/object-value-utils/getObjectValueFromFieldDef.ts';
 export default function SumNavLastX({

@@ -3,7 +3,10 @@ import { VStack } from '@common/mui-stacks.tsx';
 import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import useAutoScroll from '@pages/telemetry-viewer-page/hooks/useAutoScroll.ts';
 import { useEffect } from 'react';
-import { useDisplayEvents, useFilters } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
+import {
+  useDisplayEvents,
+  useFilters,
+} from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
 
 export default function TelemetryMainBody() {
   const displayEvents = useDisplayEvents();

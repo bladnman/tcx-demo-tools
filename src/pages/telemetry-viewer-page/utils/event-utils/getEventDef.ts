@@ -1,5 +1,5 @@
 import { EVENT_TYPE_DEF } from '@pages/telemetry-viewer-page/constants/EVENT_TYPE.ts';
-import { EventTypes } from '@pages/telemetry-viewer-page/types/event-types.ts';
+import { EventTypes } from '@pages/telemetry-viewer-page/constants/event-types.ts';
 import { includesAny } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
 
 export function getEventDef(event: TVEvent): EventTypeDef {

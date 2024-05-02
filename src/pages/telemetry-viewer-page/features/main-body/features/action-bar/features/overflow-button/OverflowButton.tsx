@@ -7,10 +7,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAllEvents } from '@pages/telemetry-viewer-page/store/event-store/useEventStore.ts';
-import { actionSetAllEvents } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEvents.ts';
+import { actionSetAllEventsAndRecalculateFilters } from '@pages/telemetry-viewer-page/store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
 import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
 import actionSetIsExportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsExportDialogOpen.ts';
 import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
+import actionClearSequences from '@pages/telemetry-viewer-page/store/event-store/actions/actionClearSequences.ts';
 export default function OverflowButton() {
   const popupState = usePopupState({
     variant: 'popover',
@@ -38,7 +39,10 @@ export default function OverflowButton() {
           icon={<DeleteForeverIcon />}
           onClick={() => {
             popupState.close();
-            actionSetAllEvents([]);
+            // CLEAR SEQUENCES
+            actionClearSequences();
+            // CLEAR EVENTS
+            actionSetAllEventsAndRecalculateFilters([]);
           }}
         />
         <Divider />

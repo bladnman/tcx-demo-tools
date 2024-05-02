@@ -1,0 +1,45 @@
+{
+  "app-instance": [
+    {
+      "key": "game-hub",
+      "id": "instance1",
+      "startEventId": "tv-id-01",
+      "startMs": 0
+    },
+    {
+      "key": "control-center",
+      "id": "instance1",
+      "startEventId": "tv-id-02",
+      "startMs": 100
+    },
+    {
+      "key": "game-hub",
+      "id": "instance2",
+      "startEventId": "tv-id-03",
+      "startMs": 200
+    },
+    {
+      "key": "control-center",
+      "id": "instance2",
+      "startEventId": "tv-id-04",
+      "startMs": 300
+    }
+  ],
+  "gamePlaySequences": [
+    {
+      "key": "game-play",
+      "id": "instance1",
+      "startEventId": "tv-id-22",
+      "startMs": 0
+    },
+    {
+      "key": "game-play",
+      "id": "instance2",
+      "startMs": 200,
+      "startEventId": "tv-id-23",
+      "endMs": 400,
+      "endEventId": "tv-id-41",
+      "durationMs": 200
+    }
+  ]
+}

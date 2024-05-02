@@ -4,6 +4,7 @@ import DropMessage from '@pages/telemetry-viewer-page/features/dialogs/app-drop-
 import { loadEventsFromFiles } from '@pages/telemetry-viewer-page/features/dialogs/app-drop-dialog/utils/loadEventsFromFiles.ts';
 import actionSetImportingEvents from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetImportingEvents.ts';
 import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
+import actionSetImportingSequences from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetImportingSequences.ts';
 
 export default function AppDropDialog() {
   const [isDragging, setIsDragging] = useState(false);
@@ -32,8 +33,11 @@ export default function AppDropDialog() {
       // Check if any files were dropped
       if (event.dataTransfer?.files) {
         try {
-          const allItems = await loadEventsFromFiles(event.dataTransfer.files);
-          actionSetImportingEvents(allItems);
+          const { events, sequences } = await loadEventsFromFiles(
+            event.dataTransfer.files,
+          );
+          actionSetImportingEvents(events);
+          actionSetImportingSequences(sequences);
         } catch (error) {
           console.error('Error reading files', error);
         }

@@ -2,23 +2,26 @@ import { HStack, VStack } from '@common/mui-stacks.tsx';
 import {
   Button,
   FormControl,
+  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
+  Switch,
   TextField,
   Typography,
 } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
 import { isValidIP } from '@pages/telemetry-viewer-page/utils/telemetry-utils.ts';
-import ConnectionButton from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/features/ConnectionButton.tsx';
+import ConnectionButton from '@pages/telemetry-viewer-page/features/main-body/features/action-bar/features/connect-button/ConnectionButton.tsx';
 import actionSetCnxIpAddress from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetCnxIpAddress.ts';
 import actionSetCnxPlatform from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetCnxPlatform.ts';
 import actionSetMockBatchSize from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetMockBatchSize.ts';
 import actionSetIsImportDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsImportDialogOpen.ts';
 import actionSetIsSettingsDialogOpen from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
 import TagStyleDropbox from '@pages/telemetry-viewer-page/features/dialogs/tag-editor-dialog/parts/TagStyleDropbox.tsx';
+import actionSetMockAutoPause from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetMockAutoPause.ts';
 
 export default function ConnectionOptions() {
   const {
@@ -27,6 +30,7 @@ export default function ConnectionOptions() {
     cnxIpAddress,
     cnxPlatform,
     mockBatchSize,
+    mockAutoPause,
   } = useSettingsStore();
 
   const [isFormComplete, setIsFormComplete] = useState(!!cnxIpAddress);
@@ -75,14 +79,24 @@ export default function ConnectionOptions() {
           </Select>
         </FormControl>
         {cnxPlatform === 'Mock' && (
-          <TextField
-            label={'Batch Size'}
-            variant="standard"
-            disabled={isConnected}
-            value={mockBatchSize ?? ''}
-            onChange={handleMockBatchSizeChange}
-            sx={{ width: '7em' }}
-          />
+          <>
+            <TextField
+              label={'Batch Size'}
+              variant="standard"
+              value={mockBatchSize ?? ''}
+              onChange={handleMockBatchSizeChange}
+              sx={{ width: '7em' }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={mockAutoPause}
+                  onChange={() => actionSetMockAutoPause(!mockAutoPause)}
+                />
+              }
+              label="Auto-pause"
+            />
+          </>
         )}
         <ConnectionButton disabled={!isButtonEnabled} />
       </HStack>

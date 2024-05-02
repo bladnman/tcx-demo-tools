@@ -11,15 +11,30 @@ import mapUpgradeTVEventToTV, {
   isOldTVEvent,
 } from '@pages/telemetry-viewer-page/classes/telemetry-receiver/utils/mapUpgradeTVEventToTV.ts';
 import eventSynthesizer from '@pages/telemetry-viewer-page/classes/telemetry-receiver/eventSynthesizer.ts';
+import eventSequencer from '@pages/telemetry-viewer-page/classes/telemetry-receiver/utils/sequencer/event-sequencer.ts';
 
-export default function eventMapper(events: unknown[]): TVEvent[] {
+export default function eventMapper(events: unknown[], sequences: Sequences) {
   const tvEvents = events.map(mapEvent).filter((e) => e !== null) as TVEvent[];
 
   // SYNTHESIZE EVENTS
   eventSynthesizer(tvEvents);
 
-  return tvEvents;
+  const processedSequences = eventSequencer(tvEvents, sequences ?? {});
+  const didSequencesChange = processedSequences !== sequences;
+
+  // TODO: 🐽 testing only
+  if (didSequencesChange) {
+    console.log(`[🐽](eventMapper) sequences`, sequences);
+  }
+
+  return {
+    events: tvEvents,
+    sequences: didSequencesChange ? processedSequences : sequences,
+  };
 }
+
+//
+// HELPER FUNCTIONS
 function mapEvent(event: unknown): TVEvent | null {
   if (!event) return null;
   const getTvEvent = (event: unknown): TVEvent | null => {
@@ -52,9 +67,9 @@ function mapEvent(event: unknown): TVEvent | null {
   }
 
   // VERIFY WE HAVE AT LEAST 1 EVENT
-  const lastEvent = tvEvent.dispatchedEvents.at(-1)?.inputEvent;
-  if (!lastEvent) {
-    console.warn(`[🐽](eventMapper) NO LAST EVENT`, tvEvent);
+  // const lastEvent = tvEvent.dispatchedEvents.at(-1)?.inputEvent;
+  if (!tvEvent.dispatchedEvents.at(-1)?.inputEvent && !tvEvent.clientEvent) {
+    console.warn(`[🐽](eventMapper) NO EVENT INFORMATION`, tvEvent);
     return null;
   }
 

@@ -75,11 +75,12 @@ export default function TelemetryList({
         }
       }
 
+      const lastDividerValue = dividerValues[dividerValues.length - 1];
       rows.push(
         <HStack
           hFill
           left
-          key={`row_${event.id}_${dividerFields.length}`}
+          key={`row|:|${event.id}|:|dividers:${lastDividerValue}`}
           sx={{ pl: `${Math.max(0, dividerFields.length - 1)}em` }}
         >
           <TelemetryRow

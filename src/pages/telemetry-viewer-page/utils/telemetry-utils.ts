@@ -1,21 +1,19 @@
-export function includesAny(
-  str: string,
-  substrings: string[],
-  caseSensitive = true,
-) {
-  if (caseSensitive)
-    return substrings.some((substring) => str.includes(substring));
+export function includesAny(str: string, substrings: string[], caseSensitive = true) {
+  if (caseSensitive) return substrings.some((substring) => str.includes(substring));
   return substrings.some((substring) =>
     str.toLowerCase().includes(substring.toLowerCase()),
   );
 }
 
-export function getSimpleSceneName(
-  fromValue: string | undefined | null,
-): string {
+export function getSimpleSceneName(fromValue: string | undefined | null): string {
   if (!fromValue) return '';
 
   // strip scene from locations if a GH value
+  // example ->   "locationScene":"post:cover:SWQA App e1 "
+  //              "locationScene":"post:ugc:detail:SWQA App e1 "
+  //              "locationScene":"post:add ons:SWQA App e1 "
+  //              "locationScene":"pre:ratings and friends who play:overview:Marvel's Spider Man-Game of the Year"
+  //              "locationScene":"pre:news:Marvel's Spider Man-Game of the Year"
   if (fromValue.indexOf(':') > -1) {
     const parts = fromValue.split(':');
     if (parts.length === 3) return parts[1];
@@ -69,11 +67,7 @@ export function getPayloads(
 
   return payloads;
 }
-export function getPreviousItems<T>(
-  items: T[],
-  upToItem: T,
-  includeItem = true,
-): T[] {
+export function getPreviousItems<T>(items: T[], upToItem: T, includeItem = true): T[] {
   let targetIndex = items.findIndex((item) => item === upToItem);
   if (targetIndex === -1) return [];
 

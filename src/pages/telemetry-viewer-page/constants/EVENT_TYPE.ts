@@ -1,4 +1,20 @@
-import { EventTypes } from '../types/event-types.ts';
+import { EventTypes } from './event-types.ts';
+export const MajorClientEventTypes = [
+  'ApplicationError',
+  'Interaction',
+  'Navigation',
+  'NetworkError',
+  'ViewableImpression',
+];
+export const HubAppNames = [
+  'game-hub',
+  'elysion',
+  'psplus-service-hub',
+  'rnps-library',
+  'explore-hub',
+  'monte-carlo',
+  'rnps-compilation-disc-hub',
+];
 
 export const EVENT_TYPE_DEF: { [K in EventTypes]: EventTypeDef } = {
   ApplicationError: {

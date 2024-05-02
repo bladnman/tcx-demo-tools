@@ -1,20 +1,20 @@
-import eventMapper from '@pages/telemetry-viewer-page/classes/telemetry-receiver/eventMapper.ts';
-
 class TelemetryReceiver {
-  public onEvents: (events: TVEvent[]) => void = () => {};
+  public onEvents: (events: unknown) => void = () => {};
 
-  constructor(onEvents: (events: TVEvent[]) => void) {
+  ingestedEvents: unknown[] = [];
+
+  constructor(onEvents: (events: unknown) => void) {
     this.onEvents = onEvents;
+    // @ts-expect-error - Expose ingestedEvents for testing
+    window.ingestedEvents = this.ingestedEvents;
+    console.warn(
+      `🚨 Ingested Events are being collected. \n\nThis is a testing-only feature and should not be used in production. \n\nThis uses far more memory than necessary and will slow down the application. \n\nTo see the ingested events, type: ingestedEvents in the console.`,
+    );
   }
 
   public receiveEvents = (events: unknown) => {
-    let eventsArray = events as unknown[];
-    if (!Array.isArray(events)) {
-      eventsArray = [events];
-    }
-
-    // MAP TO TV EVENTS
-    this.onEvents(eventMapper(eventsArray));
+    this.ingestedEvents.push(events);
+    this.onEvents(events);
   };
 }
 export default TelemetryReceiver;
