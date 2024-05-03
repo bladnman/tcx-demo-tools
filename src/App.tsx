@@ -2,7 +2,7 @@ import { VStack } from './common/mui-stacks.tsx';
 import './App.css';
 import useThemeOnDocument from '@hooks/useThemeOnDocument.ts';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import TelemetryViewerPage from '@pages/telemetry-viewer-page/TelemetryViewerPage.tsx';
+import TimelinePage from '@pages/timeline/TimelinePage.tsx';
 
 function App() {
   useThemeOnDocument();
@@ -11,7 +11,7 @@ function App() {
       <Router>
         <VStack fill spacing={0} vAlign={'leading'} data-id={'inner-router'}>
           <Routes>
-            <Route path="/" element={<TelemetryViewerPage />} />
+            <Route path="/" element={<TimelinePage />} />
           </Routes>
         </VStack>
       </Router>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import TCxMockPublisher from '@tcx-hosted/tcx/TCxMockPublisher.ts';
-import useSettingsStore from '@pages/telemetry-viewer-page/store/settings-store/useSettingsStore.ts';
-import actionSetMockIsPaused from '@pages/telemetry-viewer-page/store/settings-store/actions/actionSetMockIsPaused.ts';
+import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
+import actionSetMockIsPaused from '@store/settings-store/actions/actionSetMockIsPaused.ts';
 
 export default function useTCxMockPublisher(
   onData: (data: unknown) => void,

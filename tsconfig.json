@@ -25,11 +25,16 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["./src/assets/*"],
+      "@classes/*": ["./src/classes/*"],
       "@common/*": ["./src/common/*"],
       "@const/*": ["./src/const/*"],
       "@data/*": ["./src/data/*"],
+      "@dialogs/*": ["./src/features/dialogs/*"],
+      "@root/*": ["./*"],
       "@pages/*": ["./src/pages/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@src/*": ["./src/*"],
+      "@store/*": ["./src/store/*"],
       "@tcx-hosted/*": ["./src/tcx-hosted/*"],
       "@theme/*": ["./src/theme/*"],
       "@utils/*": ["./src/utils/*"]

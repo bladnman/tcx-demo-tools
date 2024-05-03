@@ -4,8 +4,8 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import opacity from '@pages/telemetry-viewer-page/utils/opacity.ts';
-import useHover from '@pages/telemetry-viewer-page/hooks/useHover.ts';
+import opacity from '@utils//opacity.ts';
+import useHover from '@hooks/useHover.ts';
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 type CollapsibleContainerProps = {
   title: React.ReactNode;

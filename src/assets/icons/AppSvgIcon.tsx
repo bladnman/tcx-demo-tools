@@ -1,6 +1,6 @@
 import { Box, SxProps } from '@mui/material';
 import React from 'react';
-import isNU from '@pages/telemetry-viewer-page/utils/isNU.ts';
+import isNU from '@utils//isNU.ts';
 
 export type AppSvgIconProps = React.ComponentProps<'svg'> & {
   title?: string;
