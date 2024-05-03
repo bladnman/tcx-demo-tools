@@ -83,7 +83,7 @@ const useSettingsStore = create<SettingsStore>()(
 
       // mock settings
       mockBatchSize: 1,
-      mockBatchDelayMs: 100,
+      mockBatchDelayMs: 400,
       mockAutoPause: false,
       mockIsPaused: true,
 
