@@ -45,21 +45,23 @@ export default function useConnectButton() {
     // MOCK MODE - override button icon and color
     if (isMockMode) {
       const iconPathPlay = mockAutoPause ? mdiStepForward : mdiPlay;
-      const iconPathStop = mockAutoPause ? mdiPause : mdiStop;
       buttonIconPath = !isConnected
         ? // not connected
           iconPathPlay
         : // connected
           mockIsPaused
           ? iconPathPlay
-          : iconPathStop;
+          : mdiPause;
+
       buttonColor = !isConnected
         ? // not connected
           'appGreenWashed'
         : // connected
           mockIsPaused
-          ? 'appYellow'
-          : 'appRed';
+          ? mockAutoPause
+            ? 'appYellow'
+            : 'appGreenWashed'
+          : 'appOrange';
     }
 
     return { buttonIconPath, buttonColor };

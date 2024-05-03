@@ -9,12 +9,12 @@ type TCxMockPublisherProps = {
 };
 class TCxMockPublisher {
   private queue: unknown[];
-  public delayMs: number;
   private readonly onData: DataHandler;
   private readonly onStateChange: (publisher: TCxMockPublisher) => void;
   private timerId: NodeJS.Timeout | null = null;
   public autoPause: boolean = false;
   public batchSize: number = 1;
+  public delayMs: number;
 
   get isRunning(): boolean {
     return this.timerId !== null;
