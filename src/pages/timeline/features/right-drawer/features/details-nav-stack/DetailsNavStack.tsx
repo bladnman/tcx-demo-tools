@@ -5,15 +5,13 @@ import SegmentIcon from '@mui/icons-material/Segment';
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Tab, Tabs } from '@mui/material';
+import useDetailTabs from '@pages/timeline/features/right-drawer/features/details-nav-stack/hooks/useDetailTabs.ts';
 import DetailsSummaryViewer from '@pages/timeline/features/right-drawer/features/details-summary-viewer/DetailsSummaryViewer.tsx';
-import useSummaryComponent from '@pages/timeline/features/right-drawer/features/details-summary-viewer/hooks/useSummaryComponent.ts';
 import EventRawViewer from '@pages/timeline/features/right-drawer/features/event-raw-viewer/EventRawViewer.tsx';
 import actionSetDetailsActiveTab from '@store/settings-store/actions/actionSetDetailsActiveTab.ts';
-import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 
 export default function DetailsNavStack({ event }: { event: TVEvent }) {
-  const detailsActiveTab = useSettingsStore((state) => state.detailsActiveTab);
   const hasNotes = event.hasFailures;
   const vStackRef = useRef(null);
   const isScrolled = useScrollAwareness(vStackRef);
@@ -24,21 +22,8 @@ export default function DetailsNavStack({ event }: { event: TVEvent }) {
     );
   };
 
-  const hasSummary = useSummaryComponent(event) !== null;
-  const { tabIndex, isRawTab, isNotesTab, isSummaryTab } = useMemo(() => {
-    let tabIndex = 2; // default to Raw
-    if (detailsActiveTab === 'Summary' && hasSummary) {
-      tabIndex = 0;
-    } else if (detailsActiveTab === 'Notes' && hasNotes) {
-      tabIndex = 1;
-    }
-    return {
-      tabIndex,
-      isRawTab: tabIndex === 2,
-      isSummaryTab: tabIndex === 0,
-      isNotesTab: tabIndex === 1,
-    };
-  }, [detailsActiveTab, hasNotes, hasSummary]);
+  const { tabIndex, isRawTab, isNotesTab, isSummaryTab, hasSummary } =
+    useDetailTabs(event);
 
   return (
     <VStack fill top spacing={0}>
