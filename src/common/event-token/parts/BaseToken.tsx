@@ -1,7 +1,7 @@
 import { HStack } from '@common/mui-stacks.tsx';
 import { Typography } from '@mui/material';
 
-export default function TelemetryToken(props: TelemetryTokenProps) {
+export default function BaseToken(props: TelemetryTokenProps) {
   const {
     eventIcon,
     eventColor,

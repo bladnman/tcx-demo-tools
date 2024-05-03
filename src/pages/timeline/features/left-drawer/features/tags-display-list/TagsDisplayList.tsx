@@ -6,7 +6,7 @@ import useTagConfigs from '@pages/timeline/features/left-drawer/features/tags-di
 import { mdiTagEditOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import actionSetTagKeyForEdit from '@store/settings-store/actions/actionSetTagKeyForEdit.ts';
-import BaseTag from '@common/event-tag/BaseTag.tsx';
+import BaseTag from '@common/event-tag/parts/BaseTag.tsx';
 import CONST from '@const/CONST.ts';
 
 export default function TagsDisplayList() {

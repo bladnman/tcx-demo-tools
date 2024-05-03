@@ -1,4 +1,4 @@
-import TelemetryEventToken from '@common/telemetry-token/TelemetryEventToken.tsx';
+import EventToken from '@common/event-token/EventToken.tsx';
 import { HStack } from '@common/mui-stacks';
 import EventTimeDisplay from '@pages/timeline/features/main-body/features/timeline-list/features/telemetry-row/features/EventTimeDisplay.tsx';
 import React, { useMemo } from 'react';
@@ -33,7 +33,7 @@ export default function TelemetryRow(props: TelemetryRowProps) {
           }}
         >
           <EventTimeDisplay event={event} />
-          <TelemetryEventToken event={event} />
+          <EventToken event={event} />
         </HStack>
       </HStack>
     );

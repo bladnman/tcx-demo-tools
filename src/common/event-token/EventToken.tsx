@@ -1,6 +1,6 @@
-import TelemetryToken from '@common/telemetry-token/TelemetryToken.tsx';
-import EventIcon from '@common/telemetry-token/features/event-icon/EventIcon.tsx';
-import EventDetails from '@common/telemetry-token/features/event-details/EventDetails.tsx';
+import BaseToken from '@common/event-token/parts/BaseToken.tsx';
+import EventIcon from '@common/event-token/features/event-icon/EventIcon.tsx';
+import EventDetails from '@common/event-token/features/event-details/EventDetails.tsx';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 import { getEventDef } from '@utils//event-utils/getEventDef.ts';
 import EventTag from '@common/event-tag/EventTag.tsx';
@@ -8,7 +8,7 @@ import EventTag from '@common/event-tag/EventTag.tsx';
 interface TelemetryEventTokenProps extends TelemetryTokenProps {
   event: TVEvent;
 }
-export default function TelemetryEventToken(props: TelemetryEventTokenProps) {
+export default function EventToken(props: TelemetryEventTokenProps) {
   const { event } = props;
   const storeTokenMode = useSettingsStore((state) => state.tokenMode);
   const storeTokenFontSize = useSettingsStore((state) => state.tokenFontSize);
@@ -23,7 +23,7 @@ export default function TelemetryEventToken(props: TelemetryEventTokenProps) {
   const eventDef = getEventDef(event);
 
   return (
-    <TelemetryToken
+    <BaseToken
       eventIcon={<EventIcon event={event} fontSize={'1em'} />}
       eventDetails={<EventDetails event={event} colorMode={tokenColorMode} />}
       eventTag={<EventTag event={event} />}

@@ -1,9 +1,9 @@
-import TimelineList from '@pages/timeline/features/main-body/features/timeline-list/TimelineList.tsx';
 import { VStack } from '@common/mui-stacks.tsx';
-import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 import useAutoScroll from '@hooks/useAutoScroll.ts';
-import { useEffect } from 'react';
+import TimelineList from '@pages/timeline/features/main-body/features/timeline-list/TimelineList.tsx';
 import { useDisplayEvents, useFilters } from '@store/event-store/useEventStore.ts';
+import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
+import { useEffect } from 'react';
 // import AppInstanceList from '@pages/telemetry-viewer-page/features/main-body/features/app-instance-list/AppInstanceList.tsx';
 
 export default function TimelineMainBody() {

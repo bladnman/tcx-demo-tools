@@ -1,4 +1,4 @@
-import DetailDisplay from '@common/telemetry-token/features/event-details/parts/DetailDisplay.tsx';
+import DetailDisplay from '@common/event-token/features/event-details/parts/DetailDisplay.tsx';
 import getEventDescriptions from '@utils//event-utils/getEventDescriptions.ts';
 export default function EventDetails({
   event,

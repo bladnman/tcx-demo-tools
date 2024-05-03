@@ -1,5 +1,5 @@
 import getMatchingTagsConfigs from '@utils//tag-utils/getMatchingTagsConfigs.ts';
-import BaseTag from '@common/event-tag/BaseTag.tsx';
+import BaseTag from '@common/event-tag/parts/BaseTag.tsx';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 
 export default function EventTag({ event }: { event: TVEvent }) {

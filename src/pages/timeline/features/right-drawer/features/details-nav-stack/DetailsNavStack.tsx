@@ -1,13 +1,13 @@
-import React, { useRef } from 'react';
-import { Tab, Tabs } from '@mui/material';
-import SummarizeIcon from '@mui/icons-material/Summarize';
-import SegmentIcon from '@mui/icons-material/Segment';
-import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 import { VStack } from '@common/mui-stacks.tsx';
-import EventRawViewer from '@pages/timeline/features/right-drawer/features/event-raw-viewer/EventRawViewer.tsx';
-import DetailsSummaryViewer from '@pages/timeline/features/right-drawer/features/details-summary-viewer/DetailsSummaryViewer.tsx';
 import CONST from '@const/CONST.ts';
 import useScrollAwareness from '@hooks/useScrollAwareness.ts';
+import SegmentIcon from '@mui/icons-material/Segment';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import { Tab, Tabs } from '@mui/material';
+import DetailsSummaryViewer from '@pages/timeline/features/right-drawer/features/details-summary-viewer/DetailsSummaryViewer.tsx';
+import EventRawViewer from '@pages/timeline/features/right-drawer/features/event-raw-viewer/EventRawViewer.tsx';
+import React, { useRef } from 'react';
 
 export default function DetailsNavStack({ event }: { event: TVEvent }) {
   const [value, setValue] = React.useState(0);

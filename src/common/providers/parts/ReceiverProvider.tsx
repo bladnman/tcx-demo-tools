@@ -8,7 +8,7 @@ import actionAddUnMappedEvents from '@store/event-store/actions/actionAddUnMappe
 // import telemetryDebuggerEvents from '@data/event_updates_tiny.json';
 // import telemetryDebuggerEvents from '@data/mock_out_of_order__300.json';
 // import telemetryDebuggerEvents from '@data/row_duplication_tiny.json';
-import telemetryDebuggerEvents from '@data/console_complete_client.json';
+import telemetryDebuggerEvents from '@data/mock.json';
 
 export default function ReceiverProvider() {
   const { cnxPlatform } = useSettingsStore();

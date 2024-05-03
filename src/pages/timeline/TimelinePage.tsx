@@ -1,6 +1,6 @@
 import AppLayoutDoubleDrawer from '@common/app-layouts/AppLayoutDoubleDrawer.tsx';
 import { Typography } from '@mui/material';
-import AppArchitectureProvider from '@pages/timeline/features/general-app-parts/AppArchitectureProvider.tsx';
+import AppArchitectureProvider from '@common/providers/AppArchitectureProvider.tsx';
 import TelemetryLeftDrawer from '@pages/timeline/features/left-drawer/TelemetryLeftDrawer.tsx';
 import TimelineActionBarTools from '@pages/timeline/features/main-body/features/timeline-action-bar/TimelineActionBarTools.tsx';
 import TimelineMainBody from '@pages/timeline/features/main-body/TimelineMainBody.tsx';
