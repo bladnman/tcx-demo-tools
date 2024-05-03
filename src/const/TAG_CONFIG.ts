@@ -19,9 +19,26 @@ export const TAG_KEY_LINKS = {
 };
 export const TAG_CONFIG: TagConfig[] = [
   {
+    key: 'TELEM FAIL',
+    icon: '🚨',
+    uuid: '90',
+    themeColor: 'appRed',
+    isActive: true,
+    isDefault: true,
+    rules: [
+      [
+        {
+          path: 'hasFailures',
+          mode: 'EQUALS',
+          value: 'true',
+        },
+      ],
+    ],
+  },
+  {
     key: 'FRIENDS',
     icon: '🧪',
-    uuid: '90',
+    uuid: '91',
     themeColor: 'appSlate',
     isActive: true,
     isDefault: true,

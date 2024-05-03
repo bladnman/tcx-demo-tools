@@ -49,6 +49,11 @@ export default function TagRuleList() {
               <Typography variant="caption" sx={{ color: 'fg35.main' }}>
                 Rule {idx + 1}
               </Typography>
+              {rule.length > 1 && (
+                <Typography variant="caption" sx={{ color: 'appOrange.dark' }}>
+                  All clauses must match for rule to match.
+                </Typography>
+              )}
               <HStack left sx={{ pr: 2 }} spacing={1}>
                 <Tooltip title={'Edit rule'}>
                   <>

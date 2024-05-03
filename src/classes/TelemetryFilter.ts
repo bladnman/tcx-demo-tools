@@ -1,3 +1,4 @@
+import isNU from '@utils/isNU.ts';
 import TelemetryFilterItem from './TelemetryFilterItem.ts';
 import getTvValue from '@utils/event-utils/getTvValue.ts';
 
@@ -136,9 +137,15 @@ class TelemetryFilter {
 
     // if an array, let's force to string[]
     if (Array.isArray(value)) {
+      if (value.length === 0) return ['(none)'];
       return value.map((v) => String(v));
     }
-    return [String(value ?? '(none)')];
+
+    if (isNU(value) || value === '') {
+      return ['(none)'];
+    }
+
+    return [String(value)];
   }
 
   testForActive(event: TVEvent) {

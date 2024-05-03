@@ -27,3 +27,4 @@ interface TelemetryTokenProps {
   tokenColorMode?: TokenColorMode;
 }
 type ConnectionPlatform = 'Mock' | 'Mobile' | 'TD Server';
+type DetailsTab = 'Summary' | 'Notes' | 'Raw';

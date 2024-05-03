@@ -37,6 +37,22 @@ export default function TagRuleRow({ rule }: Props) {
               {rule.map((clause, idx) => {
                 return (
                   <TableRow key={idx}>
+                    {rule.length > 1 && (
+                      <TableCell>
+                        <Typography
+                          variant={'caption'}
+                          sx={{
+                            color: 'fg35.main',
+                            fontStyle: 'italic',
+                            pr: 2,
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          clause {idx + 1}
+                        </Typography>
+                      </TableCell>
+                    )}
+
                     <TableCell style={{ width: '25%' }}>
                       <Typography variant={'caption'}>{clause.path}</Typography>
                     </TableCell>

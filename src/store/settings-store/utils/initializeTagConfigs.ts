@@ -10,10 +10,14 @@ export default function initializeTagConfigs(
 
   // and then add or update any saved tag configs
   savedConfigs.reverse().forEach((savedConfig) => {
-    const index = configs.findIndex((config) => config.key === savedConfig.key);
-    // UPDATE
-    if (index !== -1) {
-      configs[index] = savedConfig;
+    const defaultConfig = configs.find((config) => config.key === savedConfig.key);
+
+    // UPDATE - default config, only some data is used from saved config
+    if (defaultConfig) {
+      const validKeys = ['themeColor', 'icon', 'isActive'];
+      validKeys.forEach((key) => {
+        (defaultConfig as Hash)[key] = (savedConfig as Hash)[key];
+      });
     }
     // ADD
     else {

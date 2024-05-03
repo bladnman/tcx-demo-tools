@@ -1,37 +1,8 @@
-import React from 'react';
-import SummaryImpression from '@pages/timeline/features/right-drawer/features/details-summary-viewer/features/impression/SummaryImpression.tsx';
+import useSummaryComponent from '@pages/timeline/features/right-drawer/features/details-summary-viewer/hooks/useSummaryComponent.ts';
 import { VStack } from '@common/mui-stacks.tsx';
-import SummaryNavigation from '@pages/timeline/features/right-drawer/features/details-summary-viewer/features/navigation/SummaryNavigation.tsx';
-import SummaryLoadTime from '@pages/timeline/features/right-drawer/features/details-summary-viewer/features/load-time/SummaryLoadTime.tsx';
-import SummaryVideoStream from '@pages/timeline/features/right-drawer/features/details-summary-viewer/features/video-stream/SummaryVideoStream.tsx';
-import SummaryTraceSpan from '@pages/timeline/features/right-drawer/features/details-summary-viewer/features/trace-span/SummaryTraceSpan.tsx';
-
-type SummaryComponentProps = {
-  event: TVEvent;
-};
-type SummaryComponentType = React.ComponentType<SummaryComponentProps>;
 
 export default function DetailsSummaryViewer({ event }: { event: TVEvent }) {
-  let SummaryComponent: SummaryComponentType | null = null;
-  switch (event.type) {
-    case 'ViewableImpression':
-      SummaryComponent = SummaryImpression as SummaryComponentType;
-      break;
-    case 'Navigation':
-      SummaryComponent = SummaryNavigation as SummaryComponentType;
-      break;
-    case 'LoadTime':
-      SummaryComponent = SummaryLoadTime as SummaryComponentType;
-      break;
-    case 'VideoStream':
-      SummaryComponent = SummaryVideoStream as SummaryComponentType;
-      break;
-      break;
-    case 'TraceSpan':
-      SummaryComponent = SummaryTraceSpan as SummaryComponentType;
-      break;
-  }
-
+  const SummaryComponent = useSummaryComponent(event);
   if (!SummaryComponent) return null;
 
   return (

@@ -55,6 +55,9 @@ export interface SettingsStore {
   // timeline features
   isFilterDrawerOpen: boolean;
   dividerFields: string[];
+
+  // details features
+  detailsActiveTab: DetailsTab;
 }
 
 const useSettingsStore = create<SettingsStore>()(
@@ -102,6 +105,9 @@ const useSettingsStore = create<SettingsStore>()(
       // timeline features
       isFilterDrawerOpen: true,
       dividerFields: initializeDividerFields(),
+
+      // details features
+      detailsActiveTab: 'Summary',
     }),
     {
       name: 'settings-store',
@@ -110,6 +116,7 @@ const useSettingsStore = create<SettingsStore>()(
         return {
           __divider_fields: state.dividerFields ?? [],
           __tag_configs: state.tagConfigs.filter((config) => config.updatedDateMs) ?? [],
+          detailsActiveTab: state.detailsActiveTab,
         };
       },
     },
@@ -118,6 +125,7 @@ const useSettingsStore = create<SettingsStore>()(
 export interface SavedSettingsStore {
   __divider_fields: string[];
   __tag_configs: TagConfig[];
+  detailsActiveTab: DetailsTab;
 }
 export default useSettingsStore;
 function initializeDividerFields() {
