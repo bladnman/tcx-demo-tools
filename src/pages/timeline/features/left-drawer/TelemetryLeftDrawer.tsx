@@ -1,5 +1,5 @@
-import MenuNavStack from '@pages/timeline/features/left-drawer/features/menu-nav-stack/MenuNavStack.tsx';
+import SidebarPanel from '@features/sidebar-panel/SidebarPanel.tsx';
 
 export default function TelemetryLeftDrawer() {
-  return <MenuNavStack />;
+  return <SidebarPanel />;
 }

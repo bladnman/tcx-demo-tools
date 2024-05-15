@@ -1,7 +1,7 @@
 import { HStack } from '@common/mui-stacks.tsx';
-import { Typography } from '@mui/material';
+import { SxProps, Typography } from '@mui/material';
 
-export default function BaseToken(props: TelemetryTokenProps) {
+export default function BaseToken(props: TelemetryTokenProps & { sx?: SxProps }) {
   const {
     eventIcon,
     eventColor,
@@ -12,6 +12,7 @@ export default function BaseToken(props: TelemetryTokenProps) {
     tokenFontSize = 1,
     tokenColorMode = 'dual',
     tokenWidth = 'min',
+    sx = {},
   } = props;
   const showDetails = tokenMode === 'details';
   const showTag = showDetails || tokenMode === 'tag';
@@ -38,6 +39,7 @@ export default function BaseToken(props: TelemetryTokenProps) {
         overflow: 'hidden',
         width: isMaxWidth ? '100%' : isIconOnly ? '2em' : 'auto',
         height: isMaxWidth ? '100%' : isIconOnly ? '2em' : 'auto',
+        ...sx,
       }}
     >
       {/*  ICON  */}

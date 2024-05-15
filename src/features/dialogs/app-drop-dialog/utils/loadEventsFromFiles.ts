@@ -1,4 +1,6 @@
 import eventMapper from '@classes/telemetry-receiver/eventMapper.ts';
+import cleanForImport from '@dialogs/import-dialog/utils/cleanForImport.ts';
+import getNewUpdateExistingEvents from '@utils/event-utils/getNewUpdateExistingEvents.ts';
 
 export async function loadEventsFromFiles(
   files: FileList,
@@ -26,14 +28,20 @@ async function processFile(
 
     reader.onload = (e) => {
       try {
-        const contents = e.target?.result;
+        const contents = e.target?.result as string;
+        const rawEvents = cleanForImport(contents);
         const { events, sequences: processedSequences } = eventMapper(
-          JSON.parse(contents as string),
+          rawEvents,
           sequences,
         );
 
+        // will de-dupe (or update) the events
+        const { newEvents } = getNewUpdateExistingEvents(events, []);
+
+        newEvents.sort((a, b) => a.timeMs - b.timeMs);
+
         resolve({
-          events,
+          events: newEvents,
           sequences: processedSequences !== sequences ? processedSequences : sequences,
         });
       } catch (error) {

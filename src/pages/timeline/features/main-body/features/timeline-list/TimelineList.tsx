@@ -1,22 +1,28 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
-import TelemetryRow from '@pages/timeline/features/main-body/features/timeline-list/features/telemetry-row/TelemetryRow.tsx';
-import React, { ReactNode, useMemo, useRef, useState } from 'react';
-import TelemetryDivider from '@pages/timeline/features/main-body/features/timeline-list/features/TelemetryDivider.tsx';
-import { getValueFromEvent } from '@utils//telemetry-utils.ts';
-import { useEventForDetails } from '@store/event-store/useEventStore.ts';
-import actionToggleEventForDetailsById from '@store/event-store/actions/actionToggleEventForDetailsById.ts';
+import { SxProps } from '@mui/material';
 import RowContextMenu from '@pages/timeline/features/main-body/features/timeline-list/features/telemetry-row/features/row-context-menu/RowContextMenu.tsx';
+import TelemetryRow from '@pages/timeline/features/main-body/features/timeline-list/features/telemetry-row/TelemetryRow.tsx';
+import TelemetryDivider from '@pages/timeline/features/main-body/features/timeline-list/features/TelemetryDivider.tsx';
+import actionToggleEventForDetailsById from '@store/event-store/actions/actionToggleEventForDetailsById.ts';
+import { useEventForDetails } from '@store/event-store/useEventStore.ts';
+import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
+import { getValueFromEvent } from '@utils//telemetry-utils.ts';
 import { usePopupState } from 'material-ui-popup-state/hooks';
+import React, { ReactNode, useMemo, useRef, useState } from 'react';
 
+type SxGenerator = ((event: TVEvent) => SxProps | null) | null;
 export default function TimelineList({
   events,
   allowDividers = true,
   allowSelection = true,
+  generateRowSx = null,
+  generateTokenSx = null,
 }: {
   events: TVEvent[];
   allowDividers?: boolean;
   allowSelection?: boolean;
+  generateRowSx?: SxGenerator;
+  generateTokenSx?: SxGenerator;
 }) {
   const [contextMenuEvent, setContextMenuEvent] = useState<TVEvent | null>(null);
   const eventForDetails = useEventForDetails();
@@ -68,6 +74,7 @@ export default function TimelineList({
                   position: 'sticky',
                   top: `calc(0px + ${i * 30}px)`,
                   backgroundColor: 'bg.main',
+                  zIndex: 1, // pulls the divider above the rows
                 }}
               />,
             );
@@ -80,14 +87,17 @@ export default function TimelineList({
         <HStack
           hFill
           left
-          key={`row|:|${event.id}|:|dividers:${lastDividerValue}`}
           sx={{ pl: `${Math.max(0, dividerFields.length - 1)}em` }}
+          key={`row|:|${event.id}|:|dividers:${lastDividerValue}`}
+          data-event-id={event.id}
         >
           <TelemetryRow
             event={event}
             selected={eventForDetails === event}
             onClick={allowSelection ? actionToggleEventForDetailsById : undefined}
             onContextClick={handleContextMenuClick}
+            rowSx={generateRowSx ? generateRowSx(event) : {}}
+            tokenSx={generateTokenSx ? generateTokenSx(event) : {}}
           />
         </HStack>,
       );

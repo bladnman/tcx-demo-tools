@@ -1,15 +1,17 @@
 import BaseToken from '@common/event-token/parts/BaseToken.tsx';
 import EventIcon from '@common/event-token/features/event-icon/EventIcon.tsx';
 import EventDetails from '@common/event-token/features/event-details/EventDetails.tsx';
+import { SxProps } from '@mui/material';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 import { getEventDef } from '@utils//event-utils/getEventDef.ts';
 import EventTag from '@common/event-tag/EventTag.tsx';
 
 interface TelemetryEventTokenProps extends TelemetryTokenProps {
   event: TVEvent;
+  sx?: SxProps;
 }
 export default function EventToken(props: TelemetryEventTokenProps) {
-  const { event } = props;
+  const { event, sx } = props;
   const storeTokenMode = useSettingsStore((state) => state.tokenMode);
   const storeTokenFontSize = useSettingsStore((state) => state.tokenFontSize);
   const storeTokenColorMode = useSettingsStore((state) => state.tokenColorMode);
@@ -33,6 +35,7 @@ export default function EventToken(props: TelemetryEventTokenProps) {
       tokenColorMode={tokenColorMode}
       tokenMode={tokenMode}
       tokenWidth={tokenWidth}
+      sx={sx}
     />
   );
 }

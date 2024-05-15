@@ -50,11 +50,7 @@ export default class TCxSignalServerManager {
     return `ws://${this.options.host}:${this.options.port}${this.options.path}?tcxName=${this.tcxName}`;
   }
 
-  constructor(
-    tcxName: string,
-    eventHandlers: TCxSSEvents,
-    options: TCxSSOptions,
-  ) {
+  constructor(tcxName: string, eventHandlers: TCxSSEvents, options: TCxSSOptions) {
     this.tcxName = tcxName;
     this.eventHandlers = eventHandlers;
     this.options = options;
@@ -87,8 +83,7 @@ export default class TCxSignalServerManager {
       this.connection?.send(JSON.stringify(data));
       this.debug && console.log(`🛜 [${this.tcxName}] Sent`, data);
     } else {
-      this.debug &&
-        console.error(`🛜 [${this.tcxName}] WebSocket is not connected`);
+      this.debug && console.error(`🛜 [${this.tcxName}] WebSocket is not connected`);
     }
   }
 
@@ -110,8 +105,7 @@ export default class TCxSignalServerManager {
           console.error(`🛜 [${this.tcxName}] Error from server:`, data.error);
         this.eventHandlers.onerror({ type: 'error', reason: data.error });
       } else {
-        this.debug &&
-          console.log(`🛜 [${this.tcxName}] Message from server:`, data);
+        this.debug && console.log(`🛜 [${this.tcxName}] Message from server:`, data);
         this.eventHandlers.onmessage({ type: 'message', data });
       }
     };
@@ -124,9 +118,7 @@ export default class TCxSignalServerManager {
           Array.isArray(potentialBufferObject.data)
         ) {
           // Assuming the data array represents a UTF-8 encoded string
-          const stringFromBuffer = String.fromCharCode(
-            ...potentialBufferObject.data,
-          );
+          const stringFromBuffer = String.fromCharCode(...potentialBufferObject.data);
           // If the resulting string is expected to be JSON, parse it again
           const data = JSON.parse(stringFromBuffer);
           processData(data);
@@ -135,8 +127,7 @@ export default class TCxSignalServerManager {
           processData(potentialBufferObject);
         }
       } catch (error) {
-        this.debug &&
-          console.error(`🛜 [${this.tcxName}] JSON parsing error:`, error);
+        this.debug && console.error(`🛜 [${this.tcxName}] JSON parsing error:`, error);
         this.eventHandlers.onerror({
           type: 'error',
           reason: 'JSON parsing error',
@@ -157,11 +148,11 @@ export default class TCxSignalServerManager {
         reason: ev.reason ?? 'No tcxName query parameter',
       });
     }
-    // 1003 is "tcxName name taken" error
+    // 1003 is "tcxName label taken" error
     if (ev.code === 1003) {
       this.connection?.onerror?.({
         type: 'error',
-        reason: ev.reason ?? 'tcxName name taken',
+        reason: ev.reason ?? 'tcxName label taken',
       });
     }
     // other reasons
@@ -171,8 +162,7 @@ export default class TCxSignalServerManager {
     }
   }
   private cnx_onerror(error: IWSCustomEvent) {
-    this.debug &&
-      console.error(`🛜 [${this.tcxName}] Connection Error:`, error);
+    this.debug && console.error(`🛜 [${this.tcxName}] Connection Error:`, error);
     this.eventHandlers.onerror(error);
   }
 }

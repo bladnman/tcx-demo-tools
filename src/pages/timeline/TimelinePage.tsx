@@ -1,6 +1,5 @@
 import AppLayoutDoubleDrawer from '@common/app-layouts/AppLayoutDoubleDrawer.tsx';
-import { Typography } from '@mui/material';
-import AppArchitectureProvider from '@common/providers/AppArchitectureProvider.tsx';
+import AppNavFrame from '@common/app-nav-frame/AppNavFrame.tsx';
 import TelemetryLeftDrawer from '@pages/timeline/features/left-drawer/TelemetryLeftDrawer.tsx';
 import TimelineActionBarTools from '@pages/timeline/features/main-body/features/timeline-action-bar/TimelineActionBarTools.tsx';
 import TimelineMainBody from '@pages/timeline/features/main-body/TimelineMainBody.tsx';
@@ -25,27 +24,18 @@ export default function TimelinePage() {
     }
   }, []);
   return (
-    <AppArchitectureProvider>
+    <AppNavFrame>
       <AppLayoutDoubleDrawer
-        title={
-          <Typography variant={'title'} sx={{ whiteSpace: 'nowrap' }}>
-            Telemetry Viewer
-          </Typography>
-        }
         mainContent={<TimelineMainBody />}
         appBarRef={appBarRef}
         leftDrawerContent={<TelemetryLeftDrawer />}
         leftDrawerWidth={400}
         isLeftDrawerOpen={isFilterDrawerOpen}
+        showLeftDrawerIcon={!isFilterDrawerOpen}
         onLeftDrawerToggle={(isOpen) => {
           actionSetIsFilterDrawerOpen(isOpen);
         }}
         rightDrawerContent={<TelemetryRightDrawer />}
-        rightDrawerTitle={
-          <Typography variant="title" fontSize={'0.8em'}>
-            EVENT DETAILS
-          </Typography>
-        }
         showRightDrawerIcon={false}
         rightDrawerWidth={550}
         isRightDrawerOpen={!!eventForDetails}
@@ -57,6 +47,6 @@ export default function TimelinePage() {
         appBarContent={<TimelineActionBarTools />}
         statusBarContent={<StatusBar />}
       />
-    </AppArchitectureProvider>
+    </AppNavFrame>
   );
 }

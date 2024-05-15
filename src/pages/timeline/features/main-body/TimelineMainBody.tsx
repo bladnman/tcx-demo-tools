@@ -4,7 +4,7 @@ import TimelineList from '@pages/timeline/features/main-body/features/timeline-l
 import { useDisplayEvents, useFilters } from '@store/event-store/useEventStore.ts';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 import { useEffect } from 'react';
-// import AppInstanceList from '@pages/telemetry-viewer-page/features/main-body/features/app-instance-list/AppInstanceList.tsx';
+// import PurchaseFlowList from '@pages/telemetry-viewer-page/features/main-body/features/app-instance-list/PurchaseFlowList.tsx';
 
 export default function TimelineMainBody() {
   const displayEvents = useDisplayEvents();
@@ -42,7 +42,7 @@ export default function TimelineMainBody() {
         ref={containerRef}
       >
         <TimelineList events={displayEvents} />
-        {/*<AppInstanceList />*/}
+        {/*<PurchaseFlowList />*/}
       </VStack>
     </VStack>
   );

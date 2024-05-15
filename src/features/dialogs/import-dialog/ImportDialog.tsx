@@ -1,3 +1,7 @@
+import { HStack, VStack } from '@common/mui-stacks.tsx';
+import { loadEventsFromFiles } from '@dialogs/app-drop-dialog/utils/loadEventsFromFiles.ts';
+import CallMergeIcon from '@mui/icons-material/CallMerge';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import {
   Button,
   Dialog,
@@ -8,24 +12,19 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import TimelineList from '@pages/timeline/features/main-body/features/timeline-list/TimelineList.tsx';
+import actionClearSequences from '@store/event-store/actions/actionClearSequences.ts';
+import actionMergeEvents from '@store/event-store/actions/actionMergeEvents.ts';
+import { actionSetAllEventsAndRecalculateFilters } from '@store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
+import { actionSetSequences } from '@store/event-store/actions/actionSetSequences.ts';
+import useEventStore from '@store/event-store/useEventStore.ts';
+import actionSetImportingEvents from '@store/settings-store/actions/actionSetImportingEvents.ts';
+import actionSetImportingSequences from '@store/settings-store/actions/actionSetImportingSequences.ts';
+import actionSetIsImportDialogOpen from '@store/settings-store/actions/actionSetIsImportDialogOpen.ts';
+import actionSetIsImportingData from '@store/settings-store/actions/actionSetIsImportingData.ts';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 import { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 
-import { HStack, VStack } from '@common/mui-stacks.tsx';
-import TimelineList from '@pages/timeline/features/main-body/features/timeline-list/TimelineList.tsx';
-import CallMergeIcon from '@mui/icons-material/CallMerge';
-import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
-import { actionSetAllEventsAndRecalculateFilters } from '@store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
-import actionSetImportingEvents from '@store/settings-store/actions/actionSetImportingEvents.ts';
-import actionSetIsImportDialogOpen from '@store/settings-store/actions/actionSetIsImportDialogOpen.ts';
-import eventMapper from '@classes/telemetry-receiver/eventMapper.ts';
-import updateTVWithNewTV from '@utils//event-utils/updateTVWithNewTV.ts';
-import useEventStore, { useSequences } from '@store/event-store/useEventStore.ts';
-import actionSetIsImportingData from '@store/settings-store/actions/actionSetIsImportingData.ts';
-import actionClearSequences from '@store/event-store/actions/actionClearSequences.ts';
-import actionSetImportingSequences from '@store/settings-store/actions/actionSetImportingSequences.ts';
-import { actionSetSequences } from '@store/event-store/actions/actionSetSequences.ts';
-import actionMergeEvents from '@store/event-store/actions/actionMergeEvents.ts';
 export default function ImportDialog() {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -33,9 +32,6 @@ export default function ImportDialog() {
   const importingEvents = useSettingsStore((state) => state.importingEvents);
   const isImportingData = useSettingsStore((state) => state.isImportingData);
   const importingSequences = useSettingsStore((state) => state.importingSequences);
-
-  const sequences = useSequences();
-
   const hasImportingEvents = !!importingEvents && importingEvents.length > 0;
 
   const handleClose = useRef(() => {
@@ -79,7 +75,7 @@ export default function ImportDialog() {
         }, 500);
       }, 200);
     },
-    [handleClose, importingEvents, importingSequences],
+    [handleClose, importingSequences],
   );
 
   useEffect(() => {
@@ -90,50 +86,16 @@ export default function ImportDialog() {
     }
   }, [handleClose, importingEvents, doImport]);
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const contents = e.target?.result;
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
 
-        // map everything coming in
-        const { events: importedEvents, sequences: importedSequences } = eventMapper(
-          JSON.parse(contents as string),
-          sequences,
-        );
+    const { events, sequences } = await loadEventsFromFiles(event.target.files);
 
-        // NOT A PROPER FILE
-        if (
-          !importedEvents ||
-          !Array.isArray(importedEvents) ||
-          importedEvents.length === 0
-        )
-          return; // TODO: message this to user
+    // NOT A PROPER FILE
+    if (!events || !Array.isArray(events) || events.length === 0) return; // TODO: message this to user
 
-        // we will map all imported events into
-        // this new array. (this allows us to update, or de-dupe)
-        const newEvents: TVEvent[] = [];
-
-        // loop through all the imported events to de-dupe
-        for (const event of importedEvents) {
-          const previousEvent = newEvents.find((e) => e.id === event.id);
-          // EXISTING - update the existing event
-          if (previousEvent) {
-            updateTVWithNewTV(previousEvent, event);
-          }
-          // NEW
-          else {
-            newEvents.push(event);
-          }
-        }
-
-        newEvents.sort((a, b) => a.timeMs - b.timeMs);
-        actionSetImportingEvents(newEvents);
-        actionSetImportingSequences(importedSequences);
-      };
-      reader.readAsText(file);
-    }
+    actionSetImportingEvents(events);
+    actionSetImportingSequences(sequences);
   };
 
   const renderBody = () => {

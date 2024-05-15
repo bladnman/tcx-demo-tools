@@ -79,8 +79,8 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
 
       // FG COLORS
       fg: ['#38363e', '#c0bcc6'],
-      fg10: ['#eaeaea', '#1f1f1f'],
-      fg15: ['#e6e6e6', '#202020'],
+      fg10: ['#eaeaea', '#2c2c2c'],
+      fg15: ['#e6e6e6', '#383838'],
       fg25: ['#cecece', '#3e3e3e'],
       fg35: ['#a0a0a0', '#626262'],
       fg50: ['#8b8b8b', '#8b8b8b'],
@@ -92,6 +92,13 @@ const AppThemeProvider: React.FC<ThemeProps> = ({ colorMode, children }) => {
       // TOKEN DETAILS COLORS
       tokenDetailsFG: ['#8b8b8b', '#8b8b8b'],
       tokenDetailsBG: ['#383838', '#383838'],
+
+      // NAV TABS
+      // navTabUnselected: ['#8b8b8b', '#0a0a0a'],
+      navTabUnselectedBG: ['#1f1f24', '#1f1f24'],
+      navTabUnselectedFG: ['#8b8b8b', '#8b8b8b'],
+      navTabSelectedBG: ['#333f54', '#333f54'],
+      navTabSelectedFG: ['#8b8b8b', '#8b8b8b'],
     }),
     [],
   ); // your colors here

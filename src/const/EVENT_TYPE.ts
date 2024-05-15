@@ -16,7 +16,7 @@ export const HubAppNames = [
   'rnps-compilation-disc-hub',
 ];
 
-export const EVENT_TYPE_DEF: { [K in EventTypes]: EventTypeDef } = {
+export const EVENT_TYPE_DEF: { [K in EventTypes]?: Partial<EventTypeDef> } = {
   ApplicationError: {
     type: 'ApplicationError',
     abbreviation: 'appErr',

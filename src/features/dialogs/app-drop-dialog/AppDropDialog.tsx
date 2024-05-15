@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Backdrop } from '@mui/material';
 import DropMessage from '@dialogs/app-drop-dialog/features/drop-message/DropMessage.tsx';
 import { loadEventsFromFiles } from '@dialogs/app-drop-dialog/utils/loadEventsFromFiles.ts';
+import { Backdrop } from '@mui/material';
 import actionSetImportingEvents from '@store/settings-store/actions/actionSetImportingEvents.ts';
-import actionSetIsSettingsDialogOpen from '@store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
 import actionSetImportingSequences from '@store/settings-store/actions/actionSetImportingSequences.ts';
+import actionSetIsSettingsDialogOpen from '@store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
+import { useEffect, useState } from 'react';
 
 export default function AppDropDialog() {
   const [isDragging, setIsDragging] = useState(false);

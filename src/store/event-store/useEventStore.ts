@@ -77,5 +77,5 @@ export const useSequences = () => useEventStore((state) => state.sequences);
 // @ts-ignore - forcing the store to global reference
 window['eventStore'] = useEventStore;
 console.warn(
-  "The store is externalized for development mode under the name 'eventStore' here.\n\n Try `eventStore.getState()` to browse.",
+  "The store is externalized for development mode under the label 'eventStore' here.\n\n Try `eventStore.getState()` to browse.",
 );

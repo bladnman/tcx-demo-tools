@@ -1,3 +1,5 @@
+import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
+import isEventWithinSequenceTime from '@utils/event-utils/isEventWithinSequenceTime.ts';
 import uuid from 'react-uuid';
 
 abstract class SequencerEngineBase {
@@ -5,9 +7,15 @@ abstract class SequencerEngineBase {
   protected sequenceList: Sequence[] = [];
   protected isDirty: boolean = false;
   protected lastEventTimeMs: number = -1;
+  protected debug: boolean = false;
 
-  protected abstract getSequenceName(event: TVEvent): string;
-  protected abstract getSequenceKey(event: TVEvent): string;
+  /**
+   * Each engine has a unique key to identify its
+   * sequences in the event object.
+   */
+  // **MUST HAVE** - abstract get sequenceType(): string;
+  // static sequenceType: SequenceType;
+  abstract get sequenceType(): SequenceType;
 
   /**
    * To help with efficiency, the engine can determine if it is
@@ -21,6 +29,21 @@ abstract class SequencerEngineBase {
    * it will be ignored and not processed in any way.
    */
   protected abstract isEventASequenceLogicType(event: TVEvent): boolean;
+
+  /**
+   * The engine can determine if an event belongs to a sequence.
+   *
+   * This is a bit different from the "logic" events. This is very
+   * engine-specific. Sometimes this will be true of all events. Other
+   * times, it will be true if the appName is the same (for example).
+   *
+   * This typically includes the "start" event and may even include the
+   * "end" event. This all depends on the engine's logic.
+   */
+  protected abstract doesEventBelongToSequence(
+    event: TVEvent,
+    sequence: Sequence,
+  ): boolean;
   protected abstract doesEventCloseSequence(event: TVEvent, sequence: Sequence): boolean;
   protected abstract doesEventStartNewSequence(
     event: TVEvent,
@@ -56,31 +79,43 @@ abstract class SequencerEngineBase {
     // noop
   }
   protected startNewSequence(event: TVEvent): Sequence {
+    const key = uuid();
     const newSequence: Sequence = {
-      name: this.getSequenceName(event),
-      key: this.getSequenceKey(event),
+      name: `${this.sequenceType} ${this.sequenceList.length + 1}`,
+      id: key,
+      sequenceType: this.sequenceType,
       beginMs: event.timeMs,
-      id: uuid(),
       beginEventId: event.id,
+      eventCount: 0,
+      engine: {},
+
+      isComplete: false,
+      isSuccessful: false,
+      isFailure: false,
+      hasAppErrors: false,
+      hasNetErrors: false,
     };
     this.updateNewSequence(event, newSequence);
     this.sequenceList.push(newSequence);
+    this.sequenceList.sort((a, b) => a.beginMs - b.beginMs);
     this.isDirty = true;
 
-    this.updateEventOrSequence(event, newSequence);
+    this.callEngineToUpdateEvent(event, newSequence);
+
+    if (this.debug) {
+      console.log(`[🐽] ${this.sequenceType} - ✅ NEW SEQUENCE: ${newSequence.name}`, {
+        event,
+        newSequence,
+      });
+    }
 
     return newSequence;
   }
   protected isSequenceOpen(sequence: Sequence): boolean {
     return !sequence.endEventId;
   }
-  protected isEventTimeWithinSequence(event: TVEvent, sequence: Sequence): boolean {
-    if (!sequence.endMs) return event.timeMs >= sequence.beginMs;
-    return event.timeMs >= sequence.beginMs && event.timeMs <= sequence.endMs;
-  }
-
   private static instances: Map<string, SequencerEngineBase> = new Map();
-  private processLogicEvent(event: TVEvent, openSequences: Sequence[]): void {
+  private processLogicEvent(event: TVEvent): void {
     /**
      * LOGIC EVENTS
      *
@@ -88,29 +123,31 @@ abstract class SequencerEngineBase {
      * Events that are needed to determine where sequences start and end
      * are considered "logic" events.
      */
-    // CHECK EVENT AGAINST EACH OPEN SEQUENCE
-    openSequences.forEach((sequence) => {
+    this.sequenceList.forEach((sequence) => {
       // PROCESS EVENTS WITHIN SEQUENCE TIME WINDOW
-      if (this.isEventTimeWithinSequence(event, sequence)) {
-        // attempt to CLOSE SEQUENCE
-        if (this.doesEventCloseSequence(event, sequence)) {
+      if (isEventWithinSequenceTime(event, sequence)) {
+        // attempt to CLOSE SEQUENCE (if not already)
+        if (
+          this.isSequenceOpen(sequence) &&
+          this.doesEventCloseSequence(event, sequence)
+        ) {
           this.closeSequence(event, sequence);
         }
-
-        // UPDATE SEQUENCE
-        this.updateEventOrSequence(event, sequence); // allow engine to update sequence
       }
+
+      // Possibly update event or sequence
+      this.callEngineToUpdateEvent(event, sequence);
     });
 
     // START NEW SEQUENCE
-    const stillOpenSequences = openSequences.filter((sequence) =>
+    const stillOpenSequences = this.sequenceList.filter((sequence) =>
       this.isSequenceOpen(sequence),
     );
     if (this.doesEventStartNewSequence(event, stillOpenSequences)) {
       this.startNewSequence(event); // also adds event to sequence
     }
   }
-  private processNonLogicEvent(event: TVEvent, openSequences: Sequence[]): void {
+  private processNonLogicEvent(event: TVEvent): void {
     /**
      * NON-LOGIC EVENTS
      *
@@ -122,16 +159,61 @@ abstract class SequencerEngineBase {
      * we still want to be able to update the event or sequence if it is
      * within the time window of an open sequence.
      */
-    openSequences.forEach((sequence) => {
-      if (this.isEventTimeWithinSequence(event, sequence)) {
-        this.updateEventOrSequence(event, sequence); // allow engine to update sequence
-      }
+    this.sequenceList.forEach((sequence) => {
+      // Possibly update event or sequence
+      this.callEngineToUpdateEvent(event, sequence);
     });
+  }
+  private callEngineToUpdateEvent(event: TVEvent, sequence: Sequence): void {
+    if (!this.doesEventBelongToSequence(event, sequence)) return;
+
+    sequence.eventCount++;
+
+    // keep track of some sequence properties
+    sequence.hasAppErrors =
+      sequence.hasAppErrors || event.type === EVENT_TYPE_DEF.ApplicationError?.type;
+    sequence.hasNetErrors =
+      sequence.hasNetErrors || event.type === EVENT_TYPE_DEF.NetworkError?.type;
+
+    // ALREADY CLOSED
+    // when we find "escapees" (events that belong but show up
+    // after the sequence has closed), we need to update the sequence
+    // to this event as the close event
+    if (!this.isSequenceOpen(sequence)) {
+      sequence.endEventId = event.id;
+      sequence.endMs = event.timeMs;
+    }
+
+    // OPEN SEQUENCE
+    else {
+      // update the sequence last time
+      const prevUpdateMs = sequence.lastUpdateMs ?? sequence.beginMs ?? 0;
+      sequence.lastUpdateMs = prevUpdateMs > event.timeMs ? prevUpdateMs : event.timeMs;
+      sequence.durationMs = sequence.lastUpdateMs - sequence.beginMs;
+    }
+
+    event.sequenceData = (event.sequenceData ?? {}) as EventSequenceData;
+    event.sequenceData[this.sequenceType] = event.sequenceData[this.sequenceType] ?? [];
+    event.sequenceData[this.sequenceType].push(sequence.id);
+
+    // allow the engine to update the event or sequence
+    this.updateEventOrSequence(event, sequence);
   }
   private closeSequence(event: TVEvent, sequence: Sequence) {
     sequence.endMs = event.timeMs;
     sequence.endEventId = event.id;
+    sequence.durationMs = sequence.endMs - sequence.beginMs;
     this.updateCompletedSequence(event, sequence); // allow engine to update sequence
+
+    if (this.debug) {
+      console.log(
+        `[🐽] ${this.sequenceType} - ❌ Close SEQUENCE: ${sequence.name} by ${event.appName}`,
+        {
+          event,
+          sequence,
+        },
+      );
+    }
 
     this.isDirty = true;
   }
@@ -149,14 +231,6 @@ abstract class SequencerEngineBase {
   }
 
   /**
-   * Each engine has a unique key to identify its sequences in the event object.
-   */
-
-  // **MUST HAVE** - abstract get sequenceKey(): string;
-  // static sequenceKey: string;
-  abstract get sequenceKey(): string;
-
-  /**
    * MAIN PROCESSING METHOD
    */
   public processEvents(events: TVEvent[], sequenceList: Sequence[]): Sequence[] {
@@ -165,19 +239,26 @@ abstract class SequencerEngineBase {
 
     // CHECK EACH EVENT
     events.forEach((event) => {
-      // get open sequences every time
-      // since they can be created or closed
-      // as each event processes
-      const openSequences = this.getOpenSequences();
+      /**
+       * SEQUENCE LOGIC
+       *
+       * Some events help the engine determine where sequences start and end.
+       * These are considered "logic" events. The engine gets to declare what
+       * is a valid event for its logic.
+       *
+       * Other events are not needed to determine where sequences start and end.
+       * But, for the events that are non-logic, we still want to be able to
+       * update the event or sequence if it is within the time window of an open sequence.
+       */
 
-      // EVENT NOT VALID FOR SEQUENCE LOGIC
+      // THIS EVENT NOT VALID FOR "SEQUENCE LOGIC"
       if (!this.isEventASequenceLogicType(event)) {
-        this.processNonLogicEvent(event, openSequences);
+        this.processNonLogicEvent(event);
       }
 
-      // EVENT IS VALID FOR SEQUENCE LOGIC
+      // THIS EVENT IS VALID FOR "SEQUENCE LOGIC"
       else {
-        this.processLogicEvent(event, openSequences);
+        this.processLogicEvent(event);
       }
 
       this.lastEventTimeMs = event.timeMs;

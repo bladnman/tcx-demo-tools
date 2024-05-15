@@ -13,7 +13,7 @@ export default function SumNavLastX({
   event,
   x = 4,
 }: SummaryVisualizationProps & { x?: number }) {
-  const eventColor = EVENT_TYPE_DEF[event.type as EventTypes].color;
+  const eventColor = EVENT_TYPE_DEF[event.type as EventTypes]?.color ?? 'fg';
 
   const [maxToShow, setMaxToShow] = useState(x);
   const allEvents = useAllEvents();

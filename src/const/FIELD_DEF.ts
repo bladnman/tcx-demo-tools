@@ -334,7 +334,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefault: false,
     },
     filter: {
-      isAvailable: false,
+      isAvailable: true,
       isDefault: false,
       isDefaultCollapsed: true,
     },
@@ -348,7 +348,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefault: false,
     },
     filter: {
-      isAvailable: false,
+      isAvailable: true,
       isDefault: false,
       isDefaultCollapsed: true,
     },
@@ -404,7 +404,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefault: false,
     },
     filter: {
-      isAvailable: true,
+      isAvailable: false,
       isDefault: false,
       isDefaultCollapsed: true,
     },
@@ -418,7 +418,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefault: false,
     },
     filter: {
-      isAvailable: true,
+      isAvailable: false,
       isDefault: false,
       isDefaultCollapsed: true,
     },
@@ -432,7 +432,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefault: false,
     },
     filter: {
-      isAvailable: true,
+      isAvailable: false,
       isDefault: false,
       isDefaultCollapsed: true,
     },
@@ -513,7 +513,7 @@ export default FIELD_DEF;
 const FIELD_DEF_ARRAY = Object.values(FIELD_DEF);
 export { FIELD_DEF_ARRAY };
 
-// Utility type to extract 'path' property values into a union type
+// Utility engineCode to extract 'path' property values into a union engineCode
 export type FieldNames = (typeof FIELD_DEF)[number]['field'];
 export function getFieldNames(): FieldNames[] {
   return FIELD_DEF_ARRAY.map((f) => f.field);

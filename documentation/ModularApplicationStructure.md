@@ -23,7 +23,7 @@ codebase.
 - src
   - common
   - features
-    - [feature-name]
+    - [feature-label]
       - common
       - features
       - hooks
@@ -57,7 +57,7 @@ at multiple levels, you can add a `stores` directory to this pattern. Etc.
       subdirectories like `login-button`, `menu-button`, `title`. These become **features**
       when you consider the context of the `menu-bar`.
 
-        - **[feature-name]**: Represents a specific feature directory, e.g., "
+        - **[feature-label]**: Represents a specific feature directory, e.g., "
           menu-bar". Each feature directory can include the following
           subdirectories, creating a specific context for the feature.
 

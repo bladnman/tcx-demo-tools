@@ -1,0 +1,16 @@
+@keyframes rotateYAxis {
+    0%, 99% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+.rotating-z {
+    display: inline-block;
+    animation-name: rotateYAxis;
+    animation-duration: 60s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}

@@ -3,7 +3,7 @@ import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
 import { EventTypes } from '@const/event-types.ts';
 
 /**
- * Returns the color of the event type
+ * Returns the color of the event engineCode
  *
  * NOTE: This will return the "overall" color, not
  * a specific shade of the color. This will be a string,

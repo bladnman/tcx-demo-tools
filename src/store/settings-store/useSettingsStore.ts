@@ -56,6 +56,10 @@ export interface SettingsStore {
   isFilterDrawerOpen: boolean;
   dividerFields: string[];
 
+  // sequences features
+  activeSequence: SequenceType;
+  selectedSequence: Sequence | null;
+
   // details features
   detailsActiveTab: DetailsTab;
 }
@@ -85,7 +89,7 @@ const useSettingsStore = create<SettingsStore>()(
       connectToTCxName: null,
 
       // mock settings
-      mockBatchSize: 1,
+      mockBatchSize: 3,
       mockBatchDelayMs: 400,
       mockAutoPause: false,
       mockIsPaused: true,
@@ -105,6 +109,10 @@ const useSettingsStore = create<SettingsStore>()(
       // timeline features
       isFilterDrawerOpen: true,
       dividerFields: initializeDividerFields(),
+
+      // sequences features
+      activeSequence: 'appInstance',
+      selectedSequence: null,
 
       // details features
       detailsActiveTab: 'Summary',
@@ -142,5 +150,5 @@ function getSavedStore(): SavedSettingsStore {
 // @ts-ignore - forcing the store to global reference
 window['settingsStore'] = useSettingsStore;
 console.warn(
-  "The store is externalized for development mode under the name 'settingsStore' here.\n\n Try `settingsStore.getState()` to browse.",
+  "The store is externalized for development mode under the label 'settingsStore' here.\n\n Try `settingsStore.getState()` to browse.",
 );

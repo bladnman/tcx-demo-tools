@@ -96,9 +96,9 @@ const CollapsibleContainer: React.FC<CollapsibleContainerProps> = ({
           {renderTitle()}
         </HStack>
       </HStack>
-      <HStack hFill left>
+      <VStack hFill left>
         {renderChildren()}
-      </HStack>
+      </VStack>
     </VStack>
   );
 };

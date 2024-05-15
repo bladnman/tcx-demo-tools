@@ -49,7 +49,7 @@ export default function TagTagForm() {
       {/* key */}
       <TextField
         label={
-          isDuplicateKey ? 'Duplicate name' : isInvalidValue ? 'Invalid name' : 'Name'
+          isDuplicateKey ? 'Duplicate label' : isInvalidValue ? 'Invalid label' : 'Name'
         }
         variant="standard"
         error={isInvalidValue || isDuplicateKey}

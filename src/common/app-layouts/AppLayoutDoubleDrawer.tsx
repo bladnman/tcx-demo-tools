@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { AppBar, Drawer, IconButton, Toolbar } from '@mui/material';
-import { HStack, VStack } from '../mui-stacks';
+import { SideBarLeftLightIcon, SideBarRightLightIcon } from '@assets/icons/AppIcons.tsx';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { AppBar, Drawer, IconButton, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
+import React, { useEffect, useState } from 'react';
+import { HStack, VStack } from '../mui-stacks';
 
 interface AppLayoutDoubleDrawerProps {
   leftDrawerTitle?: React.ReactNode;
@@ -18,7 +17,6 @@ interface AppLayoutDoubleDrawerProps {
   statusBarHeight?: string;
   leftDrawerWidth?: number;
   rightDrawerWidth?: number;
-  LeftIcon?: React.ElementType;
   RightIcon?: React.ElementType;
   onLeftDrawerToggle?: (isOpen: boolean) => void;
   onRightDrawerToggle?: (isOpen: boolean) => void;
@@ -41,7 +39,6 @@ export default function AppLayoutDoubleDrawer({
   statusBarHeight = '2.5em',
   leftDrawerWidth = 240,
   rightDrawerWidth = 240,
-  LeftIcon = MenuIcon,
   RightIcon = MenuIcon,
   onLeftDrawerToggle,
   onRightDrawerToggle,
@@ -76,18 +73,18 @@ export default function AppLayoutDoubleDrawer({
 
   return (
     <VStack
-      data-id="app-layout-content"
+      data-id="double-drawer-layout"
       fill
-      vAlign={'leading'}
-      hAlign={'leading'}
+      topLeft
       spacing={0}
       sx={{
         position: 'relative',
       }}
     >
       <AppBar
-        position="fixed"
+        position="absolute"
         ref={appBarRef}
+        elevation={0}
         sx={{
           transition: (theme) =>
             theme.transitions.create(['margin', 'width'], {
@@ -103,21 +100,20 @@ export default function AppLayoutDoubleDrawer({
         <Toolbar>
           <HStack left hFill spacing={1.5}>
             <HStack left hFill spacing={0}>
-              {/* LEFT DRAW TITLE */}
+              {/* LEFT DRAWER ICON */}
               {leftDrawerContent && showLeftDrawerIcon && (
                 <IconButton
                   color="inherit"
                   aria-label="open left drawer"
                   edge="start"
                   onClick={handleLeftDrawerToggle}
-                  sx={{ mr: 2, width: '1.5em', flexShrink: 0 }}
+                  sx={{ mr: 2, width: '1.5em', flexShrink: 0, color: 'fg65.main' }}
                 >
-                  <LeftIcon />
+                  <SideBarLeftLightIcon />
                 </IconButton>
               )}
 
               {/* TITLE */}
-
               {title}
             </HStack>
 
@@ -128,7 +124,7 @@ export default function AppLayoutDoubleDrawer({
               </HStack>
             )}
 
-            {/* RIGHT DRAW TITLE */}
+            {/* RIGHT DRAWER ICON */}
             {rightDrawerContent && showRightDrawerIcon && (
               <IconButton
                 color="inherit"
@@ -150,27 +146,29 @@ export default function AppLayoutDoubleDrawer({
               width: leftDrawerWidth,
               boxSizing: 'border-box',
               height: `calc(100% - ${statusBarContent ? statusBarHeight : '0'})`,
+              position: 'absolute',
             },
           }}
           variant="persistent"
           anchor="left"
+          data-id="left-drawer"
           open={leftDrawerOpen}
         >
           <HStack
             hFill
-            hAlign={'trailing'}
-            sx={{ justifyContent: 'space-between', paddingLeft: '1em' }}
+            right
+            sx={{ justifyContent: 'space-between', height: '4.5em', paddingLeft: '1em' }}
           >
             <HStack>{leftDrawerTitle}</HStack>
             <Box
               sx={{
                 display: 'flex',
-                alignItems: 'flex-end', // Aligns items to the start of the flex container
-                padding: '8px', // Adds some padding around the IconButton, adjust as needed
+                alignItems: 'flex-end',
+                padding: '8px',
               }}
             >
-              <IconButton onClick={handleLeftDrawerToggle}>
-                <ChevronLeftIcon />
+              <IconButton onClick={handleLeftDrawerToggle} sx={{ color: 'fg65.main' }}>
+                <SideBarLeftLightIcon />
               </IconButton>
             </Box>
           </HStack>
@@ -188,26 +186,28 @@ export default function AppLayoutDoubleDrawer({
               width: rightDrawerWidth,
               boxSizing: 'border-box',
               height: `calc(100% - ${statusBarContent ? statusBarHeight : '0'})`,
+              position: 'absolute',
             },
           }}
           variant="persistent"
           anchor="right"
+          data-id="right-drawer"
           open={rightDrawerOpen}
         >
           <HStack
             hFill
             hAlign={'leading'}
-            sx={{ justifyContent: 'space-between', paddingRight: '1em' }}
+            sx={{ justifyContent: 'space-between', height: '4.5em', paddingRight: '1em' }}
           >
             <Box
               sx={{
                 display: 'flex',
-                alignItems: 'flex-start', // Aligns items to the start of the flex container
-                padding: '8px', // Adds some padding around the IconButton, adjust as needed
+                alignItems: 'flex-start',
+                padding: '8px',
               }}
             >
-              <IconButton onClick={handleRightDrawerToggle}>
-                <ChevronRightIcon />
+              <IconButton onClick={handleRightDrawerToggle} sx={{ color: 'fg65.main' }}>
+                <SideBarRightLightIcon />
               </IconButton>
             </Box>
             <HStack>{rightDrawerTitle}</HStack>
@@ -222,8 +222,7 @@ export default function AppLayoutDoubleDrawer({
         component="main"
         data-id="main-content"
         fill
-        vAlign={'leading'}
-        hAlign={'leading'}
+        topLeft
         spacing={0}
         sx={{
           flexGrow: 1,
@@ -244,7 +243,7 @@ export default function AppLayoutDoubleDrawer({
         {mainContent}
       </VStack>
       {statusBarContent && (
-        <HStack hFill sx={{ height: statusBarHeight }}>
+        <HStack hFill sx={{ height: statusBarHeight }} data-id="status-bar">
           {statusBarContent}
         </HStack>
       )}

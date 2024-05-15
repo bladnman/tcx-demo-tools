@@ -1,16 +1,15 @@
-import { Divider, IconButton, Menu, Tooltip, Typography } from '@mui/material';
-import { bindMenu, usePopupState } from 'material-ui-popup-state/hooks';
 import ContextMenuItem from '@common/context-menu/ContextMenuItem.tsx';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SettingsIcon from '@mui/icons-material/Settings';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { actionSetAllEventsAndRecalculateFilters } from '@store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
-import actionSetIsImportDialogOpen from '@store/settings-store/actions/actionSetIsImportDialogOpen.ts';
-import actionSetIsExportDialogOpen from '@store/settings-store/actions/actionSetIsExportDialogOpen.ts';
-import actionSetIsSettingsDialogOpen from '@store/settings-store/actions/actionSetIsSettingsDialogOpen.ts';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Divider, IconButton, Menu, Tooltip, Typography } from '@mui/material';
 import actionClearSequences from '@store/event-store/actions/actionClearSequences.ts';
+import { actionSetAllEventsAndRecalculateFilters } from '@store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
+import actionSetIsExportDialogOpen from '@store/settings-store/actions/actionSetIsExportDialogOpen.ts';
+import actionSetIsImportDialogOpen from '@store/settings-store/actions/actionSetIsImportDialogOpen.ts';
+import { bindMenu, usePopupState } from 'material-ui-popup-state/hooks';
+
 export default function OverflowButton() {
   const popupState = usePopupState({
     variant: 'popover',
@@ -64,15 +63,6 @@ export default function OverflowButton() {
           onClick={() => {
             popupState.close();
             actionSetIsExportDialogOpen(true);
-          }}
-        />
-        <Divider />
-        <ContextMenuItem
-          label={'Settings'}
-          icon={<SettingsIcon />}
-          onClick={() => {
-            popupState.close();
-            actionSetIsSettingsDialogOpen(true);
           }}
         />
       </Menu>
