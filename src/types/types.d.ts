@@ -14,7 +14,7 @@
 
 // @deprecated - you should try to avoid using this engineCode
 type Hash = {
-  // @ts-expect-error - we really do mean to use the 'any' here
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
 type HashT<T> = {

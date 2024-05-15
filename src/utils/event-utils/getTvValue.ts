@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export default function getTvValue(
   event: TVEvent,
   fieldOrPath: string | string[] | null | undefined,
@@ -10,44 +8,50 @@ export default function getTvValue(
 
   const paths = Array.isArray(fieldOrPath) ? fieldOrPath : [fieldOrPath];
 
-  const getValue = (obj: any, path: string) => {
-    const pathParts = path.split('.');
-    let current = obj;
-
-    for (const part of pathParts) {
-      if (current === undefined) break;
-
-      const arrayMatch = part.match(/^(.+?)\[(\-?\d+)\]$/);
-      if (arrayMatch) {
-        const key = arrayMatch[1];
-        const index = parseInt(arrayMatch[2], 10);
-        current = current[key]?.at(index);
-      } else {
-        current = current[part];
-      }
-    }
-
-    return current;
-  };
-
   for (const path of paths) {
     // CHECK IN TV top level fields
-    let value = getValue(event, path);
+    let value = _getObjectValue(event, path);
     if (value !== undefined) return value;
 
     // CHECK IN clientEvent
     const clientEvent = event.clientEvent;
     if (clientEvent) {
-      value = getValue(clientEvent, path);
+      value = _getObjectValue(clientEvent, path);
       if (value !== undefined) return value;
     }
 
     // CHECK IN last inputEvent
     const inputEvent = event.dispatchedEvents?.at(-1)?.inputEvent;
     if (inputEvent) {
-      value = getValue(inputEvent, path);
+      value = _getObjectValue(inputEvent, path);
       if (value !== undefined) return value;
     }
   }
   return defaultValue;
+}
+// Helper function to get value from object using path
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function _getObjectValue(obj: any, path: string) {
+  const pathParts = path.split('.');
+  let current = obj;
+
+  for (const part of pathParts) {
+    if (current === undefined) break;
+
+    // looking for [index] or [-index] in the path
+    // this indicates that we are looking for an array element
+    const arrayMatch = part.match(/^(.+?)\[(\-?\d+)\]$/);
+    if (arrayMatch) {
+      const key = arrayMatch[1];
+      const index = parseInt(arrayMatch[2], 10);
+      current = current[key]?.at(index);
+    }
+
+    // direct lookup
+    else {
+      current = current[part];
+    }
+  }
+
+  return current;
 }

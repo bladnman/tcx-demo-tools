@@ -11,7 +11,21 @@
  * a new engineCode file in this same folder. Those types will need to be
  * imported, while the majority (these) will not.
  */
+interface TWEventData {
+  // required
+  twType: string;
+  twEventTimeMs: number;
+  twId: string;
+  rawEvent: Hash;
 
+  // optionals
+  twTags?: string[];
+  twSequenceData?: HashT<string[]>;
+  twReceiptTimesMs?: number[];
+  failures?: HashT<string[]>;
+  payloads?: HashT<Hash>;
+  filtered?: Hash;
+}
 interface TVEvent {
   id: string;
   type: string;
