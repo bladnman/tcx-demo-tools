@@ -1,26 +1,12 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import formatMilliseconds from '@utils/formatMilliseconds.ts';
 
-export function getLoadTimeDetails(event: TVEvent) {
-  if (event.type !== 'LoadTime') return null;
+export function getLoadTimeDetails(event: TWEvent) {
+  if (event.twType !== 'LoadTime') return null;
 
-  const metrics: MetricData[] = [];
+  const metrics = event.get('metricsData') as MetricData[] | undefined;
+  if (!metrics) return null;
 
-  // DISPATCHED EVENTS
-  if (event.dispatchedEvents.length) {
-    for (const dispatchedEvent of event.dispatchedEvents) {
-      if (dispatchedEvent.inputEvent?.metricsData) {
-        metrics.push(...(dispatchedEvent.inputEvent.metricsData ?? []));
-      }
-    }
-  }
-  // CLIENT EVENT
-  else {
-    if (event.clientEvent?.metricsData) {
-      metrics.push(...(event.clientEvent?.metricsData ?? []));
-    }
-  }
-
-  if (!metrics.length) return null;
   const firstMetric: MetricData = metrics[0];
 
   // find the item in event.clientEvent.metricsData
@@ -37,9 +23,7 @@ export function getLoadTimeDetails(event: TVEvent) {
     message = `${message} [+${metrics.length - 1}]`;
   }
 
-  const highlight = formatMilliseconds(
-    ttiMetric?.latency ?? firstMetric?.latency ?? 0,
-  );
+  const highlight = formatMilliseconds(ttiMetric?.latency ?? firstMetric?.latency ?? 0);
 
   return {
     highlight,

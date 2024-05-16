@@ -1,6 +1,6 @@
+import TWEvent from '@classes/data/TWEvent.ts';
+import getEventColorName from '@utils/event-utils/getEventColorName.ts';
 import { useMemo } from 'react';
-import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import { EventTypes } from '@const/event-types.ts';
 
 /**
  * Returns the color of the event engineCode
@@ -22,8 +22,8 @@ import { EventTypes } from '@const/event-types.ts';
  * This is because MUI uses the color prop and will apply
  * the main, light, and dark shades as needed.
  */
-export default function useEventColor(event: TVEvent) {
+export default function useEventColor(event: TWEvent, defaultColor: string = 'fg') {
   return useMemo(() => {
-    return EVENT_TYPE_DEF[event.type as EventTypes].color;
-  }, [event.type]);
+    return getEventColorName(event, defaultColor);
+  }, [event.twType]);
 }

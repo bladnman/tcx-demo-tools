@@ -1,13 +1,9 @@
 import TWEvent from '@classes/data/TWEvent.ts';
-import eventSequencer from '@classes/telemetry-receiver/eventSequencer.ts';
-import eventTagger from '@classes/telemetry-receiver/eventTagger.ts';
-import mapRawEvent from '@classes/telemetry-receiver/utils/mapRawEventToTV.ts';
 import mapClientEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapClientEventToTW.ts';
 import mapTDDispatchedToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapTDDispatchedToTW.ts';
 import mapTVEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapTVEventToTW.ts';
 import mapTWEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapTWEventToTW.ts';
 import mapUpgradeTWEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapUpgradeTWEventToTW.ts';
-import eventSynthesizer from './eventSynthesizer.ts';
 
 type MapperFn = (event: unknown) => TWEvent | null;
 
@@ -22,7 +18,7 @@ const pipeline: MapperFn[] = [
 
 export default function eventMapper(events: unknown[], sequences: Sequences) {
   // MAP TO TV EVENTS
-  const tvEvents = events.map(mapRawEvent).filter((e) => e !== null) as TVEvent[];
+  // const tvEvents = events.map(mapRawEvent).filter((e) => e !== null) as TVEvent[];
   const twEvents = events
     .map((event) => {
       for (const mapper of pipeline) {
@@ -37,18 +33,19 @@ export default function eventMapper(events: unknown[], sequences: Sequences) {
   console.log(`[🐽](eventMapper) twEvents`, twEvents);
 
   // SYNTHESIZE EVENTS - add props (e.g. tvVersion, timeMs ...)
-  eventSynthesizer(tvEvents); // todo: remove (not needed with TWEvents)
-
-  // TAG EVENTS
-  eventTagger(tvEvents);
-
-  // SEQUENCE EVENTS
-  const processedSequences = eventSequencer(tvEvents, sequences ?? {});
-  const didSequencesChange = processedSequences !== sequences;
+  // eventSynthesizer(tvEvents); // todo: remove (not needed with TWEvents)
+  //
+  // // TAG EVENTS
+  // eventTagger(tvEvents);
+  //
+  // // SEQUENCE EVENTS
+  // const processedSequences = eventSequencer(tvEvents, sequences ?? {});
+  // const didSequencesChange = processedSequences !== sequences;
 
   // RETURN
   return {
-    events: tvEvents,
-    sequences: didSequencesChange ? processedSequences : sequences,
+    events: twEvents,
+    sequences,
+    // sequences: didSequencesChange ? processedSequences : sequences,
   };
 }

@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import DetailDisplay from '@common/event-token/features/event-details/parts/DetailDisplay.tsx';
 import getEventDescriptions from '@utils//event-utils/getEventDescriptions.ts';
 export default function EventDetails({
@@ -5,7 +6,7 @@ export default function EventDetails({
   colorMode = 'dual',
   displayMode = 'details',
 }: {
-  event: TVEvent;
+  event: TWEvent;
   fontSize?: string;
   colorMode?: TokenColorMode;
   displayMode?: TokenMode;

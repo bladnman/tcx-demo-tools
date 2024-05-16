@@ -1,11 +1,13 @@
+import TWEvent from '@classes/data/TWEvent.ts';
+
 export default function isEventWithinSequenceTime(
-  event: TVEvent,
+  event: TWEvent,
   sequence: Sequence,
 ): boolean {
   if (!event) return false;
   if (!sequence) return false;
 
-  const passedStartCheck = event.timeMs >= sequence.beginMs;
-  const passedEndCheck = !sequence.endMs ? true : event.timeMs <= sequence.endMs;
+  const passedStartCheck = event.twEventTimeMs >= sequence.beginMs;
+  const passedEndCheck = !sequence.endMs ? true : event.twEventTimeMs <= sequence.endMs;
   return passedStartCheck && passedEndCheck;
 }

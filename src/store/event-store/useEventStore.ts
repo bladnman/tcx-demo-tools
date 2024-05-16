@@ -1,18 +1,19 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { create } from 'zustand';
 import TelemetryFilter from '@classes/TelemetryFilter.ts';
 import { persist } from 'zustand/middleware';
 import initializeFilters from '@store/event-store/utils/initializeFilters.ts';
 
 export interface EventStore {
-  allEvents: TVEvent[];
+  allEvents: TWEvent[];
   filters: TelemetryFilter[];
   eventTypeFilter: string[];
   maxEventCount: number;
   sequences: Sequences;
 
   // timeline features
-  displayEvents: TVEvent[];
-  eventForDetails: TVEvent | null;
+  displayEvents: TWEvent[];
+  eventForDetails: TWEvent | null;
 }
 
 /**

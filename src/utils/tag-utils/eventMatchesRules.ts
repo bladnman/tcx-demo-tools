@@ -1,6 +1,7 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import eventMatchesClause from '@utils//tag-utils/eventMatchesClause.ts';
 
-export default function eventMatchesRules(event: TVEvent, allRules: TagMatchRule[]) {
+export default function eventMatchesRules(event: TWEvent, allRules: TagMatchRule[]) {
   if (!event) return false;
   if (!allRules || allRules.length < 1) return false;
 

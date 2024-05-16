@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { bindMenu, PopupState } from 'material-ui-popup-state/hooks';
 import { ListSubheader, Menu, Typography } from '@mui/material';
 import ContextMenuItem from '@common/context-menu/ContextMenuItem.tsx';
@@ -8,7 +9,7 @@ import { HStack } from '@common/mui-stacks.tsx';
 import actionDeleteAllEventsAfter from '@store/event-store/actions/actionDeleteAllEventsAfter.ts';
 import actionDeleteAllEventsBefore from '@store/event-store/actions/actionDeleteAllEventsBefore.ts';
 type ContextMenuProps = {
-  event?: TVEvent | null;
+  event?: TWEvent | null;
   popupState: PopupState;
 };
 export default function RowContextMenu({ event, popupState }: ContextMenuProps) {

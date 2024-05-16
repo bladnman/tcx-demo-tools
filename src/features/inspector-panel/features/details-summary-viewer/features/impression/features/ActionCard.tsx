@@ -1,12 +1,12 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import { Typography } from '@mui/material';
 import LabelRow from '@features/inspector-panel/features/details-summary-viewer/features/impression/features/parts/LabelRow.tsx';
-import getTvValue from '@utils/event-utils/getTvValue.ts';
+import { Typography } from '@mui/material';
 
-export default function ActionCard({ event }: { event: TVEvent }) {
-  const actionCardPrimaryMessage = getTvValue(event, 'actionCardPrimaryMessage');
-  const actionCardType = getTvValue(event, 'actionCardType');
-  const actionCardPosition = getTvValue(event, 'actionCardPosition');
+export default function ActionCard({ event }: { event: TWEvent }) {
+  const actionCardPrimaryMessage = event.getStr('actionCardPrimaryMessage');
+  const actionCardType = event.getStr('actionCardType');
+  const actionCardPosition = event.getStr('actionCardPosition');
 
   if (!actionCardType) return null;
 

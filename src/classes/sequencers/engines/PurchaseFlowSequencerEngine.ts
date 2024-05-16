@@ -1,7 +1,6 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { APP_NAMES } from '@const/APPS.ts';
 import { EVENT_TYPE_DEF, MajorClientEventTypes } from '@const/EVENT_TYPE.ts';
-import { getAppName, getLocationScene } from '@store/event-store/utils/event-utils.ts';
-import getTvValue from '@utils/event-utils/getTvValue.ts';
 import SequencerEngineBase from '../SequencerEngineBase.ts';
 
 class PurchaseFlowSequencerEngine extends SequencerEngineBase {
@@ -10,17 +9,17 @@ class PurchaseFlowSequencerEngine extends SequencerEngineBase {
     return PurchaseFlowSequencerEngine.sequenceType;
   }
 
-  protected doesEventBelongToSequence(_event: TVEvent, sequence: Sequence): boolean {
+  protected doesEventBelongToSequence(_event: TWEvent, sequence: Sequence): boolean {
     return this.isSequenceOpen(sequence);
   }
 
-  protected updateEventOrSequence(event: TVEvent, sequence: Sequence): void {
-    const eventApp = getAppName(event) ?? '(none)';
-    const eventLocation = getLocationScene(event) ?? '(none)';
+  protected updateEventOrSequence(event: TWEvent, sequence: Sequence): void {
+    const eventApp = event.appName ?? '(none)';
+    const eventLocation = event.getStr('locationScene', '(none)');
 
     // PURCHASE COMPLETED?
     if (
-      event.type === EVENT_TYPE_DEF.Navigation?.type &&
+      event.twType === EVENT_TYPE_DEF.Navigation?.type &&
       eventApp === APP_NAMES.UNIVERSAL_CHECKOUT &&
       eventLocation === 'checkout:purchase thank you'
     ) {
@@ -29,9 +28,9 @@ class PurchaseFlowSequencerEngine extends SequencerEngineBase {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected doesEventCloseSequence(event: TVEvent, _sequence: Sequence): boolean {
-    const eventApp = getAppName(event) ?? '(none)';
-    const eventLocation = getLocationScene(event) ?? '(none)';
+  protected doesEventCloseSequence(event: TWEvent, _sequence: Sequence): boolean {
+    const eventApp = event.appName ?? '(none)';
+    const eventLocation = event.getStr('locationScene', '(none)');
 
     // if game hub restarts, close the sequence
     if (eventApp === APP_NAMES.GAME_HUB) {
@@ -42,11 +41,11 @@ class PurchaseFlowSequencerEngine extends SequencerEngineBase {
       APP_NAMES.GAME_HUB,
       APP_NAMES.PS_PLUS_SVC_HUB,
       APP_NAMES.UNIVERSAL_CHECKOUT,
-    ].includes(getAppName(event) ?? '(none)');
+    ].includes(eventApp);
   }
 
   protected doesEventStartNewSequence(
-    event: TVEvent,
+    event: TWEvent,
     openSequences: Sequence[],
   ): boolean {
     // bail - already a sequence open
@@ -60,13 +59,13 @@ class PurchaseFlowSequencerEngine extends SequencerEngineBase {
      * - Others?
      */
 
-    const eventApp = getAppName(event) ?? '(none)';
-    const eventLocation = getLocationScene(event) ?? '(none)';
+    const eventApp = event.appName ?? '(none)';
+    const eventLocation = event.getStr('locationScene') ?? '(none)';
 
     // already in Universal Checkout? Start a sequence
     if (
       eventApp === APP_NAMES.UNIVERSAL_CHECKOUT &&
-      event.type === EVENT_TYPE_DEF.Startup?.type &&
+      event.twType === EVENT_TYPE_DEF.Startup?.type &&
       eventLocation !== 'Prelaunch'
     )
       return true;
@@ -76,7 +75,7 @@ class PurchaseFlowSequencerEngine extends SequencerEngineBase {
 
     if (eventApp === APP_NAMES.GAME_HUB) {
       // only with a purchase button
-      const ctaSubType = getTvValue(event, 'ctaSubType') ?? '';
+      const ctaSubType = event.getStr('ctaSubType', '');
       return ['add_to_cart', 'in_cart'].includes(ctaSubType as string);
     }
 
@@ -95,16 +94,15 @@ class PurchaseFlowSequencerEngine extends SequencerEngineBase {
   ];
   purchaseApps = [APP_NAMES.GAME_HUB, APP_NAMES.PS_PLUS_SVC_HUB, APP_NAMES.MONTE_CARLO];
   logicEventTypes = [...MajorClientEventTypes, 'Startup'];
-  protected isEventASequenceLogicType(event: TVEvent): boolean {
-    if (!this.logicEventTypes.includes(event.type)) return false;
+  protected isEventASequenceLogicType(event: TWEvent): boolean {
+    if (!this.logicEventTypes.includes(event.twType)) return false;
 
-    const eventApp = getAppName(event);
     // still want you to have an appName
-    if (!eventApp) return false;
+    const appName = event.appName;
+    if (!appName) return false;
 
     // some apps are not used in our logic
-    const isNonLogicApp = this.nonLogicApps.includes(eventApp);
-    return !isNonLogicApp;
+    return !this.nonLogicApps.includes(appName);
   }
 }
 export default PurchaseFlowSequencerEngine;

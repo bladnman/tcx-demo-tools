@@ -3,9 +3,9 @@ export function fieldDef(field: string) {
 }
 const FIELD_DEF: { [key: string]: FieldDefinition } = {
   type: {
-    field: 'type',
+    field: 'twType',
     title: 'Event Type',
-    paths: ['type'],
+    paths: ['twType'],
     filter: {
       isAvailable: true,
       isDefault: true,

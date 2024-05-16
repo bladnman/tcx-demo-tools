@@ -1,6 +1,7 @@
+import TWEvent from '@classes/data/TWEvent.ts';
+import initializeTagConfigs from '@store/settings-store/utils/initializeTagConfigs.ts';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import initializeTagConfigs from '@store/settings-store/utils/initializeTagConfigs.ts';
 
 export interface StoreAction {
   state: SettingsStore;
@@ -41,7 +42,7 @@ export interface SettingsStore {
   mockIsPaused: boolean;
 
   // import/export features
-  importingEvents: TVEvent[] | null;
+  importingEvents: TWEvent[] | null;
   importingSequences: Sequences | null;
   isImportDialogOpen: boolean;
   isImportingData: boolean;
@@ -89,9 +90,9 @@ const useSettingsStore = create<SettingsStore>()(
       connectToTCxName: null,
 
       // mock settings
-      mockBatchSize: 3,
+      mockBatchSize: 1,
       mockBatchDelayMs: 400,
-      mockAutoPause: false,
+      mockAutoPause: true,
       mockIsPaused: true,
 
       // import/export features

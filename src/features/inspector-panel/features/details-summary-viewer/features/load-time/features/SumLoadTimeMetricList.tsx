@@ -1,13 +1,13 @@
-import { useMemo } from 'react';
-import { getLoadTimeDetails } from '@utils//getLoadTimeDetails.ts';
 import { HStack, VStack } from '@common/mui-stacks.tsx';
+import { SummaryVisualizationProps } from '@features/inspector-panel/features/details-summary-viewer/types';
+import useEventColor from '@hooks/useEventColor.ts';
 import { Typography } from '@mui/material';
-import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import { EventTypes } from '@const/event-types.ts';
+import { getLoadTimeDetails } from '@utils//getLoadTimeDetails.ts';
 import formatMilliseconds from '@utils/formatMilliseconds.ts';
+import { useMemo } from 'react';
 
 export default function SumLoadTimeMetricList({ event }: SummaryVisualizationProps) {
-  const eventColor = EVENT_TYPE_DEF[event.type as EventTypes].color;
+  const eventColor = useEventColor(event);
   const { metrics } = useMemo(() => {
     const data = getLoadTimeDetails(event);
     if (!data?.metrics.length) return { metrics: [] };
@@ -27,7 +27,7 @@ export default function SumLoadTimeMetricList({ event }: SummaryVisualizationPro
         const isTti = metric.metric.includes('imeToInteractive');
         return (
           <VStack
-            key={`${event.id}${metric.metric}${metric.latency}${idx}`}
+            key={`${event.twId}${metric.metric}${metric.latency}${idx}`}
             hFill
             left
             spacing={0}
@@ -60,6 +60,7 @@ export default function SumLoadTimeMetricList({ event }: SummaryVisualizationPro
               <HStack
                 left
                 hFill
+                spaceBetween
                 sx={{
                   overflow: 'hidden',
                 }}
@@ -70,20 +71,13 @@ export default function SumLoadTimeMetricList({ event }: SummaryVisualizationPro
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
+                    flexShrink: 0,
                   }}
                   title={metric.metric}
                 >
                   {metric.metric}
                 </Typography>
-              </HStack>
-              <HStack
-                right
-                sx={
-                  {
-                    // overflow: 'hidden',
-                  }
-                }
-              >
+
                 {metric.metricSegment && (
                   <Typography
                     sx={{
@@ -92,6 +86,7 @@ export default function SumLoadTimeMetricList({ event }: SummaryVisualizationPro
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
+                      flexShrink: 1,
                     }}
                   >
                     {metric.metricSegment}

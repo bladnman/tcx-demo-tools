@@ -1,6 +1,8 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import CollapsableContainer from '@common/CollapsableContainer.tsx';
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 import CONST from '@const/CONST.ts';
+import DetailNotesViewer from '@features/inspector-panel/features/detail-notes-viewer/DetailNotesViewer.tsx';
 import useDetailTabs from '@features/inspector-panel/features/details-nav-stack/hooks/useDetailTabs.ts';
 import DetailsSummaryViewer from '@features/inspector-panel/features/details-summary-viewer/DetailsSummaryViewer.tsx';
 import SummaryEventDiffs from '@features/inspector-panel/features/details-summary-viewer/features/event-diffs/SummaryEventDiffs.tsx';
@@ -12,7 +14,7 @@ import { Tab, Tabs, Typography } from '@mui/material';
 import actionSetDetailsActiveTab from '@store/settings-store/actions/actionSetDetailsActiveTab.ts';
 import React, { useRef } from 'react';
 
-export default function DetailsNavStack({ event }: { event: TVEvent }) {
+export default function DetailsNavStack({ event }: { event: TWEvent }) {
   const hasNotes = event.hasFailures;
   const vStackRef = useRef(null);
   const isScrolled = useScrollAwareness(vStackRef);
@@ -23,8 +25,7 @@ export default function DetailsNavStack({ event }: { event: TVEvent }) {
     );
   };
 
-  const { tabIndex, isRawTab, isNotesTab, isSummaryTab, hasSummary } =
-    useDetailTabs(event);
+  const { tabIndex, isRawTab, isNotesTab } = useDetailTabs(event);
 
   const renderTitle = (title: string) => {
     return (
@@ -77,9 +78,8 @@ export default function DetailsNavStack({ event }: { event: TVEvent }) {
           icon={<SummarizeIcon />}
           label="DATA"
           sx={{
-            opacity: hasSummary ? 1 : 0.5,
+            opacity: isRawTab ? 1 : 0.5,
           }}
-          disabled={!hasSummary}
         />
         <Tab
           icon={<SpeakerNotesIcon />}
@@ -93,8 +93,8 @@ export default function DetailsNavStack({ event }: { event: TVEvent }) {
       </Tabs>
 
       <VStack topLeft hFill ref={vStackRef} sx={{ px: 2, pt: 2, overflow: 'auto' }}>
-        {(isSummaryTab || isRawTab) && renderData()}
-        {isNotesTab && <EventRawViewer event={event} />}
+        {isRawTab && renderData()}
+        {isNotesTab && <DetailNotesViewer event={event} />}
       </VStack>
     </VStack>
   );

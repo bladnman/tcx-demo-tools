@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import EventToken from '@common/event-token/EventToken.tsx';
 import { HStack } from '@common/mui-stacks';
 import { SxProps } from '@mui/material';
@@ -5,10 +6,10 @@ import EventTimeDisplay from '@pages/timeline/features/main-body/features/timeli
 import React, { useMemo } from 'react';
 
 interface TelemetryRowProps {
-  event: TVEvent;
+  event: TWEvent;
   selected?: boolean;
   onClick?: (id: string) => void;
-  onContextClick?: (e: React.MouseEvent, event: TVEvent) => void;
+  onContextClick?: (e: React.MouseEvent, event: TWEvent) => void;
   rowSx?: SxProps;
   tokenSx?: SxProps;
 }
@@ -36,7 +37,7 @@ export default function TelemetryRow(props: TelemetryRowProps) {
             backgroundColor: selected ? 'primary.main' : 'transparent',
             ...rowSx,
           }}
-          onClick={() => onClick?.(event.id)}
+          onClick={() => onClick?.(event.twId)}
           data-id={'telemetry-row'}
           onContextMenu={(e) => {
             e.preventDefault();

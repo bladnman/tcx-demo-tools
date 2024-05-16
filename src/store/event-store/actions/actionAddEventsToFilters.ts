@@ -1,7 +1,8 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import applyFilters from '@utils//filter-utils/applyFilters.ts';
 import useEventStore from '@store/event-store/useEventStore.ts';
 
-export default function actionAddEventsToFilters(events: TVEvent[]) {
+export default function actionAddEventsToFilters(events: TWEvent[]) {
   const { displayEvents, filters, maxEventCount } = useEventStore.getState();
 
   //

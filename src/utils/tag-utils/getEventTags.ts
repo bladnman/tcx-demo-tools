@@ -1,11 +1,12 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import eventMatchesRules from '@utils//tag-utils/eventMatchesRules.ts';
 
 export default function getEventTags(
-  event: TVEvent,
+  event: TWEvent,
   tagConfigs: TagConfig[],
-): TagConfig[] {
-  if (!event) return [];
-  if (!tagConfigs) return [];
+): TagConfig[] | undefined {
+  if (!event) return undefined;
+  if (!tagConfigs) return undefined;
 
   const tags: TagConfig[] = [];
   tagConfigs.forEach((tagConfig) => {
@@ -15,5 +16,5 @@ export default function getEventTags(
     }
   });
 
-  return tags;
+  return tags.length ? tags : undefined;
 }

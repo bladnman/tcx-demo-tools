@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
 import isEventWithinSequenceTime from '@utils/event-utils/isEventWithinSequenceTime.ts';
 import uuid from 'react-uuid';
@@ -28,7 +29,7 @@ abstract class SequencerEngineBase {
    * If an event is not valid for the engine,
    * it will be ignored and not processed in any way.
    */
-  protected abstract isEventASequenceLogicType(event: TVEvent): boolean;
+  protected abstract isEventASequenceLogicType(event: TWEvent): boolean;
 
   /**
    * The engine can determine if an event belongs to a sequence.
@@ -41,12 +42,12 @@ abstract class SequencerEngineBase {
    * "end" event. This all depends on the engine's logic.
    */
   protected abstract doesEventBelongToSequence(
-    event: TVEvent,
+    event: TWEvent,
     sequence: Sequence,
   ): boolean;
-  protected abstract doesEventCloseSequence(event: TVEvent, sequence: Sequence): boolean;
+  protected abstract doesEventCloseSequence(event: TWEvent, sequence: Sequence): boolean;
   protected abstract doesEventStartNewSequence(
-    event: TVEvent,
+    event: TWEvent,
     openSequences: Sequence[],
   ): boolean;
 
@@ -65,27 +66,27 @@ abstract class SequencerEngineBase {
    */
   // @ts-expect-error - unused parameter
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected updateEventOrSequence(event: TVEvent, sequence: Sequence): void {
+  protected updateEventOrSequence(event: TWEvent, sequence: Sequence): void {
     // noop
   }
   // @ts-expect-error - unused parameter
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected updateNewSequence(event: TVEvent, sequence: Sequence): void {
+  protected updateNewSequence(event: TWEvent, sequence: Sequence): void {
     // noop
   }
   // @ts-expect-error - unused parameter
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected updateCompletedSequence(event: TVEvent, sequence: Sequence): void {
+  protected updateCompletedSequence(event: TWEvent, sequence: Sequence): void {
     // noop
   }
-  protected startNewSequence(event: TVEvent): Sequence {
+  protected startNewSequence(event: TWEvent): Sequence {
     const key = uuid();
     const newSequence: Sequence = {
       name: `${this.sequenceType} ${this.sequenceList.length + 1}`,
       id: key,
       sequenceType: this.sequenceType,
-      beginMs: event.timeMs,
-      beginEventId: event.id,
+      beginMs: event.twEventTimeMs,
+      beginEventId: event.twId,
       eventCount: 0,
       engine: {},
 
@@ -115,7 +116,7 @@ abstract class SequencerEngineBase {
     return !sequence.endEventId;
   }
   private static instances: Map<string, SequencerEngineBase> = new Map();
-  private processLogicEvent(event: TVEvent): void {
+  private processLogicEvent(event: TWEvent): void {
     /**
      * LOGIC EVENTS
      *
@@ -147,7 +148,7 @@ abstract class SequencerEngineBase {
       this.startNewSequence(event); // also adds event to sequence
     }
   }
-  private processNonLogicEvent(event: TVEvent): void {
+  private processNonLogicEvent(event: TWEvent): void {
     /**
      * NON-LOGIC EVENTS
      *
@@ -164,44 +165,46 @@ abstract class SequencerEngineBase {
       this.callEngineToUpdateEvent(event, sequence);
     });
   }
-  private callEngineToUpdateEvent(event: TVEvent, sequence: Sequence): void {
+  private callEngineToUpdateEvent(event: TWEvent, sequence: Sequence): void {
     if (!this.doesEventBelongToSequence(event, sequence)) return;
 
     sequence.eventCount++;
 
     // keep track of some sequence properties
     sequence.hasAppErrors =
-      sequence.hasAppErrors || event.type === EVENT_TYPE_DEF.ApplicationError?.type;
+      sequence.hasAppErrors || event.twType === EVENT_TYPE_DEF.ApplicationError?.type;
     sequence.hasNetErrors =
-      sequence.hasNetErrors || event.type === EVENT_TYPE_DEF.NetworkError?.type;
+      sequence.hasNetErrors || event.twType === EVENT_TYPE_DEF.NetworkError?.type;
 
     // ALREADY CLOSED
     // when we find "escapees" (events that belong but show up
     // after the sequence has closed), we need to update the sequence
     // to this event as the close event
     if (!this.isSequenceOpen(sequence)) {
-      sequence.endEventId = event.id;
-      sequence.endMs = event.timeMs;
+      sequence.endEventId = event.twId;
+      sequence.endMs = event.twEventTimeMs;
     }
 
     // OPEN SEQUENCE
     else {
       // update the sequence last time
       const prevUpdateMs = sequence.lastUpdateMs ?? sequence.beginMs ?? 0;
-      sequence.lastUpdateMs = prevUpdateMs > event.timeMs ? prevUpdateMs : event.timeMs;
+      sequence.lastUpdateMs =
+        prevUpdateMs > event.twEventTimeMs ? prevUpdateMs : event.twEventTimeMs;
       sequence.durationMs = sequence.lastUpdateMs - sequence.beginMs;
     }
 
-    event.sequenceData = (event.sequenceData ?? {}) as EventSequenceData;
-    event.sequenceData[this.sequenceType] = event.sequenceData[this.sequenceType] ?? [];
-    event.sequenceData[this.sequenceType].push(sequence.id);
+    event.twSequenceData = event.twSequenceData ?? {};
+    event.twSequenceData[this.sequenceType] =
+      event.twSequenceData[this.sequenceType] ?? [];
+    event.twSequenceData[this.sequenceType].push(sequence.id);
 
     // allow the engine to update the event or sequence
     this.updateEventOrSequence(event, sequence);
   }
-  private closeSequence(event: TVEvent, sequence: Sequence) {
-    sequence.endMs = event.timeMs;
-    sequence.endEventId = event.id;
+  private closeSequence(event: TWEvent, sequence: Sequence) {
+    sequence.endMs = event.twEventTimeMs;
+    sequence.endEventId = event.twId;
     sequence.durationMs = sequence.endMs - sequence.beginMs;
     this.updateCompletedSequence(event, sequence); // allow engine to update sequence
 
@@ -233,7 +236,7 @@ abstract class SequencerEngineBase {
   /**
    * MAIN PROCESSING METHOD
    */
-  public processEvents(events: TVEvent[], sequenceList: Sequence[]): Sequence[] {
+  public processEvents(events: TWEvent[], sequenceList: Sequence[]): Sequence[] {
     this.sequenceList = [...sequenceList];
     this.isDirty = false;
 
@@ -261,7 +264,7 @@ abstract class SequencerEngineBase {
         this.processLogicEvent(event);
       }
 
-      this.lastEventTimeMs = event.timeMs;
+      this.lastEventTimeMs = event.twEventTimeMs;
     });
 
     // NO CHANGES - return the original list

@@ -1,7 +1,8 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import useSummaryComponent from '@features/inspector-panel/features/details-summary-viewer/hooks/useSummaryComponent.ts';
 import { VStack } from '@common/mui-stacks.tsx';
 
-export default function DetailsSummaryViewer({ event }: { event: TVEvent }) {
+export default function DetailsSummaryViewer({ event }: { event: TWEvent }) {
   const SummaryComponent = useSummaryComponent(event);
   if (!SummaryComponent) return null;
 

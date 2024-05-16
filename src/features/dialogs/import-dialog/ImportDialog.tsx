@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 import { loadEventsFromFiles } from '@dialogs/app-drop-dialog/utils/loadEventsFromFiles.ts';
 import CallMergeIcon from '@mui/icons-material/CallMerge';
@@ -47,7 +48,7 @@ export default function ImportDialog() {
     doImport(importingEvents, false);
   };
   const doImport = useCallback(
-    (events: TVEvent[] | null, isMerge = false) => {
+    (events: TWEvent[] | null, isMerge = false) => {
       if (!events) return;
 
       // CLEAR SEQUENCES

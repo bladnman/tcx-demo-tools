@@ -1,14 +1,15 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
+import { EventTypes } from '@const/event-types.ts';
+import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
+import { SummaryVisualizationProps } from '@features/inspector-panel/features/details-summary-viewer/types';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import { Button, Typography } from '@mui/material';
+import { useAllEvents } from '@store/event-store/useEventStore.ts';
 import { getPreviousItems } from '@utils//telemetry-utils.ts';
 import { useMemo, useState } from 'react';
-import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import { EventTypes } from '@const/event-types.ts';
-import { useAllEvents } from '@store/event-store/useEventStore.ts';
-import getObjectValueFromFieldDef from '@utils//object-value-utils/getObjectValueFromFieldDef.ts';
+
 export default function SumHistoryLastX({
   event,
   x = 6,
@@ -17,7 +18,7 @@ export default function SumHistoryLastX({
   const allEvents = useAllEvents();
   const previousNavEvents = useMemo(() => {
     return getPreviousItems(allEvents, event).filter(
-      (event) => event.type === 'Navigation' || event.type === 'Interaction',
+      (event) => event.twType === 'Navigation' || event.twType === 'Interaction',
     );
     // intentionally omitting allEvents from deps
     // no need to recalculate when we get newer events
@@ -45,7 +46,7 @@ export default function SumHistoryLastX({
         )}
       </HStack>
       {lastXEvents.map((prevEvent, idx) => {
-        const eventColor = EVENT_TYPE_DEF[prevEvent.type as EventTypes].color;
+        const eventColor = EVENT_TYPE_DEF[prevEvent.twType as EventTypes]?.color ?? 'fg';
         const appSx = {
           fontSize: '0.75em',
           whiteSpace: 'nowrap',
@@ -56,12 +57,11 @@ export default function SumHistoryLastX({
           fontSize: '0.75em',
         };
 
-        const appName = getObjectValueFromFieldDef(prevEvent, FIELD_DEF.appName);
-        const description = getObjectValueFromFieldDef(
-          prevEvent,
-          prevEvent.type === 'Navigation'
-            ? FIELD_DEF.locationScene
-            : FIELD_DEF.interactAction,
+        const appName = prevEvent.appName;
+        const description = prevEvent.getStr(
+          prevEvent.twType === 'Navigation'
+            ? FIELD_DEF.locationScene.paths
+            : FIELD_DEF.interactAction.paths,
         );
 
         const isLast = idx === lastXEvents.length - 1;
@@ -70,7 +70,7 @@ export default function SumHistoryLastX({
             hFill
             topLeft
             sx={{ pl: 0, fontWeight: isLast ? 'bold' : 'normal' }}
-            key={prevEvent.id}
+            key={prevEvent.twId}
           >
             <Typography
               sx={{

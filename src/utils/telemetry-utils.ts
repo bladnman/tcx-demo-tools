@@ -1,7 +1,7 @@
 export function includesAny(str: string, substrings: string[], caseSensitive = true) {
-  if (caseSensitive) return substrings.some((substring) => str.includes(substring));
+  if (caseSensitive) return substrings.some((substring) => str?.includes(substring));
   return substrings.some((substring) =>
-    str.toLowerCase().includes(substring.toLowerCase()),
+    str?.toLowerCase().includes(substring.toLowerCase()),
   );
 }
 
@@ -22,13 +22,6 @@ export function getSimpleSceneName(fromValue: string | undefined | null): string
 
   // otherwise just the value
   return fromValue;
-}
-export function getValueFromEvent(event: TVEvent, field: string) {
-  const clientEvent = event?.clientEvent ?? {};
-  const firstDispatched = event?.dispatchedEvents?.[0] ?? {};
-  const inputEvent = (firstDispatched as Hash).inputEvent ?? {};
-  const filteredEvent = (firstDispatched as Hash).filteredEvent ?? {};
-  return getFromFirst([clientEvent, inputEvent, filteredEvent], field);
 }
 export function getFromFirst(objects: Hash[], field: string) {
   for (const obj of objects) {

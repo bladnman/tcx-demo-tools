@@ -1,7 +1,8 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { getEventDef } from '@utils//event-utils/getEventDef.ts';
 import { getLoadTimeDetails } from '@utils//getLoadTimeDetails.ts';
 
-export default function getDescLoadTime(event: TVEvent) {
+export default function getDescLoadTime(event: TWEvent) {
   const eventDef = getEventDef(event);
 
   const loadTimeData = getLoadTimeDetails(event);

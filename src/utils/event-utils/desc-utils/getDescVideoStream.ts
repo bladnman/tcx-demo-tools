@@ -1,32 +1,24 @@
-import { getEventDef } from '@utils//event-utils/getEventDef.ts';
+import TWEvent from '@classes/data/TWEvent.ts';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
+import { getEventDef } from '@utils//event-utils/getEventDef.ts';
 import formatMilliseconds from '@utils/formatMilliseconds.ts';
-import getObjectValueFromFieldDef from '@utils//object-value-utils/getObjectValueFromFieldDef.ts';
-import getTvValue from '@utils//event-utils/getTvValue.ts';
 
-export default function getDescVideoStream(event: TVEvent) {
+export default function getDescVideoStream(event: TWEvent) {
   const eventDef = getEventDef(event);
 
-  let highlight = getObjectValueFromFieldDef(event, FIELD_DEF.videoEventType);
+  let highlight = event.getStr(FIELD_DEF.videoEventType.paths);
   if (highlight === 'Progress') {
-    const videoProgressType = getObjectValueFromFieldDef(
-      event,
-      FIELD_DEF.videoProgressType,
-    );
-    const lastSentQuartile = getObjectValueFromFieldDef(
-      event,
-      FIELD_DEF.lastSentQuartile,
-    );
+    const videoProgressType = event.getStr(FIELD_DEF.videoProgressType.paths);
+    const lastSentQuartile = event.getStr(FIELD_DEF.lastSentQuartile.paths);
     const quartile = videoProgressType ? videoProgressType : `Q${lastSentQuartile}`;
     highlight += ` - ${quartile}`;
   }
 
-  const videoTitle =
-    getObjectValueFromFieldDef(event, FIELD_DEF.videoTitle) ?? '(no title)';
-  let elapsedTime = getObjectValueFromFieldDef(event, FIELD_DEF.elapsedTime) ?? 0;
+  const videoTitle = event.getStr(FIELD_DEF.videoTitle.paths) ?? '(no title)';
+  let elapsedTime = event.getStr(FIELD_DEF.elapsedTime.paths) ?? 0;
   elapsedTime = formatMilliseconds((elapsedTime as number) * 1000);
 
-  const videoEventType = getTvValue(event, FIELD_DEF.videoEventType.paths);
+  const videoEventType = event.getStr(FIELD_DEF.videoEventType.paths);
   let color = `${eventDef.color}.main`;
   switch (videoEventType) {
     case 'Start':

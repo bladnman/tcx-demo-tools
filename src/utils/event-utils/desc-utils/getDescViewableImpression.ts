@@ -1,11 +1,11 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
-import getTvValue from '@utils//event-utils/getTvValue.ts';
-import { formatTvValueList } from '@utils//event-utils/formatTvValue.ts';
+import { formatTWValueList } from '@utils/event-utils/formatTWValue.ts';
 
-export default function getDescViewableImpression(event: TVEvent) {
-  const highlight = getTvValue(event, FIELD_DEF.visualEntityType.paths);
+export default function getDescViewableImpression(event: TWEvent) {
+  const highlight = event.getStr(FIELD_DEF.visualEntityType.paths);
 
-  const message = formatTvValueList(event, [
+  const message = formatTWValueList(event, [
     {
       path: FIELD_DEF.interactCta.paths,
     },

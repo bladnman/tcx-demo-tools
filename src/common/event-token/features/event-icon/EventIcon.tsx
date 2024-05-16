@@ -1,14 +1,5 @@
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import TouchAppIcon from '@mui/icons-material/TouchApp';
-import TimerIcon from '@mui/icons-material/Timer';
-import FlagIcon from '@mui/icons-material/Flag';
-import NearbyErrorIcon from '@mui/icons-material/NearbyError';
-import SignalWifiStatusbarConnectedNoInternet4Icon from '@mui/icons-material/SignalWifiStatusbarConnectedNoInternet4';
-import AssistantDirectionIcon from '@mui/icons-material/AssistantDirection';
+import TWEvent from '@classes/data/TWEvent.ts';
 import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import { getEventDef } from '@utils//event-utils/getEventDef.ts';
-import getTvValue from '@utils//event-utils/getTvValue.ts';
 import {
   mdiAlert,
   mdiCheck,
@@ -21,12 +12,21 @@ import {
   mdiStop,
 } from '@mdi/js';
 import Icon from '@mdi/react';
+import AssistantDirectionIcon from '@mui/icons-material/AssistantDirection';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import FlagIcon from '@mui/icons-material/Flag';
+import NearbyErrorIcon from '@mui/icons-material/NearbyError';
+import SignalWifiStatusbarConnectedNoInternet4Icon from '@mui/icons-material/SignalWifiStatusbarConnectedNoInternet4';
+import TimerIcon from '@mui/icons-material/Timer';
+import TouchAppIcon from '@mui/icons-material/TouchApp';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { getEventDef } from '@utils//event-utils/getEventDef.ts';
 
 export default function EventIcon({
   event,
   fontSize = '1em',
 }: {
-  event: TVEvent;
+  event: TWEvent;
   fontSize?: string;
 }) {
   const eventDef = getEventDef(event);
@@ -55,7 +55,7 @@ export default function EventIcon({
       // @ts-expect-error - forcing em as fontSize, this allows the icon to scale with the font size
       return <TimerIcon fontSize={fontSize} />;
     case EVENT_TYPE_DEF.VideoStream:
-      const videoEventType = getTvValue(event, 'videoEventType');
+      const videoEventType = event.getStr('videoEventType');
       if (videoEventType) {
         switch ((videoEventType as string).toLowerCase()) {
           case 'start':

@@ -1,19 +1,18 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
+import { SummaryVisualizationProps } from '@features/inspector-panel/features/details-summary-viewer/types';
+import useEventColor from '@hooks/useEventColor.ts';
 import ForwardIcon from '@mui/icons-material/Forward';
 import { Typography } from '@mui/material';
-import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import getObjectValueFromFieldDef from '@utils//object-value-utils/getObjectValueFromFieldDef.ts';
 
 export default function SumNavFromTo({ event }: SummaryVisualizationProps) {
-  const eventColor = EVENT_TYPE_DEF['Navigation'].color;
+  const eventColor = useEventColor(event);
 
-  console.log(`[🐽](SumNavFromTo) FIELD_DEF`, FIELD_DEF);
   return (
     <HStack hFill sx={{ pt: 2 }} top>
       <LocationView
-        appName={getObjectValueFromFieldDef(event, FIELD_DEF.referrerApplicationName)}
-        location={getObjectValueFromFieldDef(event, FIELD_DEF.referrerScene)}
+        appName={event.appName}
+        location={event.getStr(FIELD_DEF.referrerScene.paths)}
       />
       <ForwardIcon
         sx={{
@@ -24,7 +23,7 @@ export default function SumNavFromTo({ event }: SummaryVisualizationProps) {
       />
       <LocationView
         appName={event.appName}
-        location={getObjectValueFromFieldDef(event, FIELD_DEF.locationScene)}
+        location={event.getStr(FIELD_DEF.locationScene.paths)}
         color={'secondary.main'}
       />
     </HStack>

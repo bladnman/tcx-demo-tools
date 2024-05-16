@@ -5,7 +5,7 @@ export default function actionToggleEventForDetailsById(id?: string | null) {
   const { eventForDetails } = useEventStore.getState();
 
   // DESELECT - the event is already selected, deselect it
-  if (!id || eventForDetails?.id === id) {
+  if (!id || eventForDetails?.twId === id) {
     actionSetEventForDetailsById(null);
   }
 

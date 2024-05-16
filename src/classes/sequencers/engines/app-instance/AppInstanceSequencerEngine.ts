@@ -1,13 +1,8 @@
-import {
-  getAppName,
-  getLocationScene,
-  getAppInstanceId,
-} from '@store/event-store/utils/event-utils.ts';
-import isEventWithinSequenceTime from '@utils/event-utils/isEventWithinSequenceTime.ts';
-import SequencerEngineBase from '../../SequencerEngineBase.ts';
-import getTvValue from '@utils/event-utils/getTvValue.ts';
+import TWEvent from '@classes/data/TWEvent.ts';
 import { HubAppNames, MajorClientEventTypes } from '@const/EVENT_TYPE.ts';
+import isEventWithinSequenceTime from '@utils/event-utils/isEventWithinSequenceTime.ts';
 import { fLeft, fLeftBack } from '@utils/MU.ts';
+import SequencerEngineBase from '../../SequencerEngineBase.ts';
 
 class AppInstanceSequencerEngine extends SequencerEngineBase {
   static sequenceType: SequenceType = 'appInstance';
@@ -16,22 +11,25 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
   }
 
   logicEventTypes = [...MajorClientEventTypes, 'Startup'];
-  getEventSequenceName(event: TVEvent): string {
+  getEventSequenceName(event: TWEvent): string {
     return this.sourceName(event);
   }
-  isEventASequenceLogicType(event: TVEvent): boolean {
-    if (!this.logicEventTypes.includes(event.type)) return false;
+  isEventASequenceLogicType(event: TWEvent): boolean {
+    if (!this.logicEventTypes.includes(event.twType)) return false;
     // still want you to have an appName
     return !!event.appName && event.appName !== '';
   }
-  doesEventCloseSequence(event: TVEvent, sequence: Sequence): boolean {
+  doesEventCloseSequence(event: TWEvent, sequence: Sequence): boolean {
     // if the sequence is already closed, don't close it again
     if (!this.isSequenceOpen(sequence)) return false;
 
-    const eventApp = event.appName as string;
+    const eventApp = event.appName;
     const sequenceApp = sequence.engine.appName as string;
-    const eventAppInstanceId = getAppInstanceId(event);
+    const eventAppInstanceId = event.getStr('appInstanceId');
     const sameApp = eventApp === sequenceApp;
+
+    // must have an eventApp
+    if (!eventApp) return false;
 
     // using real event.appInstanceId
     // if same appName, but different appInstanceId, close the sequence
@@ -43,7 +41,7 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
     // Never close an action card sequence
     if (sequenceApp === 'action-card-host-app') {
       // unless it's a startup event
-      return event.type === 'Startup';
+      return event.twType === 'Startup';
     }
 
     // !Action Cards never disrupt sequences
@@ -81,13 +79,13 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
     // if app-name changes, close the sequence
     return eventApp !== sequenceApp;
   }
-  doesEventStartNewSequence(event: TVEvent, openSequences: Sequence[]): boolean {
+  doesEventStartNewSequence(event: TWEvent, openSequences: Sequence[]): boolean {
     // don't start a new sequence if the appInstanceId was already used
     if (this.doesSeqExistForEventAppInstanceId(event)) return false;
 
     // otherwise, let's look through the sequences to see if this event is part of any of them
     const matchingSequences = openSequences.filter((sequence) => {
-      const appInstanceId = getAppInstanceId(event);
+      const appInstanceId = event.getStr('appInstanceId');
       if (appInstanceId) return appInstanceId === sequence.id;
 
       return event.appName === sequence.engine.appName;
@@ -95,7 +93,7 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
 
     return matchingSequences.length < 1;
   }
-  updateNewSequence(event: TVEvent, sequence: Sequence): void {
+  updateNewSequence(event: TWEvent, sequence: Sequence): void {
     // engineCode is the appName
     // this is used later to determine if an event "belongs" to a sequence
     sequence.name = this.getEventSequenceName(event);
@@ -111,12 +109,12 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
 
     this.isDirty = true;
   }
-  doesEventBelongToSequence(event: TVEvent, sequence: Sequence): boolean {
+  doesEventBelongToSequence(event: TWEvent, sequence: Sequence): boolean {
     // App Instance only applied to "client" events, which all have appName
     if (!event.appName) return false;
 
     // event has an appInstanceId (special case)
-    const appInstanceId = getTvValue(event, 'appInstanceId') as string | undefined;
+    const appInstanceId = event.getStr('appInstanceId');
     if (appInstanceId) {
       return appInstanceId === sequence.id;
     }
@@ -134,7 +132,7 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
     if (!isEventWithinSequenceTime(event, sequence)) return false;
     return event.appName === sequence.engine.appName;
   }
-  updateEventOrSequence(event: TVEvent, sequence: Sequence): void {
+  updateEventOrSequence(event: TWEvent, sequence: Sequence): void {
     if (event.appName === sequence.engine.appName) {
       // startup events in GH have a location of "init"
       // and these often are the first event in a sequence
@@ -150,11 +148,11 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
    * ENGINE SPECIFIC METHODS
    */
   // TODO: this seems like it's doing too much
-  private getEventAppInstanceId(event: TVEvent): string | undefined {
-    const appInstanceId = getTvValue(event, 'appInstanceId') as string | undefined;
+  private getEventAppInstanceId(event: TWEvent): string | undefined {
+    const appInstanceId = event.getStr('appInstanceId');
     if (appInstanceId) return appInstanceId;
 
-    const appName = getAppName(event);
+    const appName = event.appName;
     if (!appName) return undefined;
 
     /**
@@ -163,7 +161,7 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
      * In this case we will look for that last open game-hub
      * sequence and use its appInstanceId (or undefined).
      */
-    if (event.type === 'ViewableImpressionCollection' && appName === 'game-hub') {
+    if (event.twType === 'ViewableImpressionCollection' && appName === 'game-hub') {
       const openGameHubSequence = this.getOpenSequences()
         .reverse()
         .find((sequence) => sequence.engine.appName === 'game-hub');
@@ -182,8 +180,8 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
    * But it prevents out-of-order events from creating new sequences
    * when they should not.
    */
-  private doesSeqExistForEventAppInstanceId(event: TVEvent): boolean {
-    const appInstanceId = getAppInstanceId(event);
+  private doesSeqExistForEventAppInstanceId(event: TWEvent): boolean {
+    const appInstanceId = event.getStr('appInstanceId');
 
     // if it doesn't have an appInstanceId, then we don't care
     if (!appInstanceId) return false;
@@ -197,16 +195,11 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
    * This is simply the app label for many apps. But for some
    * there are better names to use.
    */
-  private sourceName(event: TVEvent): string {
-    let appName = getAppName(event) ?? '(none)';
-    const platformType = getTvValue(event, 'platformType') as string | undefined;
+  private sourceName(event: TWEvent): string {
+    let appName = event.appName ?? '(none)';
+    const platformType = event.getStr('platformType');
     if (platformType === 'mobile') {
-      const mobileFeatureArea = getTvValue(
-        event,
-        'mobileFeatureArea',
-        '(none)',
-      ) as string;
-      appName = `${appName}: ${mobileFeatureArea}`;
+      appName = `${appName}: ${event.getStr('mobileFeatureArea', '(none)')}`;
     }
 
     if (
@@ -220,9 +213,9 @@ class AppInstanceSequencerEngine extends SequencerEngineBase {
     return appName;
   }
   // NAME HELPERS
-  private getAppLocationName(event: TVEvent): string {
-    const appName = getAppName(event) ?? '(none)';
-    let locationScene = getLocationScene(event) ?? '(none)';
+  private getAppLocationName(event: TWEvent): string {
+    const appName = event.appName ?? '(none)';
+    let locationScene = event.getStr('locationScene', '(none)');
 
     if (appName === 'monte-carlo') {
       locationScene = fLeftBack(locationScene, ':');

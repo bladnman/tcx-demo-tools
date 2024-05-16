@@ -1,9 +1,10 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import useEventStore from '@store/event-store/useEventStore.ts';
 import getNewUpdateExistingEvents from '@utils//event-utils/getNewUpdateExistingEvents.ts';
 import { actionSetAllEventsAndRecalculateFilters } from '@store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
 import actionAddEventsToFilters from '@store/event-store/actions/actionAddEventsToFilters.ts';
 
-export default function actionAddEvents(events: TVEvent[]) {
+export default function actionAddEvents(events: TWEvent[]) {
   if (!events) return;
   if (!events.length) return;
 
@@ -33,7 +34,7 @@ export default function actionAddEvents(events: TVEvent[]) {
   else {
     // new array since we will sort it
     const newAllEvents = [...allEvents, ...newEvents];
-    newAllEvents.sort((a, b) => a.timeMs - b.timeMs);
+    newAllEvents.sort((a, b) => a.twEventTimeMs - b.twEventTimeMs);
 
     // SET ALL EVENTS
     useEventStore.setState({ allEvents: newAllEvents });

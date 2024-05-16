@@ -1,4 +1,4 @@
-import getTvValue from '@utils//event-utils/getTvValue.ts';
+import TWEvent from '@classes/data/TWEvent.ts';
 
 type TraceSpanTag = { key: string; value: string };
 export type TraceSpanTagStruct = {
@@ -12,9 +12,9 @@ export type TraceSpanTagStruct = {
   errorMessage?: string;
   flow?: string;
 };
-export default function getTraceSpanTagStruct(event: TVEvent): TraceSpanTagStruct | null {
-  const type = getTvValue(event, 'type');
-  const tags = getTvValue(event, 'tags');
+export default function getTraceSpanTagStruct(event: TWEvent): TraceSpanTagStruct | null {
+  const type = event.getStr('type');
+  const tags = event.getStr('tags');
 
   if (type !== 'TraceSpan') return null;
   if (!Array.isArray(tags)) return null;

@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import cleanForExport from '@dialogs/export-dialog/utils/cleanForExport.ts';
 import {
   Button,
@@ -38,7 +39,7 @@ export default function ExportDialog() {
     downloadEvents(displayEvents);
     handleClose();
   };
-  const downloadEvents = (events: TVEvent[]) => {
+  const downloadEvents = (events: TWEvent[]) => {
     const json = cleanForExport(events);
     const blob = new Blob([json], { type: 'application/json' });
     const href = URL.createObjectURL(blob);

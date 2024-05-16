@@ -3,7 +3,7 @@ import useEventStore from '@store/event-store/useEventStore.ts';
 
 export default function actionClearSequences() {
   const allEvents = useEventStore.getState().allEvents;
-  allEvents.forEach((event) => (event.sequenceData = {}));
+  allEvents.forEach((event) => (event.twSequenceData = undefined));
 
   actionSetSequences({});
 }

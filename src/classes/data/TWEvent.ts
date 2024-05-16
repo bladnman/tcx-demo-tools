@@ -3,12 +3,13 @@ import getObjectValue from '@utils/event-utils/getObjectValue.ts';
 import isObjectNUE from '@utils/isObjectNUE.ts';
 
 class TWEvent {
-  twId: string;
   twType: string;
+  twId: string;
   twEventTimeMs: number;
+  rawEvent: Hash;
+
   twReceiptTimesMs: number[];
   twVersion = CONST.TV_MESSAGE_VERSION;
-  rawEvent: Hash;
 
   twTags?: string[];
   twSequenceData?: HashT<string[]>;
@@ -38,15 +39,10 @@ class TWEvent {
     if (!fieldPaths) return defaultValue;
     const paths = Array.isArray(fieldPaths) ? fieldPaths : [fieldPaths];
 
-    // try each path in order
     for (const path of paths) {
       if (!path || path === '') continue;
-      // CHECK IN TV top level fields
-      let value = getObjectValue(this, path);
-      // try in 'rawEvent' object if empty
-      value = value ?? getObjectValue(this.rawEvent, path);
-      // first value, we are done
-      if (value) return value;
+      const value = getObjectValue(this, path) ?? getObjectValue(this.rawEvent, path);
+      if (value !== undefined) return value;
     }
     return defaultValue;
   }
@@ -63,8 +59,14 @@ class TWEvent {
     return this.get(fieldPaths, defaultValue) as number | undefined;
   }
 
+  // ACCESSORS
+  // **NOTE**: do not use 'get' or 'getStr' in these accessors
+  // this can cause infinite loops
   get hasFailures(): boolean {
     return this.failures !== undefined && Object.keys(this.failures).length > 0;
+  }
+  get appName(): string | undefined {
+    return this.rawEvent['appName'];
   }
 
   get exportData() {

@@ -1,25 +1,25 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
+import { SummaryVisualizationProps } from '@features/inspector-panel/features/details-summary-viewer/types';
+import useEventColor from '@hooks/useEventColor.ts';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import { Button, Typography } from '@mui/material';
+import { useAllEvents } from '@store/event-store/useEventStore.ts';
 import { getPreviousItems } from '@utils//telemetry-utils.ts';
 import { useMemo, useState } from 'react';
-import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import { EventTypes } from '@const/event-types.ts';
-import { useAllEvents } from '@store/event-store/useEventStore.ts';
-import getObjectValueFromFieldDef from '@utils//object-value-utils/getObjectValueFromFieldDef.ts';
+
 export default function SumNavLastX({
   event,
   x = 4,
 }: SummaryVisualizationProps & { x?: number }) {
-  const eventColor = EVENT_TYPE_DEF[event.type as EventTypes]?.color ?? 'fg';
+  const eventColor = useEventColor(event);
 
   const [maxToShow, setMaxToShow] = useState(x);
   const allEvents = useAllEvents();
   const previousNavEvents = useMemo(() => {
     return getPreviousItems(allEvents, event).filter(
-      (event) => event.type === 'Navigation',
+      (event) => event.twType === 'Navigation',
     );
     // intentionally omitting allEvents from deps
     // no need to recalculate when we get newer events
@@ -57,18 +57,15 @@ export default function SumNavLastX({
         )}
       </HStack>
       {lastXEvents.map((prevEvent, idx) => {
-        const appName = getObjectValueFromFieldDef(prevEvent, FIELD_DEF.appName);
-        const locationScene = getObjectValueFromFieldDef(
-          prevEvent,
-          FIELD_DEF.locationScene,
-        );
+        const appName = prevEvent.appName;
+        const locationScene = prevEvent.getStr(FIELD_DEF.locationScene.paths);
         const isLast = idx === lastXEvents.length - 1;
         return (
           <HStack
             hFill
             topLeft
             sx={{ pl: 0, fontWeight: isLast ? 'bold' : 'normal' }}
-            key={prevEvent.id}
+            key={prevEvent.twId}
           >
             <Typography sx={{ fontWeight: isLast ? 'bold' : 'normal', ...appSx }}>
               {appName}

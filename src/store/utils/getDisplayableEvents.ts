@@ -1,9 +1,10 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import applyFilters from '@utils/filter-utils/applyFilters.ts';
 import TelemetryFilter from '@classes/TelemetryFilter.ts';
 
 export default function getDisplayableEvents(
-  events: TVEvent[],
+  events: TWEvent[],
   filters: TelemetryFilter[],
-): TVEvent[] {
+): TWEvent[] {
   return applyFilters(events, filters);
 }

@@ -25,7 +25,6 @@ export default function BaseToken(props: TelemetryTokenProps & { sx?: SxProps })
       spacing={'0.5em'}
       fontSize={`${tokenFontSize}em`}
       vAlign={'stretch'}
-      hAlign={'leading'}
       sx={{
         color: `${eventColor}.contrastText`,
         backgroundColor: `${eventColor}.main`,
@@ -69,7 +68,7 @@ export default function BaseToken(props: TelemetryTokenProps & { sx?: SxProps })
       {/*  DETAILS  */}
       <HStack
         data-id={'TelemetryToken_body'}
-        hAlign={'leading'}
+        left
         sx={{
           px: '0.75em',
           maxWidth: '100%',
@@ -80,7 +79,7 @@ export default function BaseToken(props: TelemetryTokenProps & { sx?: SxProps })
           marginRight: isMaxWidth ? '7px' : '0',
         }}
       >
-        <HStack hFill data-id={'TelemetryToken_details'}>
+        <HStack hFill left data-id={'TelemetryToken_details'}>
           {eventDetails}
         </HStack>
 

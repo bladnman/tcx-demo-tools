@@ -1,7 +1,8 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import SEQUENCER_DEFS from '@classes/sequencers/SEQUENCER_DEFS.ts';
 
 export default function eventSequencer(
-  events: TVEvent[],
+  events: TWEvent[],
   sequences: Sequences,
 ): Sequences {
   let isDirty = false;

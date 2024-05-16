@@ -1,10 +1,11 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import CollapsableContainer from '@common/CollapsableContainer.tsx';
 import { VStack } from '@common/mui-stacks.tsx';
 import { Typography } from '@mui/material';
 import useEventDiffs from '@features/inspector-panel/features/details-summary-viewer/features/event-diffs/hooks/useEventDiffs.ts';
 import EventRawViewer from '@features/inspector-panel/features/event-raw-viewer/EventRawViewer.tsx';
 
-export default function SummaryEventDiffs({ event }: { event: TVEvent }) {
+export default function SummaryEventDiffs({ event }: { event: TWEvent }) {
   const eventDiffs = useEventDiffs(event);
 
   const renderBody = () => {

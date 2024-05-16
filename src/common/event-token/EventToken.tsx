@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import BaseToken from '@common/event-token/parts/BaseToken.tsx';
 import EventIcon from '@common/event-token/features/event-icon/EventIcon.tsx';
 import EventDetails from '@common/event-token/features/event-details/EventDetails.tsx';
@@ -7,7 +8,7 @@ import { getEventDef } from '@utils//event-utils/getEventDef.ts';
 import EventTag from '@common/event-tag/EventTag.tsx';
 
 interface TelemetryEventTokenProps extends TelemetryTokenProps {
-  event: TVEvent;
+  event: TWEvent;
   sx?: SxProps;
 }
 export default function EventToken(props: TelemetryEventTokenProps) {

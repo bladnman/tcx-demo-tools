@@ -1,12 +1,13 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import eventMapper from '@classes/telemetry-receiver/eventMapper.ts';
 import cleanForImport from '@dialogs/import-dialog/utils/cleanForImport.ts';
 import getNewUpdateExistingEvents from '@utils/event-utils/getNewUpdateExistingEvents.ts';
 
 export async function loadEventsFromFiles(
   files: FileList,
-): Promise<{ events: TVEvent[]; sequences: Sequences }> {
+): Promise<{ events: TWEvent[]; sequences: Sequences }> {
   let sequences = {};
-  let allEvents: TVEvent[] = [];
+  let allEvents: TWEvent[] = [];
 
   for (const file of files) {
     const { events, sequences: updatedSequences } = await processFile(file, sequences);
@@ -22,8 +23,8 @@ export async function loadEventsFromFiles(
 async function processFile(
   file: File,
   sequences: Sequences,
-): Promise<{ events: TVEvent[]; sequences: Sequences }> {
-  return new Promise<{ events: TVEvent[]; sequences: Sequences }>((resolve, reject) => {
+): Promise<{ events: TWEvent[]; sequences: Sequences }> {
+  return new Promise<{ events: TWEvent[]; sequences: Sequences }>((resolve, reject) => {
     const reader = new FileReader();
 
     reader.onload = (e) => {
@@ -38,7 +39,9 @@ async function processFile(
         // will de-dupe (or update) the events
         const { newEvents } = getNewUpdateExistingEvents(events, []);
 
-        newEvents.sort((a, b) => a.timeMs - b.timeMs);
+        newEvents.sort((a, b) => a.twEventTimeMs - b.twEventTimeMs);
+
+        console.log(`[🐽](loadEventsFromFiles) newEvents`, newEvents);
 
         resolve({
           events: newEvents,

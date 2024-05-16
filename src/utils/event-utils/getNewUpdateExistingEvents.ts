@@ -1,4 +1,5 @@
-import updateTVWithNewTV from '@utils//event-utils/updateTVWithNewTV.ts';
+import TWEvent from '@classes/data/TWEvent.ts';
+import updateTWWithNewTW from '@utils/event-utils/updateTWWithNewTW.ts';
 
 /**
  * This is a very specific function that is used when new events are
@@ -11,28 +12,29 @@ import updateTVWithNewTV from '@utils//event-utils/updateTVWithNewTV.ts';
  * indicating if any updates were made.
  */
 export default function getNewUpdateExistingEvents(
-  toAddEvents: TVEvent[],
-  existingEvents: TVEvent[],
+  toAddEvents: TWEvent[],
+  existingEvents: TWEvent[],
 ) {
   let isDirty = false;
   // Events can be "updates" to previous
   // events, so we need to merge them and update the original
   // but, we also don't want to add duplicates to the existingEvents
   // nor do we want to add duplicates to the filters
-  const newEvents: TVEvent[] = [];
+  const newEvents: TWEvent[] = [];
   for (let i = 0; i < toAddEvents.length; i++) {
     const event = toAddEvents[i];
+    if (!event?.twId) continue;
 
     // we need to check if the event already exists
     // this means in the existingEvents or in the newEvents
     // that we have already processed
     const previousEvent =
-      existingEvents.find((e) => e.id === event.id) ??
-      newEvents.find((e) => e.id === event.id);
+      existingEvents.find((e) => e.twId === event.twId) ??
+      newEvents.find((e) => e.twId === event.twId);
     // EXISTING - update the existing event
     if (previousEvent) {
       isDirty = true;
-      updateTVWithNewTV(previousEvent, event);
+      updateTWWithNewTW(previousEvent, event);
     }
     // NEW
     else {

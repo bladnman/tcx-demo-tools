@@ -1,14 +1,14 @@
+import TWEvent from '@classes/data/TWEvent.ts';
+import { HStack, VStack } from '@common/mui-stacks.tsx';
+import FIELD_DEF from '@const/FIELD_DEF.ts';
 import SummaryTable, {
   SummaryTableRowDef,
 } from '@features/inspector-panel/features/details-summary-viewer/common/SummaryTable.tsx';
-import { HStack, VStack } from '@common/mui-stacks.tsx';
-import FIELD_DEF from '@const/FIELD_DEF.ts';
-import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import { EventTypes } from '@const/event-types.ts';
 import SumLoadTimeMetricList from '@features/inspector-panel/features/details-summary-viewer/features/load-time/features/SumLoadTimeMetricList.tsx';
+import useEventColor from '@hooks/useEventColor.ts';
 
-export default function SummaryLoadTime({ event }: { event: TVEvent }) {
-  const eventColor = EVENT_TYPE_DEF[event.type as EventTypes]?.color ?? 'fg';
+export default function SummaryLoadTime({ event }: { event: TWEvent }) {
+  const eventColor = useEventColor(event);
 
   const rowDefs: SummaryTableRowDef[] = [
     {

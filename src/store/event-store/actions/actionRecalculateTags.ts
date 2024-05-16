@@ -8,7 +8,7 @@ export default function actionRecalculateTags() {
   const tagConfigs = useSettingsStore.getState().tagConfigs;
 
   allEvents.forEach((event) => {
-    event.tvTags = getEventTags(event, tagConfigs).map((tagConfig) => tagConfig.key);
+    event.twTags = getEventTags(event, tagConfigs)?.map((tagConfig) => tagConfig.key);
   });
   actionSetAllEventsAndRecalculateFilters(allEvents);
 }

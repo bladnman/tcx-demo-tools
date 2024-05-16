@@ -1,30 +1,30 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import { Typography } from '@mui/material';
 import LabelRow from '@features/inspector-panel/features/details-summary-viewer/features/impression/features/parts/LabelRow.tsx';
-import getTvValue from '@utils/event-utils/getTvValue.ts';
+import { Typography } from '@mui/material';
 
-export default function Tile({ event }: { event: TVEvent }) {
-  const actionCardPrimaryMessage = getTvValue(event, 'actionCardPrimaryMessage');
-  const tileContent = getTvValue(event, 'tileContent');
-  const tilePosition = getTvValue(event, 'tilePosition');
-  const title = getTvValue(event, [
+export default function Tile({ event }: { event: TWEvent }) {
+  const actionCardPrimaryMessage = event.getStr('actionCardPrimaryMessage');
+  const tileContent = event.getStr('tileContent');
+  const tilePosition = event.getStr('tilePosition');
+  const title = event.getStr([
     'officialNewsStoryHeadline',
     'mediaContentTitle',
     'titleDetail[-1].titleName',
     'productDetail[-1].productName',
     'conceptDetail[-1].conceptName',
   ]);
-  const priceOriginal = getTvValue(event, [
+  const priceOriginal = event.getStr([
     'titleDetail[-1].titlePriceDetail[-1].originalPriceFormatted',
     'productDetail[-1].productPriceDetail[-1].originalPriceFormatted',
     'conceptDetail[-1].conceptPriceDetail[-1].originalPriceFormatted',
   ]);
-  const priceDiscount = getTvValue(event, [
+  const priceDiscount = event.getStr([
     'titleDetail[-1].titlePriceDetail[-1].discountPriceFormatted',
     'productDetail[-1].productPriceDetail[-1].discountPriceFormatted',
     'conceptDetail[-1].conceptPriceDetail[-1].discountPriceFormatted',
   ]);
-  const subtitle = getTvValue(event, ['officialNewsStoryDescription']);
+  const subtitle = event.getStr(['officialNewsStoryDescription']);
 
   if (tilePosition === undefined && !tileContent) return null;
 

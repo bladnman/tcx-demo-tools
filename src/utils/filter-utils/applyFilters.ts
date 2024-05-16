@@ -1,10 +1,11 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import TelemetryFilter from '@classes/TelemetryFilter.ts';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 
 export default function applyFilters(
-  events: TVEvent[],
+  events: TWEvent[],
   filters: TelemetryFilter[],
-): TVEvent[] {
+): TWEvent[] {
   // no filters -- return all events
   if (filters.length === 0) return events;
   const anyActive = filters.some((filter) => filter.anyActive);

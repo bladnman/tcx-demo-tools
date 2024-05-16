@@ -8,8 +8,8 @@ export default function useSelectedSequenceEvents() {
   return useMemo(() => {
     if (!selectedSequence || !allEvents) return null;
     return allEvents.filter((event) => {
-      if (!event.sequenceData) return false;
-      const seqData = event.sequenceData as Hash;
+      if (!event.twSequenceData) return false;
+      const seqData = event.twSequenceData as Hash;
       const belongsToSeqList = (seqData[selectedSequence.sequenceType] as string[]) ?? [];
       return belongsToSeqList.includes(selectedSequence.id);
     });

@@ -1,11 +1,12 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import useEventStore from '@store/event-store/useEventStore.ts';
 import { actionSetAllEventsAndRecalculateFilters } from '@store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
 
-export default function actionDeleteAllEventsAfter(event: TVEvent) {
+export default function actionDeleteAllEventsAfter(event: TWEvent) {
   const { allEvents } = useEventStore.getState();
 
   // Filter
-  const newEvents = allEvents.filter((e) => e.timeMs <= event.timeMs);
+  const newEvents = allEvents.filter((e) => e.twEventTimeMs <= event.twEventTimeMs);
 
   // NO CHANGE
   if (newEvents.length === allEvents.length) return;

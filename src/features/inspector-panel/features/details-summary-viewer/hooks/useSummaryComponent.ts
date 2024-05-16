@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import SummaryAvatar from '@features/inspector-panel/features/details-summary-viewer/features/avatar/SummaryAvatar.tsx';
 import SummaryImpression from '@features/inspector-panel/features/details-summary-viewer/features/impression/SummaryImpression.tsx';
 import SummaryLoadTime from '@features/inspector-panel/features/details-summary-viewer/features/load-time/SummaryLoadTime.tsx';
@@ -7,12 +8,12 @@ import SummaryVideoStream from '@features/inspector-panel/features/details-summa
 import React, { useMemo } from 'react';
 
 type SummaryComponentProps = {
-  event: TVEvent;
+  event: TWEvent;
 };
 type SummaryComponentType = React.ComponentType<SummaryComponentProps>;
-export default function useSummaryComponent(event: TVEvent) {
+export default function useSummaryComponent(event: TWEvent) {
   return useMemo(() => {
-    switch (event.type) {
+    switch (event.twType) {
       case 'ViewableImpression':
         return SummaryImpression as SummaryComponentType;
       case 'Navigation':
@@ -28,5 +29,5 @@ export default function useSummaryComponent(event: TVEvent) {
       default:
         return null;
     }
-  }, [event.type]);
+  }, [event.twType]);
 }

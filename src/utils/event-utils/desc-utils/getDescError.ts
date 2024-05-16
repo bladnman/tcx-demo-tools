@@ -1,11 +1,11 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
-import { formatTvValueList } from '@utils//event-utils/formatTvValue.ts';
-import getTvValue from '@utils//event-utils/getTvValue.ts';
+import { formatTWValueList } from '@utils/event-utils/formatTWValue.ts';
 
-export default function getDescError(event: TVEvent) {
-  const highlight = getTvValue(event, FIELD_DEF.severity.paths) as string;
-  const severity = getTvValue(event, FIELD_DEF.severity.paths);
-  const message = formatTvValueList(event, [
+export default function getDescError(event: TWEvent) {
+  const highlight = event.getStr(FIELD_DEF.severity.paths);
+  const severity = event.getStr(FIELD_DEF.severity.paths);
+  const message = formatTWValueList(event, [
     {
       path: FIELD_DEF.vshErrorHexCode.paths,
     },

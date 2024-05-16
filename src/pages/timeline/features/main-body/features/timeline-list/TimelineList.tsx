@@ -1,3 +1,4 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 import { SxProps } from '@mui/material';
 import RowContextMenu from '@pages/timeline/features/main-body/features/timeline-list/features/telemetry-row/features/row-context-menu/RowContextMenu.tsx';
@@ -6,11 +7,10 @@ import TelemetryDivider from '@pages/timeline/features/main-body/features/timeli
 import actionToggleEventForDetailsById from '@store/event-store/actions/actionToggleEventForDetailsById.ts';
 import { useEventForDetails } from '@store/event-store/useEventStore.ts';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
-import { getValueFromEvent } from '@utils//telemetry-utils.ts';
 import { usePopupState } from 'material-ui-popup-state/hooks';
 import React, { ReactNode, useMemo, useRef, useState } from 'react';
 
-type SxGenerator = ((event: TVEvent) => SxProps | null) | null;
+type SxGenerator = ((event: TWEvent) => SxProps | null) | null;
 export default function TimelineList({
   events,
   allowDividers = true,
@@ -18,13 +18,13 @@ export default function TimelineList({
   generateRowSx = null,
   generateTokenSx = null,
 }: {
-  events: TVEvent[];
+  events: TWEvent[];
   allowDividers?: boolean;
   allowSelection?: boolean;
   generateRowSx?: SxGenerator;
   generateTokenSx?: SxGenerator;
 }) {
-  const [contextMenuEvent, setContextMenuEvent] = useState<TVEvent | null>(null);
+  const [contextMenuEvent, setContextMenuEvent] = useState<TWEvent | null>(null);
   const eventForDetails = useEventForDetails();
   const { dividerFields } = useSettingsStore();
   let dividerValues = useRef<string[] | undefined[]>([]).current;
@@ -33,7 +33,7 @@ export default function TimelineList({
     popupId: 'event-row-context-menu',
   });
   const handleContextMenuClick = useMemo(() => {
-    return (e: React.MouseEvent, event: TVEvent) => {
+    return (e: React.MouseEvent, event: TWEvent) => {
       e.preventDefault();
       setContextMenuEvent(event);
       if (event) {
@@ -54,7 +54,7 @@ export default function TimelineList({
         for (let i = 0; i < dividerFields.length; i++) {
           const dividerField = dividerFields[i];
           const dividerValue = dividerValues[i];
-          const eventValue = getValueFromEvent(event, dividerField) ?? `(none)`;
+          const eventValue = event.getStr(dividerField, `(none)`);
 
           if (dividerValue !== eventValue) {
             // once we have a value not matching
@@ -88,8 +88,8 @@ export default function TimelineList({
           hFill
           left
           sx={{ pl: `${Math.max(0, dividerFields.length - 1)}em` }}
-          key={`row|:|${event.id}|:|dividers:${lastDividerValue}`}
-          data-event-id={event.id}
+          key={`row|:|${event.twId}|:|dividers:${lastDividerValue}`}
+          data-event-id={event.twId}
         >
           <TelemetryRow
             event={event}

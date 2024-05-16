@@ -1,11 +1,11 @@
-import getTvValue from '@utils//event-utils/getTvValue.ts';
+import TWEvent from '@classes/data/TWEvent.ts';
 
-export default function eventMatchesClause(event: TVEvent, clause: TagMatchClause) {
+export default function eventMatchesClause(event: TWEvent, clause: TagMatchClause) {
   if (!event) return false;
   if (!clause) return false;
 
   const clauseValue = clause.value;
-  const eventValue = getTvValue(event, [clause.path as string]);
+  const eventValue = event.getStr(clause.path);
   const clauseMode = clause.mode;
 
   const clauseValueLower = clauseValue ? String(clauseValue).toLowerCase() : '';

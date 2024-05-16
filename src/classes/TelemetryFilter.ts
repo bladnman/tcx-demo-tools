@@ -1,6 +1,6 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import isNU from '@utils/isNU.ts';
 import TelemetryFilterItem from './TelemetryFilterItem.ts';
-import getTvValue from '@utils/event-utils/getTvValue.ts';
 
 class TelemetryFilter {
   type: FilterType;
@@ -68,12 +68,12 @@ class TelemetryFilter {
     });
   }
 
-  incrementEvents(events: TVEvent | TVEvent[] | undefined) {
+  incrementEvents(events: TWEvent | TWEvent[] | undefined) {
     if (!events) return;
     if (!Array.isArray(events)) {
       events = [events];
     }
-    const values = events.flatMap((event: TVEvent) => {
+    const values = events.flatMap((event: TWEvent) => {
       return this.valuesForEvent(event);
     });
     this.incrementValues(values as string[]);
@@ -116,24 +116,8 @@ class TelemetryFilter {
     return item;
   }
 
-  decrementValues(values: string | string[] | undefined) {
-    if (!values) return;
-    if (!Array.isArray(values)) {
-      values = [values];
-    }
-    values.forEach((value) => {
-      const item = this.getItem(value);
-      if (item) {
-        item.count--;
-        if (item.count === 0) {
-          this.items = this.items.filter((i) => i.value !== value);
-        }
-      }
-    });
-  }
-
-  private valuesForEvent(event: TVEvent): string[] {
-    const value = getTvValue(event, this.field);
+  private valuesForEvent(event: TWEvent): string[] {
+    const value = event.getStr(this.field);
 
     // if an array, let's force to string[]
     if (Array.isArray(value)) {
@@ -148,7 +132,7 @@ class TelemetryFilter {
     return [String(value)];
   }
 
-  testForActive(event: TVEvent) {
+  testForActive(event: TWEvent) {
     if (this.items.length === 0) return true; // no items -- pass
     if (!this.anyActive) return true; // property does not exist in event -- pass
 

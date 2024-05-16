@@ -1,15 +1,15 @@
+import TWEvent from '@classes/data/TWEvent.ts';
+import { HStack, VStack } from '@common/mui-stacks.tsx';
+import SumNavLastX from '@common/summary-widgets/SumNavLastX.tsx';
+import FIELD_DEF from '@const/FIELD_DEF.ts';
 import SummaryTable, {
   SummaryTableRowDef,
 } from '@features/inspector-panel/features/details-summary-viewer/common/SummaryTable.tsx';
-import { HStack, VStack } from '@common/mui-stacks.tsx';
-import FIELD_DEF from '@const/FIELD_DEF.ts';
-import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import { EventTypes } from '@const/event-types.ts';
 import SumNavFromTo from '@features/inspector-panel/features/details-summary-viewer/features/navigation/features/SumNavFromTo.tsx';
-import SumNavLastX from '@common/summary-widgets/SumNavLastX.tsx';
+import useEventColor from '@hooks/useEventColor.ts';
 
-export default function SummaryNavigation({ event }: { event: TVEvent }) {
-  const eventColor = EVENT_TYPE_DEF[event.type as EventTypes]?.color ?? 'fg';
+export default function SummaryNavigation({ event }: { event: TWEvent }) {
+  const eventColor = useEventColor(event);
 
   const rowDefs: SummaryTableRowDef[] = [
     {

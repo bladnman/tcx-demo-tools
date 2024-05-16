@@ -1,22 +1,20 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
+import { SummaryVisualizationProps } from '@features/inspector-panel/features/details-summary-viewer/types';
+import useEventColor from '@hooks/useEventColor.ts';
 import { Typography } from '@mui/material';
-import { useMemo } from 'react';
-import { EVENT_TYPE_DEF } from '@const/EVENT_TYPE.ts';
-import { EventTypes } from '@const/event-types.ts';
-import getEventDescriptions from '@utils//event-utils/getEventDescriptions.ts';
 import { useAllEvents } from '@store/event-store/useEventStore.ts';
-import getObjectValueFromFieldDef from '@utils//object-value-utils/getObjectValueFromFieldDef.ts';
+import getEventDescriptions from '@utils//event-utils/getEventDescriptions.ts';
+import { useMemo } from 'react';
+
 export default function SumVideoSession({ event }: SummaryVisualizationProps) {
-  const eventColor = EVENT_TYPE_DEF[event.type as EventTypes].color;
+  const eventColor = useEventColor(event);
   const allEvents = useAllEvents();
   const summaryEvents = useMemo(() => {
-    const videoSessionId = getObjectValueFromFieldDef(event, FIELD_DEF.videoSessionId);
-    return allEvents.filter((tempEvent) => {
-      return (
-        getObjectValueFromFieldDef(tempEvent, FIELD_DEF.videoSessionId) === videoSessionId
-      );
-    });
+    const videoSessionId = event.getStr(FIELD_DEF.videoSessionId.paths);
+    return allEvents.filter(
+      (tempEvent) => tempEvent.getStr(FIELD_DEF.videoSessionId.paths) === videoSessionId,
+    );
   }, [allEvents, event]);
 
   const appSx = {
@@ -37,16 +35,16 @@ export default function SumVideoSession({ event }: SummaryVisualizationProps) {
         </Typography>
       </HStack>
       {summaryEvents.map((prevEvent) => {
-        const value = getObjectValueFromFieldDef(prevEvent, FIELD_DEF.videoEventType);
+        const value = prevEvent.getStr(FIELD_DEF.videoEventType.paths);
         const eventDesc = getEventDescriptions(prevEvent);
 
-        const isThisEvent = prevEvent.id === event.id;
+        const isThisEvent = prevEvent.twId === event.twId;
         return (
           <HStack
             hFill
             topLeft
             sx={{ pl: 0, fontWeight: isThisEvent ? 'bold' : 'normal' }}
-            key={prevEvent.id}
+            key={prevEvent.twId}
           >
             <Typography sx={{ fontWeight: isThisEvent ? 'bold' : 'normal', ...appSx }}>
               {value}

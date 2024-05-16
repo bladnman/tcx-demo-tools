@@ -1,18 +1,17 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
-import { getSimpleSceneName } from '@utils//telemetry-utils.ts';
+import { formatTWValueList } from '@utils/event-utils/formatTWValue.ts';
 import { getEventDef } from '@utils//event-utils/getEventDef.ts';
-import { formatTvValueList } from '@utils//event-utils/formatTvValue.ts';
-import getTvValue from '@utils//event-utils/getTvValue.ts';
+import { getSimpleSceneName } from '@utils//telemetry-utils.ts';
 
-export default function getDescNavigation(event: TVEvent) {
+export default function getDescNavigation(event: TWEvent) {
   const eventDef = getEventDef(event);
-  const appName = getTvValue(event, FIELD_DEF.appName.paths);
-  const highlight = formatTvValueList(event, [
+  const highlight = formatTWValueList(event, [
     {
       path: FIELD_DEF.locationScene.paths,
       formatter: (value) => {
         const thisValue = value as string;
-        if (appName === 'game-hub' || thisValue.includes('game hub:')) {
+        if (event.appName === 'game-hub' || thisValue.includes('game hub:')) {
           return getSimpleSceneName(thisValue);
         }
         return thisValue;
@@ -20,7 +19,7 @@ export default function getDescNavigation(event: TVEvent) {
     },
   ]);
 
-  const message = getTvValue(event, FIELD_DEF.interactCta.paths);
+  const message = event.getStr(FIELD_DEF.interactCta.paths);
 
   return {
     highlight,

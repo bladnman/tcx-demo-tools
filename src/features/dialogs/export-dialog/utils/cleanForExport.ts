@@ -1,8 +1,10 @@
-export default function cleanForExport(events: TVEvent[]): string {
+import TWEvent from '@classes/data/TWEvent.ts';
+
+export default function cleanForExport(events: TWEvent[]): string {
   // remove all .sequenceData from the events
   const cleanEvents = events.map((event) => {
     const cleanEvent = { ...event };
-    delete cleanEvent.sequenceData;
+    delete cleanEvent.twSequenceData;
     return cleanEvent;
   });
 

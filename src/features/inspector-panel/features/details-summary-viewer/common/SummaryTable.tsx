@@ -1,7 +1,7 @@
+import TWEvent from '@classes/data/TWEvent.ts';
 import SummaryRow from '@features/inspector-panel/features/details-summary-viewer/common/SummaryRow.tsx';
 import { StackProps, VStack } from '@common/mui-stacks.tsx';
 import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
-import getObjectValueFromFieldDef from '@utils//object-value-utils/getObjectValueFromFieldDef.ts';
 
 export type SummaryTableRowDef = Partial<FieldDefinition> & {
   // from FIELD_DEF
@@ -18,15 +18,14 @@ export default function SummaryTable({
   rowDefs,
   stackOptions,
 }: {
-  event: TVEvent;
+  event: TWEvent;
   rowDefs: SummaryTableRowDef[];
   stackOptions?: Partial<StackProps>;
 }) {
   return (
     <VStack hFill topLeft {...stackOptions}>
       {rowDefs.map((rowDef) => {
-        const value =
-          rowDef.value ?? getObjectValueFromFieldDef(event, rowDef as FieldDefinition);
+        const value = rowDef.value ?? event.getStr((rowDef as FieldDefinition).paths);
         const labelSx: TypographyStyleOptions = {};
         const valueSx: TypographyStyleOptions = {
           color: rowDef.color ?? 'text.primary',
