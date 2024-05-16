@@ -90,9 +90,9 @@ const useSettingsStore = create<SettingsStore>()(
       connectToTCxName: null,
 
       // mock settings
-      mockBatchSize: 1,
-      mockBatchDelayMs: 400,
-      mockAutoPause: true,
+      mockBatchSize: 2,
+      mockBatchDelayMs: 300,
+      mockAutoPause: false,
       mockIsPaused: true,
 
       // import/export features

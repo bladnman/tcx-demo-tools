@@ -1,4 +1,6 @@
 import TWEvent from '@classes/data/TWEvent.ts';
+import eventSequencer from '@classes/telemetry-receiver/eventSequencer.ts';
+import eventTagger from '@classes/telemetry-receiver/eventTagger.ts';
 import mapClientEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapClientEventToTW.ts';
 import mapTDDispatchedToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapTDDispatchedToTW.ts';
 import mapTVEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapTVEventToTW.ts';
@@ -30,22 +32,16 @@ export default function eventMapper(events: unknown[], sequences: Sequences) {
     })
     .filter((e) => e !== null) as TWEvent[];
 
-  console.log(`[🐽](eventMapper) twEvents`, twEvents);
+  // TAG EVENTS
+  eventTagger(twEvents);
 
-  // SYNTHESIZE EVENTS - add props (e.g. tvVersion, timeMs ...)
-  // eventSynthesizer(tvEvents); // todo: remove (not needed with TWEvents)
-  //
-  // // TAG EVENTS
-  // eventTagger(tvEvents);
-  //
-  // // SEQUENCE EVENTS
-  // const processedSequences = eventSequencer(tvEvents, sequences ?? {});
-  // const didSequencesChange = processedSequences !== sequences;
+  // SEQUENCE EVENTS
+  const processedSequences = eventSequencer(twEvents, sequences ?? {});
+  const didSequencesChange = processedSequences !== sequences;
 
   // RETURN
   return {
     events: twEvents,
-    sequences,
-    // sequences: didSequencesChange ? processedSequences : sequences,
+    sequences: didSequencesChange ? processedSequences : sequences,
   };
 }

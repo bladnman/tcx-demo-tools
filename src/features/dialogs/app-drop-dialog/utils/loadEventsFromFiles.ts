@@ -41,8 +41,6 @@ async function processFile(
 
         newEvents.sort((a, b) => a.twEventTimeMs - b.twEventTimeMs);
 
-        console.log(`[🐽](loadEventsFromFiles) newEvents`, newEvents);
-
         resolve({
           events: newEvents,
           sequences: processedSequences !== sequences ? processedSequences : sequences,
