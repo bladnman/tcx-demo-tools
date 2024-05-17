@@ -9,7 +9,7 @@ export default function updateTWWithNewTW(previousEvent: TWEvent, newEvent: TWEv
   _spreadNewObjectData(previousEvent, newEvent, 'failures');
   _spreadNewObjectData(previousEvent, newEvent, 'filtered');
 
-  _spreadNewArrayData(previousEvent, newEvent, 'tvTags');
+  _spreadNewArrayData(previousEvent, newEvent, 'twTags');
   _spreadNewArrayData(previousEvent, newEvent, 'twReceiptTimesMs');
 }
 

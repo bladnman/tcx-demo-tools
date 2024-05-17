@@ -6,13 +6,12 @@ class TWEvent {
   twType: string;
   twId: string;
   twEventTimeMs: number;
-  rawEvent: Hash;
-
   twReceiptTimesMs: number[];
   twVersion = CONST.TV_MESSAGE_VERSION;
-
   twTags?: string[];
   twSequenceData?: HashT<string[]>;
+
+  rawEvent: Hash;
   failures?: HashT<string[]>;
   payloads?: HashT<Hash>;
   filtered?: Hash;

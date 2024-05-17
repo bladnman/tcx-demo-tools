@@ -6,7 +6,7 @@ export function isTWEventShape(event: unknown): boolean {
   return isObjectWithRequiredKeys(event, ['twType', 'twId', 'rawEvent']);
 }
 export function isTWEventCurrentVersion(event: unknown): boolean {
-  return (event as TVEvent).tvVersion === CONST.TV_MESSAGE_VERSION;
+  return (event as TWEvent).twVersion === CONST.TV_MESSAGE_VERSION;
 }
 export function isTWEvent(event: unknown): boolean {
   if (!isTWEventShape(event)) return false;
@@ -14,5 +14,18 @@ export function isTWEvent(event: unknown): boolean {
 }
 export default function mapTWEventToTW(event: unknown): TWEvent | null {
   if (!isTWEvent(event)) return null;
-  return event as TWEvent;
+  const twEvent = event as TWEvent;
+
+  // We need to create an instance, not
+  // simply the shape -- instance has methods
+  return new TWEvent({
+    twType: twEvent.twType,
+    twEventTimeMs: twEvent.twEventTimeMs,
+    twId: twEvent.twId,
+    rawEvent: twEvent.rawEvent,
+
+    failures: twEvent.failures,
+    payloads: twEvent.payloads,
+    filtered: twEvent.filtered,
+  }) as TWEvent;
 }

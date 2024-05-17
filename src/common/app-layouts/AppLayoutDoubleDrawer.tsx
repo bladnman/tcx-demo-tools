@@ -2,7 +2,7 @@ import { SideBarLeftLightIcon, SideBarRightLightIcon } from '@assets/icons/AppIc
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Drawer, IconButton, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { HStack, VStack } from '../mui-stacks';
 
 interface AppLayoutDoubleDrawerProps {
@@ -71,6 +71,16 @@ export default function AppLayoutDoubleDrawer({
     onRightDrawerToggle?.(newState);
   };
 
+  const drawTitleBarSx = useMemo(() => {
+    return {
+      justifyContent: 'space-between',
+      height: '4.27em',
+      backgroundColor: 'bg90.main',
+      borderBottom: '1px solid',
+      borderBottomColor: 'fg25.main',
+    };
+  }, []);
+
   return (
     <VStack
       data-id="double-drawer-layout"
@@ -137,6 +147,10 @@ export default function AppLayoutDoubleDrawer({
           </HStack>
         </Toolbar>
       </AppBar>
+
+      {/*
+      LEFT DRAWER
+      */}
       {leftDrawerContent && (
         <Drawer
           sx={{
@@ -154,11 +168,7 @@ export default function AppLayoutDoubleDrawer({
           data-id="left-drawer"
           open={leftDrawerOpen}
         >
-          <HStack
-            hFill
-            right
-            sx={{ justifyContent: 'space-between', height: '4.5em', paddingLeft: '1em' }}
-          >
+          <HStack hFill right sx={drawTitleBarSx}>
             <HStack>{leftDrawerTitle}</HStack>
             <Box
               sx={{
@@ -177,6 +187,10 @@ export default function AppLayoutDoubleDrawer({
           </VStack>
         </Drawer>
       )}
+
+      {/*
+      RIGHT DRAWER
+      */}
       {rightDrawerContent && (
         <Drawer
           sx={{
@@ -194,11 +208,7 @@ export default function AppLayoutDoubleDrawer({
           data-id="right-drawer"
           open={rightDrawerOpen}
         >
-          <HStack
-            hFill
-            hAlign={'leading'}
-            sx={{ justifyContent: 'space-between', height: '4.5em', paddingRight: '1em' }}
-          >
+          <HStack hFill hAlign={'leading'} sx={drawTitleBarSx}>
             <Box
               sx={{
                 display: 'flex',
@@ -218,6 +228,10 @@ export default function AppLayoutDoubleDrawer({
           </VStack>
         </Drawer>
       )}
+
+      {/*
+      MAIN CONTENT
+      */}
       <VStack
         component="main"
         data-id="main-content"
@@ -242,6 +256,10 @@ export default function AppLayoutDoubleDrawer({
         <Toolbar />
         {mainContent}
       </VStack>
+
+      {/*
+      STATUS BAR
+      */}
       {statusBarContent && (
         <HStack hFill sx={{ height: statusBarHeight }} data-id="status-bar">
           {statusBarContent}

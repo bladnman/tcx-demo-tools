@@ -4,9 +4,12 @@ export default function eventMatchesClause(event: TWEvent, clause: TagMatchClaus
   if (!event) return false;
   if (!clause) return false;
 
+  console.log(`[🐽](eventMatchesClause) clause`, clause);
   const clauseValue = clause.value;
   const eventValue = event.getStr(clause.path);
   const clauseMode = clause.mode;
+
+  if (!eventValue || !clauseValue) return false;
 
   const clauseValueLower = clauseValue ? String(clauseValue).toLowerCase() : '';
   const eventValueLower = eventValue ? String(eventValue).toLowerCase() : '';

@@ -17,6 +17,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "@json2csv/plainjs": "^7.0.6",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
     "@mui/icons-material": "^5.15.12",

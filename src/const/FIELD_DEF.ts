@@ -494,9 +494,9 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
     },
   },
   tags: {
-    field: 'tvTags',
-    title: 'TVTags',
-    paths: ['tvTags'],
+    field: 'twTags',
+    title: 'TWTags',
+    paths: ['twTags'],
     divider: {
       isAvailable: false,
       isDefault: false,

@@ -20,7 +20,7 @@ export default function FilterMenuGroupItem({
   const { tagConfigs } = useSettingsStore((state) => state);
 
   const renderItemBody = (filterType: string, filterItem: TelemetryFilterItem) => {
-    if (filterType === 'tvTags') {
+    if (filterType === 'twTags') {
       const tagConfig = tagConfigs.find((tag) => tag.key === filterItem.value);
       if (!tagConfig) return null;
       const count = filterItem.count;

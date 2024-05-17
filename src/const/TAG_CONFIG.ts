@@ -45,7 +45,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -67,7 +67,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -77,7 +77,7 @@ export const TAG_CONFIG: TagConfig[] = [
           value: 'select product',
         },
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: 'Interaction',
         },
@@ -99,7 +99,7 @@ export const TAG_CONFIG: TagConfig[] = [
           value: 'error',
         },
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: 'VideoStream',
         },
@@ -121,7 +121,7 @@ export const TAG_CONFIG: TagConfig[] = [
           value: 'start',
         },
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: 'VideoStream',
         },
@@ -156,7 +156,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -168,7 +168,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -180,7 +180,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -197,7 +197,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -209,7 +209,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -221,7 +221,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -233,7 +233,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -256,7 +256,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -273,7 +273,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -285,7 +285,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -302,7 +302,7 @@ export const TAG_CONFIG: TagConfig[] = [
           value: 'monte-carlo',
         },
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -339,7 +339,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -364,7 +364,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -404,7 +404,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -431,7 +431,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -458,7 +458,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -485,7 +485,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -497,7 +497,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: 'interaction',
         },
@@ -519,7 +519,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -531,7 +531,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -543,7 +543,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -565,7 +565,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -577,7 +577,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -590,7 +590,7 @@ export const TAG_CONFIG: TagConfig[] = [
       [
         // from search results
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -622,7 +622,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -644,7 +644,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -666,7 +666,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -678,7 +678,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -700,7 +700,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -727,7 +727,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -749,7 +749,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -793,7 +793,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: 'startup',
         },
@@ -805,7 +805,7 @@ export const TAG_CONFIG: TagConfig[] = [
       ],
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -850,7 +850,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: 'navigation',
         },
@@ -872,7 +872,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -894,7 +894,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -916,7 +916,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -938,7 +938,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
@@ -960,7 +960,7 @@ export const TAG_CONFIG: TagConfig[] = [
     rules: [
       [
         {
-          path: 'type',
+          path: 'twType',
           mode: 'EQUALS',
           value: EVENT_TYPE_DEF.Interaction.type,
         },
