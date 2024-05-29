@@ -4,7 +4,6 @@ import { formatTWValueList } from '@utils/event-utils/formatTWValue.ts';
 
 export default function getDescError(event: TWEvent) {
   const highlight = event.getStr(FIELD_DEF.severity.paths);
-  const severity = event.getStr(FIELD_DEF.severity.paths);
   const message = formatTWValueList(event, [
     {
       path: FIELD_DEF.vshErrorHexCode.paths,
@@ -12,12 +11,15 @@ export default function getDescError(event: TWEvent) {
     {
       path: FIELD_DEF.errorMessage.paths,
     },
+    {
+      path: FIELD_DEF.errorType.paths,
+    },
   ]);
 
   const color =
-    severity === 'critical'
+    highlight === 'critical'
       ? `appRed.main`
-      : severity === 'major'
+      : highlight === 'major'
         ? 'appRed.main'
         : `fg.main`;
 

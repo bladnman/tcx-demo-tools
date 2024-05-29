@@ -5,9 +5,11 @@ export function actionSetConnectToTcxName(cnxPlatform: ConnectionPlatform) {
   const connectToTCxName =
     cnxPlatform === 'TD Server'
       ? 'TDServer'
-      : cnxPlatform === 'Mobile'
-        ? 'MobileTelemetry'
-        : 'Mock';
+      : cnxPlatform === 'TwizService'
+        ? 'TwizService'
+        : cnxPlatform === 'Mobile'
+          ? 'MobileTelemetry'
+          : 'Mock';
 
   useSettingsStore.setState({ connectToTCxName });
 }

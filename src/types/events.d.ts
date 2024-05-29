@@ -64,6 +64,8 @@ type EventTypeDef = {
   type: string;
   abbreviation: string;
   color: string;
+  appIcon: string;
+  typeIcon?: string;
 };
 
 /**

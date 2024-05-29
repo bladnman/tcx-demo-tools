@@ -8,7 +8,9 @@ import getDescNavigation from '@utils//event-utils/desc-utils/getDescNavigation.
 import getDescStartup from '@utils//event-utils/desc-utils/getDescStartup.ts';
 import getDescVideoStream from '@utils//event-utils/desc-utils/getDescVideoStream.ts';
 import getDescViewableImpression from '@utils//event-utils/desc-utils/getDescViewableImpression.ts';
-import { getEventDef } from '@utils//event-utils/getEventDef.ts';
+import getDescTelemetryDropped from '@utils/event-utils/desc-utils/getDescTelemetryDropped.ts';
+import { getEventDef } from '@utils/event-utils/event-def/getEventDef.ts';
+import getDescErrorDialog from '@utils/event-utils/desc-utils/getDescErrorDialog.ts';
 import formatSeconds from '@utils/formatSeconds.ts';
 
 export default function getEventDescriptions(event: TWEvent) {
@@ -16,21 +18,25 @@ export default function getEventDescriptions(event: TWEvent) {
 
   let message, highlight, color;
 
-  switch (eventDef) {
-    case EVENT_TYPE_DEF.ViewableImpression:
+  switch (eventDef.type) {
+    case EVENT_TYPE_DEF.ViewableImpression!.type:
       return getDescViewableImpression(event);
-    case EVENT_TYPE_DEF.Interaction:
+    case EVENT_TYPE_DEF.Interaction!.type:
       return getDescInteraction(event);
-    case EVENT_TYPE_DEF.Navigation:
+    case EVENT_TYPE_DEF.Navigation!.type:
       return getDescNavigation(event);
-    case EVENT_TYPE_DEF.NetworkError:
-    case EVENT_TYPE_DEF.ApplicationError:
+    case EVENT_TYPE_DEF.NetworkError!.type:
+    case EVENT_TYPE_DEF.ApplicationError!.type:
       return getDescError(event);
-    case EVENT_TYPE_DEF.Startup:
+    case EVENT_TYPE_DEF.Startup!.type:
       return getDescStartup(event);
-    case EVENT_TYPE_DEF.LoadTime:
+    case EVENT_TYPE_DEF.LoadTime!.type:
       return getDescLoadTime(event);
-    case EVENT_TYPE_DEF.VideoStream:
+    case EVENT_TYPE_DEF.TelemetryDropped!.type:
+      return getDescTelemetryDropped(event);
+    case EVENT_TYPE_DEF.ErrorDialog!.type:
+      return getDescErrorDialog(event);
+    case EVENT_TYPE_DEF.VideoStream!.type:
       const defaultMessage = getDescVideoStream(event);
       const videoEventType = event.getStr('videoEventType');
       if (videoEventType) {

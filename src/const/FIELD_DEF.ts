@@ -88,6 +88,26 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
       isDefaultCollapsed: true,
     },
   },
+  errorType: {
+    field: 'errorType',
+    title: 'Error Type',
+    paths: ['errorType'],
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
+  droppedReason: {
+    field: 'droppedReason',
+    title: 'Dropped Reason',
+    paths: ['droppedReason'],
+    filter: {
+      isAvailable: true,
+      isDefault: false,
+      isDefaultCollapsed: true,
+    },
+  },
   locationScene: {
     field: 'locationScene',
     title: 'Location Scene',
@@ -171,7 +191,7 @@ const FIELD_DEF: { [key: string]: FieldDefinition } = {
     title: 'Strand Name',
     paths: ['strandName'],
     filter: {
-      isAvailable: false,
+      isAvailable: true,
       isDefault: false,
       isDefaultCollapsed: true,
     },

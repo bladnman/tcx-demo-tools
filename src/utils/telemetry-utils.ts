@@ -83,6 +83,22 @@ export function isObjectWithRequiredKeys<T extends string>(
 
   return true;
 }
+export function isObjectWithAnyRequiredKeys<T extends string>(
+  object: unknown,
+  requiredFields: T[],
+): object is Record<T, unknown> {
+  if (typeof object !== 'object' || object === null) {
+    return false;
+  }
+
+  for (const field of requiredFields) {
+    if (field in object) {
+      return true;
+    }
+  }
+
+  return false;
+}
 export function isValidIP(ip: string | null | undefined): boolean {
   if (!ip) return false;
   const ipv4Regex =

@@ -12,7 +12,7 @@ export interface RawClientEvent {
 }
 export function isClientEvent(event: unknown): boolean {
   const eventHash = event as Hash;
-  const requiredKeys = ['appName', 'namespace', 'timestamp', 'type'];
+  const requiredKeys = ['appName', 'timestamp', 'type'];
 
   // in some cases the clientEvent is nested
   if (eventHash?.clientEvent) {

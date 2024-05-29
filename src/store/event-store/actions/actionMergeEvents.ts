@@ -2,7 +2,7 @@ import TWEvent from '@classes/data/TWEvent.ts';
 import useEventStore from '@store/event-store/useEventStore.ts';
 import getNewUpdateExistingEvents from '@utils//event-utils/getNewUpdateExistingEvents.ts';
 import { actionSetAllEventsAndRecalculateFilters } from '@store/event-store/actions/actionSetAllEventsAndRecalculateFilters.ts';
-import eventSequencer from '@classes/telemetry-receiver/eventSequencer.ts';
+import eventSequencer from '@src/receiver/classes/telemetry-receiver/eventSequencer.ts';
 import { actionSetSequences } from '@store/event-store/actions/actionSetSequences.ts';
 
 export default function actionMergeEvents(events: TWEvent[]) {

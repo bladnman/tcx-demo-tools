@@ -4,7 +4,6 @@ export default function eventMatchesClause(event: TWEvent, clause: TagMatchClaus
   if (!event) return false;
   if (!clause) return false;
 
-  console.log(`[🐽](eventMatchesClause) clause`, clause);
   const clauseValue = clause.value;
   const eventValue = event.getStr(clause.path);
   const clauseMode = clause.mode;

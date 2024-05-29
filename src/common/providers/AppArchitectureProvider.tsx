@@ -4,7 +4,7 @@ import { ConfirmProvider } from 'material-ui-confirm';
 import DialogProvider from '@common/providers/parts/DialogProvider.tsx';
 import SnackBarProvider from '@common/providers/parts/SnackBarProvider.tsx';
 import KeyboardProvider from '@common/providers/parts/KeyboardProvider.tsx';
-import ReceiverProvider from '@common/providers/parts/ReceiverProvider.tsx';
+import ReceiverProvider from '@src/receiver/ReceiverProvider.tsx';
 
 export default function AppArchitectureProvider({
   children,

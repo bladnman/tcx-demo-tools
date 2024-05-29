@@ -1,5 +1,5 @@
 import useEventStore from '@store/event-store/useEventStore.ts';
-import eventMapper from '@classes/telemetry-receiver/eventMapper.ts';
+import eventMapper from '@src/receiver/classes/telemetry-receiver/eventMapper.ts';
 import actionAddEvents from '@store/event-store/actions/actionAddEvents.ts';
 import { actionSetSequences } from '@store/event-store/actions/actionSetSequences.ts';
 

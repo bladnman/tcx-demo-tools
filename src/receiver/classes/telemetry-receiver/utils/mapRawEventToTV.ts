@@ -1,15 +1,15 @@
 import mapClientEventToTV, {
   isClientEvent,
-} from '@classes/telemetry-receiver/utils/mapClientEventToTV.ts';
+} from '@src/receiver/classes/telemetry-receiver/utils/mapClientEventToTV.ts';
 import mapTDDispatchedToTV, {
   isTDDispatchedEvent,
-} from '@classes/telemetry-receiver/utils/mapTDDispatchedToTV.ts';
+} from '@src/receiver/classes/telemetry-receiver/utils/mapTDDispatchedToTV.ts';
 import mapTVEventToTV, {
   isTVEvent,
-} from '@classes/telemetry-receiver/utils/mapTVEventToTV.ts';
+} from '@src/receiver/classes/telemetry-receiver/utils/mapTVEventToTV.ts';
 import mapUpgradeTVEventToTV, {
   isOldTVEvent,
-} from '@classes/telemetry-receiver/utils/mapUpgradeTVEventToTV.ts';
+} from '@src/receiver/classes/telemetry-receiver/utils/mapUpgradeTVEventToTV.ts';
 
 export default function mapRawEvent(event: unknown): TVEvent | null {
   if (!event) return null;

@@ -1,3 +1,4 @@
+import MerlinImportDialog from '@dialogs/merlin-import-dialog/MerlinImportDialog.tsx';
 import SettingsDialog from '@dialogs/settings-dialog/SettingsDialog.tsx';
 import AppDropDialog from '@dialogs/app-drop-dialog/AppDropDialog.tsx';
 import ImportDialog from '@dialogs/import-dialog/ImportDialog.tsx';
@@ -11,6 +12,7 @@ export default function DialogProvider() {
       <TagEditorDialog />
       <ImportDialog />
       <ExportDialog />
+      <MerlinImportDialog />
       <AppDropDialog />
     </>
   );

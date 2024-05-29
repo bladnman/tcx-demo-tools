@@ -1,13 +1,13 @@
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import TelemetryReceiver from '@classes/telemetry-receiver/TelemetryReceiver.ts';
+import TelemetryReceiver from '@src/receiver/classes/telemetry-receiver/TelemetryReceiver.ts';
 import { TCxState, useTCx } from '@tcx-hosted/tcx-react';
 import { TcxSS_CONFIG } from '@tcx-hosted/tcx-react/hooks/useTCx.ts';
 import actionSetConnectedViaTCx from '@store/settings-store/actions/actionSetConnectedViaTCx.ts';
 import actionClearConnectToTCxName from '@store/settings-store/actions/actionClearConnectToTCxName.ts';
 import actionAddUnMappedEvents from '@store/event-store/actions/actionAddUnMappedEvents.ts';
 
-export default function useReceiver() {
+export default function useTCxReceiver() {
   // the store is where events end up
   const { connectToTCxName } = useSettingsStore();
   const [tcxName] = useState('TelemetryViewer');

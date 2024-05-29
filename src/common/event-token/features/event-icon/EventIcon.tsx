@@ -20,7 +20,7 @@ import SignalWifiStatusbarConnectedNoInternet4Icon from '@mui/icons-material/Sig
 import TimerIcon from '@mui/icons-material/Timer';
 import TouchAppIcon from '@mui/icons-material/TouchApp';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { getEventDef } from '@utils//event-utils/getEventDef.ts';
+import { getEventDef } from '@utils/event-utils/event-def/getEventDef.ts';
 
 export default function EventIcon({
   event,

@@ -73,6 +73,7 @@ export default function ConnectionOptions() {
             onChange={handlePlatformChange}
             sx={{ minWidth: '7em' }}
           >
+            <MenuItem value={'TwizService'}>Twiz Service</MenuItem>
             <MenuItem value={'TD Server'}>TD Server</MenuItem>
             <MenuItem value={'Mobile'}>Mobile</MenuItem>
             <MenuItem value={'Mock'}>Mock</MenuItem>

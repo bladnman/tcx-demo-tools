@@ -30,6 +30,7 @@ export const EVENT_TYPES = [
   'UserAndPeripheralBinding',
   'GetRifFailure',
   'AppFrameworkError',
+  'AppSessionCrash',
   'JSCdNativeModuleError',
   'NetSocketTraffic',
   'ControllerProfilingData',
@@ -40,6 +41,7 @@ export const EVENT_TYPES = [
   'DbHeapSize',
   'NotificationDb',
   'TraceSpan',
+  'TelemetryDropped',
   'Other',
 ] as const;
 export type EventTypes = (typeof EVENT_TYPES)[number];

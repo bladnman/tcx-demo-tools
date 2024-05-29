@@ -26,5 +26,5 @@ interface TelemetryTokenProps {
   tokenFontSize?: number;
   tokenColorMode?: TokenColorMode;
 }
-type ConnectionPlatform = 'Mock' | 'Mobile' | 'TD Server';
+type ConnectionPlatform = 'Mock' | 'Mobile' | 'TD Server' | 'TwizService';
 type DetailsTab = 'Summary' | 'Notes' | 'Raw';

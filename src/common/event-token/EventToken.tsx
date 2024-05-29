@@ -4,7 +4,7 @@ import EventIcon from '@common/event-token/features/event-icon/EventIcon.tsx';
 import EventDetails from '@common/event-token/features/event-details/EventDetails.tsx';
 import { SxProps } from '@mui/material';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
-import { getEventDef } from '@utils//event-utils/getEventDef.ts';
+import { getEventDef } from '@utils/event-utils/event-def/getEventDef.ts';
 import EventTag from '@common/event-tag/EventTag.tsx';
 
 interface TelemetryEventTokenProps extends TelemetryTokenProps {
@@ -27,11 +27,14 @@ export default function EventToken(props: TelemetryEventTokenProps) {
 
   return (
     <BaseToken
+      eventColor={eventDef.color}
       eventIcon={<EventIcon event={event} fontSize={'1em'} />}
+      // eventIcon={eventDef.appIcon}
+      eventAbbrv={eventDef.abbreviation}
+      // eventAbbrv={eventDef.typeIcon}
+
       eventDetails={<EventDetails event={event} colorMode={tokenColorMode} />}
       eventTag={<EventTag event={event} />}
-      eventColor={eventDef.color}
-      eventAbbrv={eventDef.abbreviation}
       tokenFontSize={tokenFontSize}
       tokenColorMode={tokenColorMode}
       tokenMode={tokenMode}

@@ -1,9 +1,9 @@
 import { HStack, VStack } from '@common/mui-stacks.tsx';
-import { getAppIcon } from '@const/APPS.ts';
 import { Typography } from '@mui/material';
+import getEventDefAppIcon from '@utils/event-utils/event-def/getEventDefAppIcon.ts';
 
 export default function SeqTileAppInstance({ sequence }: SequenceTileProps) {
-  const icon = getAppIcon(sequence.engine.appName as string);
+  const icon = getEventDefAppIcon(sequence.engine.appName as string);
   const label = sequence.engine.appName as string;
   const description = sequence.name;
 

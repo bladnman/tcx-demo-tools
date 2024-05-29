@@ -1,5 +1,5 @@
 import TWEvent from '@classes/data/TWEvent.ts';
-import eventMapper from '@classes/telemetry-receiver/eventMapper.ts';
+import eventMapper from '@src/receiver/classes/telemetry-receiver/eventMapper.ts';
 import cleanForImport from '@dialogs/import-dialog/utils/cleanForImport.ts';
 import getNewUpdateExistingEvents from '@utils/event-utils/getNewUpdateExistingEvents.ts';
 

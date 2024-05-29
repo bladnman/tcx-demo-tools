@@ -47,6 +47,7 @@ export interface SettingsStore {
   isImportDialogOpen: boolean;
   isImportingData: boolean;
   isExportDialogOpen: boolean;
+  isMerlinImportDialogOpen: boolean;
 
   // tag settings
   isTagEditorDialogOpen: boolean;
@@ -84,8 +85,9 @@ const useSettingsStore = create<SettingsStore>()(
 
       // connection settings
       cnxIpAddress: '1.1.1.1',
+      cnxPlatform: 'TwizService',
       // cnxPlatform: 'TD Server',
-      cnxPlatform: 'Mock',
+      // cnxPlatform: 'Mock',
       isConnectedViaTCx: false,
       connectToTCxName: null,
 
@@ -101,6 +103,7 @@ const useSettingsStore = create<SettingsStore>()(
       isImportDialogOpen: false,
       isImportingData: false,
       isExportDialogOpen: false,
+      isMerlinImportDialogOpen: false,
 
       // tag settings
       isTagEditorDialogOpen: true,

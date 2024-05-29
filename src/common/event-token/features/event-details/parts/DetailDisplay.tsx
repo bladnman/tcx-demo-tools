@@ -1,6 +1,5 @@
 import { HStack } from '@common/mui-stacks.tsx';
 import { Typography } from '@mui/material';
-import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 
 interface DetailDisplayProps {
   highlight?: string;

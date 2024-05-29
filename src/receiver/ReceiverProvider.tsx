@@ -1,7 +1,7 @@
-import useReceiver from '@hooks/useReceiver.ts';
+import useTwizServiceReceiver from '@src/receiver/hooks/useTwizServiceReceiver.ts';
 import useSettingsStore from '@store/settings-store/useSettingsStore.ts';
 import { useCallback, useEffect, useMemo } from 'react';
-import TelemetryReceiver from '@classes/telemetry-receiver/TelemetryReceiver.ts';
+import TelemetryReceiver from '@src/receiver/classes/telemetry-receiver/TelemetryReceiver.ts';
 import useTCxMockPublisher from '@tcx-hosted/tcx-react/hooks/useTCxMockPublisher.ts';
 import actionAddUnMappedEvents from '@store/event-store/actions/actionAddUnMappedEvents.ts';
 // import telemetryDebuggerEvents from '@data/mobile_complete.json';
@@ -21,7 +21,7 @@ export default function ReceiverProvider() {
 }
 function StandardReceiverProvider() {
   // the receiver is the part that receives events and sends them to the store
-  useReceiver();
+  useTwizServiceReceiver();
   return null;
 }
 function MockReceiverProvider() {

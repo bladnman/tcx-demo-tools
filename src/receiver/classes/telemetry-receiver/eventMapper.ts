@@ -1,11 +1,12 @@
 import TWEvent from '@classes/data/TWEvent.ts';
-import eventSequencer from '@classes/telemetry-receiver/eventSequencer.ts';
-import eventTagger from '@classes/telemetry-receiver/eventTagger.ts';
-import mapClientEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapClientEventToTW.ts';
-import mapTDDispatchedToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapTDDispatchedToTW.ts';
-import mapTVEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapTVEventToTW.ts';
-import mapTWEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapTWEventToTW.ts';
-import mapUpgradeTWEventToTW from '@classes/telemetry-receiver/utils/tw-mappers/mapUpgradeTWEventToTW.ts';
+import eventSequencer from '@src/receiver/classes/telemetry-receiver/eventSequencer.ts';
+import eventTagger from '@src/receiver/classes/telemetry-receiver/eventTagger.ts';
+import mapClientEventToTW from '@src/receiver/classes/telemetry-receiver/utils/tw-mappers/mapClientEventToTW.ts';
+import mapMerlinEventToTW from '@src/receiver/classes/telemetry-receiver/utils/tw-mappers/mapMerlinEventToTW.ts';
+import mapTDDispatchedToTW from '@src/receiver/classes/telemetry-receiver/utils/tw-mappers/mapTDDispatchedToTW.ts';
+import mapTVEventToTW from '@src/receiver/classes/telemetry-receiver/utils/tw-mappers/mapTVEventToTW.ts';
+import mapTWEventToTW from '@src/receiver/classes/telemetry-receiver/utils/tw-mappers/mapTWEventToTW.ts';
+import mapUpgradeTWEventToTW from '@src/receiver/classes/telemetry-receiver/utils/tw-mappers/mapUpgradeTWEventToTW.ts';
 
 type MapperFn = (event: unknown) => TWEvent | null;
 
@@ -15,6 +16,7 @@ const pipeline: MapperFn[] = [
   mapTVEventToTW,
   mapTDDispatchedToTW,
   mapClientEventToTW,
+  mapMerlinEventToTW,
   mapUpgradeTWEventToTW,
 ];
 

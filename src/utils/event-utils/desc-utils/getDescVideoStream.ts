@@ -1,6 +1,6 @@
 import TWEvent from '@classes/data/TWEvent.ts';
 import FIELD_DEF from '@const/FIELD_DEF.ts';
-import { getEventDef } from '@utils//event-utils/getEventDef.ts';
+import { getEventDef } from '@utils/event-utils/event-def/getEventDef.ts';
 import formatMilliseconds from '@utils/formatMilliseconds.ts';
 
 export default function getDescVideoStream(event: TWEvent) {

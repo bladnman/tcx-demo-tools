@@ -14,7 +14,10 @@ export default function useConnectButton() {
   const mockAutoPause = useSettingsStore((state) => state.mockAutoPause);
   const mockIsPaused = useSettingsStore((state) => state.mockIsPaused);
 
-  const isConnected = isConnectedViaTCx || connectToTCxName === 'Mock';
+  const isConnected =
+    isConnectedViaTCx ||
+    connectToTCxName === 'Mock' ||
+    connectToTCxName === 'TwizService';
   const isMockMode = cnxPlatform === 'Mock';
 
   const handlePress = useMemo(() => {
@@ -28,7 +31,9 @@ export default function useConnectButton() {
     };
     return isMockMode
       ? getMockConnectButtonHandler(props)
-      : getStandardConnectButtonHandler(props);
+      : cnxPlatform === 'TwizService'
+        ? getTwizConnectButtonHandler(props)
+        : getStandardConnectButtonHandler(props);
   }, [
     isConnectedViaTCx,
     connectToTCxName,
@@ -83,6 +88,32 @@ type ConnectButtonHandlerHelperProps = {
 };
 
 function getStandardConnectButtonHandler(props: ConnectButtonHandlerHelperProps) {
+  const { isConnected, cnxPlatform } = props;
+
+  const doConnect = () => {
+    // SHOW SETTINGS DIALOG
+    if (!cnxPlatform) {
+      actionSetIsSettingsDialogOpen(true);
+    }
+
+    // RECONNECT
+    else {
+      actionUpdateConnectToTCxName();
+    }
+  };
+  const doDisconnect = () => {
+    actionClearConnectToTCxName();
+  };
+
+  return () => {
+    if (isConnected) {
+      doDisconnect();
+    } else {
+      doConnect();
+    }
+  };
+}
+function getTwizConnectButtonHandler(props: ConnectButtonHandlerHelperProps) {
   const { isConnected, cnxPlatform } = props;
 
   const doConnect = () => {

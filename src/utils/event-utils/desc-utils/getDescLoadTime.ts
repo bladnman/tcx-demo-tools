@@ -1,5 +1,5 @@
 import TWEvent from '@classes/data/TWEvent.ts';
-import { getEventDef } from '@utils//event-utils/getEventDef.ts';
+import { getEventDef } from '@utils/event-utils/event-def/getEventDef.ts';
 import { getLoadTimeDetails } from '@utils//getLoadTimeDetails.ts';
 
 export default function getDescLoadTime(event: TWEvent) {
